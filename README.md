@@ -14,7 +14,7 @@ Our core values is to be reliable and transparent as possible, and because we do
 #### How to accurately test invocation overhead
 There is a lot of confusion about FaaS "cold start",
 it's important to clarify this and standardized the way we benchmark FaaS providers
-*photo*
+![Invocation Overhead](https://github.com/nuweba/faasbenchmark/blob/master/_assets/Invocation_overhead.svg)
 Invocation overhead = the time it took to call the user function and return the response.
 *in async functions response time is not always relevant.
 This is the full flow of a generalized generic invocation
