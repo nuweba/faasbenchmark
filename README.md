@@ -198,10 +198,11 @@ Flags:
 #### Add a new test
 1. Create a new go file under testsuite/tests
 
-
+```
     ./testsuite/
             tests/
 				name.go
+```
 
 2. Declare a test function
 the function only receive one parameter, the config.Test
@@ -233,7 +234,7 @@ hook can be one of the folowing:
 	TLSHandshakeDone
 	GotConn
 	WroteHeaders
-	WroteRequest // not blocking
+	WroteRequest
 	Got100Continue
 	GotFirstResponseByte
 	Wait100Continue
@@ -285,7 +286,7 @@ func init() {
 }
 ```
 
-#####full test:
+##### Full Test:
 
 ```go
 #coldstart.go
@@ -337,7 +338,7 @@ func coldStart(test *config.Test) {
 1. Each stack will have this structure (for the serverless framework stack)
 make sure description.txt file exists, this is hardcoded and the dir walker need this file identify the stack
 
-
+```
     ./arsenal/
             stackname/
 				description.txt
@@ -350,6 +351,7 @@ make sure description.txt file exists, this is hardcoded and the dir walker need
                 provider3/
 					serverless.yaml
 					.....
+```
 
 2. the serverless.yaml must have this fields
 
@@ -400,12 +402,12 @@ exports.hello = async (event) => {
 
 1. Create a new dir under with the go files
 
-
+```
     ./stack/
             stackname/
 				function.go
 				stack.go
-
+```
 2. implement this interfaces
 
 ```go
@@ -426,13 +428,14 @@ type Function interface {
 * adding a provider will require us the update the backend CI and UI so the pull request approval process will take longer, but rest assure that we will do our part as quickly as possible
 1. Create a new dir under with the go files
 
-
+```
     ./provider/
             providername/
 				filter.go
 				function.go
 				provider.go
 				stack.go
+```
 
 2. implement this interface
 
@@ -452,7 +455,8 @@ type FaasProvider interface {
 
 3. Add the provider to provider.go under the provider folder:
 
-
+```
     ./provider/
 		provider.go
+```
 make sure to update the NewProvider function
