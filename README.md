@@ -10,7 +10,7 @@ The main objective is the site (FaaStest.com), but to be fully transparent and s
 If you feel that the tests are inaccurate or unreliable, please contact us as soon as possible so we can address it.
 #### where is Nuweba?
 At the moment Nuweba FaaS performance test code and results will not be shown here.
-Our core values is to be reliable and transparent as possible, and because we don't currently offer a self service solution , other users can corroborate the tests results.
+Our core values is to be reliable and transparent as possible, and because we don't currently offer a self service solution , other users can't corroborate the tests results.
 #### How to accurately test invocation overhead
 There is a lot of confusion about FaaS "cold start",
 it's important to clarify this and standardized the way we benchmark FaaS providers

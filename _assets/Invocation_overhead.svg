@@ -99,7 +99,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.7795" cy="595.276" width="127.56" height="0"/>
 			<path d="M0 595.28 L117.75 595.28" class="st1"/>
-			<rect v:rectContext="textBkgnd" x="41.5931" y="588.061" width="44.3727" height="14.4303" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="41.5931" y="588.061" width="44.3727" height="14.4303" class="st3"/>
 			<text x="41.59" y="598.88" class="st4" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Pre start</text>		</g>
 		<g id="shape30-31" v:mID="30" v:groupContext="shape" transform="translate(396.85,-311.811)">
 			<title>Sheet.30</title>
@@ -107,7 +107,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="77.9528" cy="595.276" width="155.91" height="0"/>
 			<path d="M0 595.28 L146.1 595.28" class="st1"/>
-			<rect v:rectContext="textBkgnd" x="53.0653" y="588.061" width="49.7752" height="14.4303" class="st3"/>
+			<rect v:rectContext="textBkgnd" x="53.0653" y="588.061" width="49.7752" height="14.4303" class="st9"/>
 			<text x="53.07" y="598.88" class="st4" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Cold start</text>		</g>
 		<g id="shape31-38" v:mID="31" v:groupContext="shape" transform="translate(574.016,-311.811)">
 			<title>Sheet.31</title>
@@ -158,16 +158,17 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="89.7323" cy="585.276" width="179.47" height="20"/>
 			<rect x="0" y="575.276" width="179.465" height="20" class="st10"/>
-			<text x="4" y="530.89" class="st12" v:langID="1033"><v:paragraph v:indentFirst="-18" v:indentLeft="18" v:bullet="1"/><v:tabList/><tspan
+			<text x="4" y="530.78" class="st12" v:langID="1033"><v:paragraph v:indentFirst="-18" v:indentLeft="18" v:bullet="1"/><v:tabList/><tspan
 						class="st13" v:isBullet="true">·</tspan> <tspan class="st14">Configure the environment </tspan><tspan
-						x="22" dy="1.205em" class="st14">(filesystem / network /ect)<v:lf/></tspan><tspan x="22" dy="1.2em"
-						class="st14">Run the environment / </tspan><tspan x="22" dy="1.2em" class="st14">sandbox / container<v:newlineChar/></tspan><tspan
-						x="4" dy="1.214em" class="st13" v:isBullet="true">·</tspan> <tspan class="st14">Run the runtime (nodejs /  </tspan><tspan
+						x="22" dy="1.205em" class="st14">(filesystem / network /ect)<v:newlineChar/></tspan><tspan x="4"
+						dy="1.214em" class="st13" v:isBullet="true">·</tspan> <tspan class="st14">Run the environment / </tspan><tspan
+						x="22" dy="1.205em" class="st14">sandbox / container<v:newlineChar/></tspan><tspan x="4" dy="1.214em"
+						class="st13" v:isBullet="true">·</tspan> <tspan class="st14">Run the runtime (nodejs /  </tspan><tspan
 						x="22" dy="1.205em" class="st14">pyton / go / ect)<v:newlineChar/></tspan><tspan x="4" dy="1.214em"
 						class="st13" v:isBullet="true">·</tspan> <tspan class="st14">Init user code<v:newlineChar/></tspan><tspan
 						x="4" dy="1.218em" class="st13" v:isBullet="true">·</tspan> <tspan class="st14">readiness to call user function<v:newlineChar/></tspan><tspan
 						x="4" dy="1.218em" class="st13" v:isBullet="true">·</tspan> <tspan class="st14">Wait for request</tspan></text>		</g>
-		<g id="shape41-89" v:mID="41" v:groupContext="shape" transform="translate(574.016,-198.425)">
+		<g id="shape41-90" v:mID="41" v:groupContext="shape" transform="translate(574.016,-198.425)">
 			<title>Sheet.41</title>
 			<desc>Process request Prepare function parameters Call user function</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
@@ -178,15 +179,15 @@
 						x="4" dy="1.218em" class="st13" v:isBullet="true">·</tspan> <tspan class="st14">Prepare function </tspan><tspan
 						x="22" dy="1.205em" class="st14">parameters<v:newlineChar/></tspan><tspan x="4" dy="1.214em" class="st13"
 						v:isBullet="true">·</tspan> <tspan class="st14">Call user function</tspan></text>		</g>
-		<g id="shape44-99" v:mID="44" v:groupContext="shape" transform="translate(850.394,-311.811)">
+		<g id="shape44-100" v:mID="44" v:groupContext="shape" transform="translate(850.394,-311.811)">
 			<title>Sheet.44</title>
 			<desc>Post start</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.7795" cy="595.276" width="127.56" height="0"/>
 			<path d="M0 595.28 L117.75 595.28" class="st1"/>
-			<rect v:rectContext="textBkgnd" x="39.2083" y="588.061" width="49.1424" height="14.4303" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="39.2083" y="588.061" width="49.1424" height="14.4303" class="st3"/>
 			<text x="39.21" y="598.88" class="st4" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Post start</text>		</g>
-		<g id="shape47-106" v:mID="47" v:groupContext="shape" transform="translate(850.394,-184.252)">
+		<g id="shape47-107" v:mID="47" v:groupContext="shape" transform="translate(850.394,-184.252)">
 			<title>Sheet.47</title>
 			<desc>Parse function output Create and return response Finalize req...</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
@@ -199,22 +200,22 @@
 						v:isBullet="true">·</tspan> <tspan class="st14">Finalize request </tspan><tspan x="22" dy="1.205em"
 						class="st14">(usually happens </tspan><tspan x="22" dy="1.2em" class="st14">asynchronically after </tspan><tspan
 						x="22" dy="1.2em" class="st14">sending the response)</tspan></text>		</g>
-		<g id="shape48-119" v:mID="48" v:groupContext="shape" transform="translate(963.78,198.425) rotate(90)">
+		<g id="shape48-120" v:mID="48" v:groupContext="shape" transform="translate(963.78,198.425) rotate(90)">
 			<title>Sheet.48</title>
 			<path d="M0 595.28 L269.29 595.28" class="st8"/>
 		</g>
-		<g id="shape49-122" v:mID="49" v:groupContext="shape" transform="translate(1431.5,198.425) rotate(90)">
+		<g id="shape49-123" v:mID="49" v:groupContext="shape" transform="translate(1431.5,198.425) rotate(90)">
 			<title>Sheet.49</title>
 			<path d="M0 595.28 L255.12 595.28" class="st8"/>
 		</g>
-		<g id="shape50-125" v:mID="50" v:groupContext="shape" transform="translate(233.858,-113.386)">
+		<g id="shape50-126" v:mID="50" v:groupContext="shape" transform="translate(233.858,-113.386)">
 			<title>Sheet.50</title>
 			<path d="M0 595.28 L751.18 595.28 L751.18 283.46 L0 283.46 L0 595.28 Z" class="st15"/>
 		</g>
-		<g id="group51-127" transform="translate(1149.45,-297.638)" v:mID="51" v:groupContext="group" v:layerMember="0">
+		<g id="group51-128" transform="translate(1149.45,-297.638)" v:mID="51" v:groupContext="group" v:layerMember="0">
 			<title>User (Opaque).51</title>
 			<desc>Response</desc>
-			<g id="shape52-128" v:mID="52" v:groupContext="shape" v:layerMember="0" transform="translate(0.0305026,0)">
+			<g id="shape52-129" v:mID="52" v:groupContext="shape" v:layerMember="0" transform="translate(0.0305026,0)">
 				<title>Sheet.52</title>
 				<path d="M23.83 588.03 C22.03 584.83 21.13 584.75 20.39 584.68 C20.39 584.68 20.31 584.68 20.31 584.68 C17.31 584.13
 							 20.01 580.62 20.01 580.62 C21.13 578.83 21.58 576.41 20.98 574 C19.94 569.63 16.11 566.98 12.37 567.92
@@ -222,19 +223,19 @@
 							 6.22 583.9 C6.15 583.9 5.7 584.05 5.7 584.05 C3.22 584.99 0.07 589.35 0 595.28 L25.48 595.28 C25.41
 							 595.28 25.18 590.6 23.83 588.03 Z" class="st5"/>
 			</g>
-			<g id="group53-130" transform="translate(0,-0.0389688)" v:mID="53" v:groupContext="group" v:layerMember="0">
+			<g id="group53-131" transform="translate(0,-0.0389688)" v:mID="53" v:groupContext="group" v:layerMember="0">
 				<title>Sheet.53</title>
-				<g id="group54-131" transform="translate(6.45146,-10.7715)" v:mID="54" v:groupContext="group" v:layerMember="0">
+				<g id="group54-132" transform="translate(6.45146,-10.7715)" v:mID="54" v:groupContext="group" v:layerMember="0">
 					<title>Sheet.54</title>
-					<g id="shape55-132" v:mID="55" v:groupContext="shape" v:layerMember="0">
+					<g id="shape55-133" v:mID="55" v:groupContext="shape" v:layerMember="0">
 						<title>Sheet.55</title>
 						<path d="M5.92 578.67 C2.17 579.61 0 583.9 1.05 588.26 C2.1 592.63 5.92 595.28 9.67 594.34 C13.42 593.41
 									 15.59 589.12 14.54 584.75 C13.49 580.39 9.67 577.74 5.92 578.67 Z" class="st6"/>
 					</g>
 				</g>
-				<g id="group56-134" v:mID="56" v:groupContext="group" v:layerMember="0">
+				<g id="group56-135" v:mID="56" v:groupContext="group" v:layerMember="0">
 					<title>Sheet.56</title>
-					<g id="shape57-135" v:mID="57" v:groupContext="shape" v:layerMember="0">
+					<g id="shape57-136" v:mID="57" v:groupContext="shape" v:layerMember="0">
 						<title>Sheet.57</title>
 						<path d="M20.39 584.68 C19.71 584.6 18.89 586 17.84 586.55 C16.79 587.01 15.66 588.03 12.67 586.55 C9.67
 									 585.07 9.22 583.82 6.67 583.82 C4.12 583.82 0.07 588.5 0 595.28 L25.48 595.28 C25.41 595.28
@@ -242,12 +243,12 @@
 					</g>
 				</g>
 			</g>
-			<g id="shape51-137" v:mID="51" v:groupContext="groupContent" v:layerMember="0">
+			<g id="shape51-138" v:mID="51" v:groupContext="groupContent" v:layerMember="0">
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="12.7559" cy="604.677" width="46.9" height="18.8036"/>
 				<text x="-5.7" y="607.38" class="st7" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Response</text>			</g>
 		</g>
-		<g id="shape58-139" v:mID="58" v:groupContext="shape" transform="translate(1002.13,-311.811)">
+		<g id="shape58-140" v:mID="58" v:groupContext="shape" transform="translate(1002.13,-311.811)">
 			<title>Sheet.58</title>
 			<desc>From the server</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
@@ -255,7 +256,7 @@
 			<path d="M0 595.28 L117.75 595.28" class="st1"/>
 			<rect v:rectContext="textBkgnd" x="22.5736" y="588.061" width="82.412" height="14.4303" class="st9"/>
 			<text x="22.57" y="598.88" class="st4" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>From the server</text>		</g>
-		<g id="shape59-146" v:mID="59" v:groupContext="shape" transform="translate(1014.8,-238.444)">
+		<g id="shape59-147" v:mID="59" v:groupContext="shape" transform="translate(1014.8,-238.444)">
 			<title>Sheet.59</title>
 			<desc>Internet / network latency</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
@@ -264,7 +265,7 @@
 			<text x="4" y="559.84" class="st12" v:langID="1033"><v:paragraph v:indentFirst="-18" v:indentLeft="18" v:bullet="1"/><v:tabList/><tspan
 						class="st13" v:isBullet="true">·</tspan> <tspan class="st14">Internet / </tspan><tspan x="22" dy="1.205em"
 						class="st14">network latency</tspan></text>		</g>
-		<g id="shape60-152" v:mID="60" v:groupContext="shape" transform="translate(1587.4,198.425) rotate(90)">
+		<g id="shape60-153" v:mID="60" v:groupContext="shape" transform="translate(1587.4,198.425) rotate(90)">
 			<title>Sheet.60</title>
 			<path d="M0 595.28 L255.12 595.28" class="st8"/>
 		</g>
