@@ -1,4 +1,6 @@
 [TOC]
+![Logo](https://github.com/nuweba/faasbenchmark/blob/master/_assets/logo.svg)
+
 #### Purpose
 This is the framework behind FaaStest.com.
 FaaSbenchmark is a framework to run and add generic tests to accurately benchmark FaaS providers.
@@ -30,7 +32,7 @@ for example in AWS Lambda:
 - dns resolve
 - tcp handshake
 - tls handshake
-In other scenarios for example, other FaaS providers trigger to invoke a function can be the SYN in tls handshake, or the second GET HTTP request.
+In other scenarios for example, other FaaS providers trigger to invoke a function can be the UDP DNS packet, or the second GET HTTP request.
 
 To create a concurrent load a sleep function will be used, it had minimal overhead and we can make sure it will stay alive while other incoming requests will trigger new functions.
 
