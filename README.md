@@ -1,5 +1,5 @@
 [TOC]
-<h1><p align="center"><img alt="faastest logo" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/logo.svg" width="220" height="104" /></p></h1>
+<h1><p align="center"><img alt="faastest logo" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/logo.svg" width="399" height="135" /></p></h1>
 
 #### Purpose
 This is the framework behind FaaStest.com.
