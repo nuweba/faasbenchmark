@@ -6,7 +6,7 @@ import (
 	"io"
 	"github.com/nuweba/faasbenchmark/provider"
 	"github.com/nuweba/faasbenchmark/report"
-	"nwb.nu/httpbench/engine"
+	"github.com/nuweba/httpbench/engine"
 )
 
 type Global struct {

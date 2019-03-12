@@ -2,8 +2,8 @@ package aws
 
 import (
 	"fmt"
-	"nwb.nu/httpbench/engine"
-	"nwb.nu/httpbench/syncedtrace"
+	"github.com/nuweba/httpbench/engine"
+	"github.com/nuweba/httpbench/syncedtrace"
 	"time"
 )
 

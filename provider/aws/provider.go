@@ -11,7 +11,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"nwb.nu/httpbench/syncedtrace"
+	"github.com/nuweba/httpbench/syncedtrace"
 	"path"
 	"time"
 )

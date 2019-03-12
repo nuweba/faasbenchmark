@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"github.com/nuweba/faasbenchmark/provider/aws"
 	"github.com/nuweba/faasbenchmark/stack"
-	"nwb.nu/httpbench/engine"
-	"nwb.nu/httpbench/syncedtrace"
+	"github.com/nuweba/httpbench/engine"
+	"github.com/nuweba/httpbench/syncedtrace"
 	"time"
 )
 

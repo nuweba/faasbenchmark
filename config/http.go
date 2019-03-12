@@ -4,7 +4,7 @@ import (
 	"gopkg.in/yaml.v2"
 	"net/http"
 	"net/url"
-	"nwb.nu/httpbench/syncedtrace"
+	"github.com/nuweba/httpbench/syncedtrace"
 	"time"
 )
 

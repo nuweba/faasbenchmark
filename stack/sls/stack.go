@@ -2,7 +2,7 @@ package sls
 
 import (
 	"github.com/nuweba/faasbenchmark/stack"
-	"nwb.nu/sls"
+	"github.com/nuweba/sls"
 )
 
 type Stack struct {

@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"github.com/nuweba/faasbenchmark/config"
 	"github.com/nuweba/faasbenchmark/provider"
-	"nwb.nu/httpbench/engine"
-	"nwb.nu/httpbench/syncedtrace"
+	"github.com/nuweba/httpbench/engine"
+	"github.com/nuweba/httpbench/syncedtrace"
 	"time"
 )
 

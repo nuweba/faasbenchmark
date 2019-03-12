@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"github.com/nuweba/faasbenchmark/config"
 	httpbenchReport "github.com/nuweba/faasbenchmark/report/generate/httpbench"
-	"nwb.nu/httpbench"
+	"github.com/nuweba/httpbench"
 	"strconv"
 	"sync"
 	"time"

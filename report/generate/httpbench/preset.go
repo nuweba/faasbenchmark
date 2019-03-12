@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v2"
 	"github.com/nuweba/faasbenchmark/config"
-	"nwb.nu/httpbench"
+	"github.com/nuweba/httpbench"
 )
 
 
