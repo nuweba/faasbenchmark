@@ -1,4 +1,4 @@
-package file
+package json
 
 import (
 	"github.com/nuweba/faasbenchmark/report"
@@ -15,23 +15,25 @@ const (
 
 type Request struct {
 	upperLevel            *Function
-	functionReqResultFile *os.File
 	rawResultDir          string
 	rawResultFile         *os.File
 	SummaryFile           *os.File
 	ErrorFile             *os.File
+	json *requestJson
 }
+
+type requestJson string
 
 func (f *Function) Request() (report.Request, error) {
 	r := &Request{upperLevel: f}
 
-	//result, just x,y
-	functionReqResultFilePath := filepath.Join(r.upperLevel.functionResultPath, r.upperLevel.functionName)
-	functionReqResultFile, err := os.OpenFile(functionReqResultFilePath, os.O_APPEND|os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0666)
-	if err != nil {
-		return nil, errors.Wrap(err, "function result file should be unique")
-	}
-	r.functionReqResultFile = functionReqResultFile
+	////result, just x,y
+	//functionReqResultFilePath := filepath.Join(r.upperLevel.functionResultPath, r.upperLevel.functionName)
+	//functionReqResultFile, err := os.OpenFile(functionReqResultFilePath, os.O_APPEND|os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0666)
+	//if err != nil {
+	//	return nil, errors.Wrap(err, "function result file should be unique")
+	//}
+	//r.functionReqResultFile = functionReqResultFile
 
 	//full summery
 	functionSummaryFilePath := filepath.Join(r.upperLevel.functionResultPath, r.upperLevel.functionName+"_"+SummaryPath)
@@ -68,8 +70,8 @@ func (f *Function) Request() (report.Request, error) {
 }
 
 func (r *Request) Result(result string) error {
-	_, err := r.functionReqResultFile.WriteString(result)
-	return err
+	r.upperLevel.json.AddResult(requestJson(result))
+	return nil
 }
 
 func (r *Request) Summary(summary string) error {

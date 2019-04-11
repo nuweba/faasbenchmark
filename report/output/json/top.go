@@ -1,4 +1,4 @@
-package file
+package json
 
 import (
 	"github.com/nuweba/faasbenchmark/report"

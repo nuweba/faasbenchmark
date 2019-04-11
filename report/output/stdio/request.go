@@ -1,11 +1,8 @@
 package stdio
 
 import (
-	"io"
-	"io/ioutil"
 	"github.com/nuweba/faasbenchmark/report"
 )
-
 
 type Request struct {
 	upperLevel *Function
@@ -17,18 +14,20 @@ func (f *Function) Request() (report.Request, error) {
 	return r, nil
 }
 
-func (r *Request) ResultWriter() (io.Writer, error) {
-	return ioutil.Discard, nil
+func (r *Request) Result(result string) error {
+	return nil
 }
 
-func (r *Request) SummaryWriter() (io.Writer, error) {
-	return r.upperLevel.upperLevel.upperLevel.stdoutWriter, nil
+func (r *Request) Summary(summary string) error {
+	_, err := r.upperLevel.upperLevel.upperLevel.stdoutWriter.Write([]byte(summary))
+	return err
 }
 
-func (r *Request) ErrorWriter() (io.Writer, error) {
-	return r.upperLevel.upperLevel.upperLevel.stdoutWriter, nil
+func (r *Request) Error(error string) error {
+	_, err := r.upperLevel.upperLevel.upperLevel.stdoutWriter.Write([]byte(error))
+	return err
 }
 
-func (r *Request) RawResultWriter() (io.Writer, error) {
-	return ioutil.Discard, nil
+func (r *Request) RawResult(raw string) error {
+	return nil
 }

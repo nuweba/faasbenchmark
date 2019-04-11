@@ -1,13 +1,13 @@
 package stdio
 
 import (
+	"github.com/nuweba/faasbenchmark/report"
 	"io"
 	"io/ioutil"
-	"github.com/nuweba/faasbenchmark/report"
 )
 
 type Top struct {
-	stdoutWriter   io.Writer
+	stdoutWriter io.Writer
 }
 
 func New(stdoutWriter io.Writer) (report.Top, error) {

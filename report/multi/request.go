@@ -1,64 +1,54 @@
 package multi
 
 import (
-	"github.com/pkg/errors"
-	"io"
 	"github.com/nuweba/faasbenchmark/report"
+	"github.com/pkg/errors"
 )
 
 type multiRequest struct {
 	request []report.Request
 }
 
-func (mReq *multiRequest) ResultWriter() (io.Writer, error) {
-	var writers []io.Writer
+func (mReq *multiRequest) Result(result string) error {
 	for _, t := range mReq.request {
-		writer, err := t.ResultWriter()
+		err := t.Result(result)
 		if err != nil {
-			return nil, errors.Wrap(err, "multi request result writer error")
+			return errors.Wrap(err, "multi request result writer error")
 		}
-		writers = append(writers, writer)
 	}
 
-	return io.MultiWriter(writers...), nil
+	return nil
 }
 
-func (mReq *multiRequest) SummaryWriter() (io.Writer, error) {
-	var writers []io.Writer
+func (mReq *multiRequest) Summary(summary string) error {
 	for _, t := range mReq.request {
-		writer, err := t.SummaryWriter()
+		err := t.Summary(summary)
 		if err != nil {
-			return nil, errors.Wrap(err, "multi request summary writer error")
+			return errors.Wrap(err, "multi request summary writer error")
 		}
-		writers = append(writers, writer)
 	}
 
-	return io.MultiWriter(writers...), nil
+	return nil
 }
 
-
-func (mReq *multiRequest) ErrorWriter() (io.Writer, error) {
-	var writers []io.Writer
+func (mReq *multiRequest) Error(error string) error {
 	for _, t := range mReq.request {
-		writer, err := t.ErrorWriter()
+		err := t.Error(error)
 		if err != nil {
-			return nil, errors.Wrap(err, "multi request error writer error")
+			return errors.Wrap(err, "multi request error writer error")
 		}
-		writers = append(writers, writer)
 	}
 
-	return io.MultiWriter(writers...), nil
+	return nil
 }
 
-func (mReq *multiRequest) RawResultWriter() (io.Writer, error) {
-	var writers []io.Writer
+func (mReq *multiRequest) RawResult(raw string) error {
 	for _, t := range mReq.request {
-		writer, err := t.RawResultWriter()
+		err := t.RawResult(raw)
 		if err != nil {
-			return nil, errors.Wrap(err, "multi request raw result writer error")
+			return errors.Wrap(err, "multi request raw result writer error")
 		}
-		writers = append(writers, writer)
 	}
 
-	return io.MultiWriter(writers...), nil
+	return nil
 }

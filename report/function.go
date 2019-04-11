@@ -6,8 +6,8 @@ import (
 
 type Function interface {
 	LogWriter() (io.Writer, error)
-	ResultWriter() (io.Writer, error)
-	DescriptionWriter() (io.Writer, error)
-	HttpTestConfigWriter() (io.Writer, error)
+	BenchResult(bresult string) error
+	StackDescription(sdesc string) error
+	HttpTestConfig(config string) error
 	Request() (Request, error)
 }

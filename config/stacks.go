@@ -44,11 +44,11 @@ func newStacks(provider provider.FaasProvider, arsenalPath string) (*Stacks, err
 			return nil, errors.Wrap(err, "failed reading new stack")
 		}
 
-		if _, err := stacks.GetStack(stack.GetStackId()); err == nil {
-			return nil, errors.New(fmt.Sprintf("duplicate stacks, %s", stack.GetStackId()))
+		if _, err := stacks.GetStack(stack.StackId()); err == nil {
+			return nil, errors.New(fmt.Sprintf("duplicate stacks, %s", stack.StackId()))
 		}
 
-		stacks.Stacks[stack.GetStackId()] = stack
+		stacks.Stacks[stack.StackId()] = stack
 	}
 
 	return stacks, nil

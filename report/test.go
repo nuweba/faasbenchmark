@@ -1,10 +1,6 @@
 package report
 
-import (
-	"io"
-)
-
 type Test interface {
-	DescriptionWriter() (io.Writer, error)
+	Description(desc string) error
 	Function(functionName string) (Function, error)
 }

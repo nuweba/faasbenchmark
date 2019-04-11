@@ -22,14 +22,14 @@ func (f *Function) LogWriter() (io.Writer, error) {
 	return ioutil.Discard, nil
 }
 
-func (f *Function) ResultWriter() (io.Writer, error) {
-	return ioutil.Discard, nil
+func (f *Function) BenchResult(bresult string) error {
+	return nil
 }
 
-func (f *Function) HttpTestConfigWriter() (io.Writer, error) {
-	return ioutil.Discard, nil
+func (f *Function) HttpTestConfig(config string) error {
+	return nil
 }
 
-func (f *Function) DescriptionWriter() (io.Writer, error) {
-	return ioutil.Discard, nil
+func (f *Function) StackDescription(sdesc string) error {
+	return nil
 }

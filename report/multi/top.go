@@ -1,9 +1,9 @@
 package multi
 
 import (
+	"github.com/nuweba/faasbenchmark/report"
 	"github.com/pkg/errors"
 	"io"
-	"github.com/nuweba/faasbenchmark/report"
 )
 
 type multiReporter struct {

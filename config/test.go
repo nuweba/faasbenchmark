@@ -1,9 +1,8 @@
 package config
 
 import (
-	"fmt"
-	"github.com/pkg/errors"
 	"github.com/nuweba/faasbenchmark/report"
+	"github.com/pkg/errors"
 )
 
 type Test struct {
@@ -29,12 +28,11 @@ func (c *Global) NewTest(stack *Stack, testId string, testDescription string) (*
 		TestDescription: testDescription,
 	}
 
-	descriptionWriter, err := t.Report.DescriptionWriter()
+	err = t.Report.Description(t.TestDescription)
 	if err != nil {
 		return nil, errors.Wrap(err, "test report description writer")
 	}
 
-	fmt.Fprintln(descriptionWriter, t.TestDescription)
 	t.Config.Logger.Debug("wrote test description")
 
 	return t, nil

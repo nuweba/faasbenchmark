@@ -6,13 +6,15 @@ import (
 	"github.com/nuweba/faasbenchmark/config"
 	"github.com/nuweba/faasbenchmark/provider"
 	"github.com/nuweba/faasbenchmark/report/multi"
-	"github.com/nuweba/faasbenchmark/report/output/file"
+	"github.com/nuweba/faasbenchmark/report/output/json"
 	"github.com/nuweba/faasbenchmark/report/output/stdio"
 	"github.com/nuweba/faasbenchmark/testsuite"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"os"
+	"path"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -79,14 +81,17 @@ func validateTestName(cmd *cobra.Command, args []string) error {
 }
 
 func runTests(providerName string, testIds ...string) error {
+	_, filename, _, ok := runtime.Caller(1)
 
-	dir, err := os.Getwd()
-	if err != nil {
-		return err
+	if !ok {
+		return errors.New("can't get pkg dir")
 	}
 
-	fileReport, err := file.New(resultPath)
+	pgkPath := filepath.Join(path.Dir(filename), "/../") // ./pkg/cmd/.../
 
+	//todo: changeme
+	//fileReport, err := file.New(resultPath)
+	fileReport, err := json.New(resultPath)
 	if err != nil {
 		return err
 	}
@@ -104,7 +109,7 @@ func runTests(providerName string, testIds ...string) error {
 		return err
 	}
 
-	arsenalPath := filepath.Join(dir, TestsDir)
+	arsenalPath := filepath.Join(pgkPath, TestsDir)
 	gConfig, err := config.NewGlobalConfig(faasProvider, arsenalPath, report)
 	if err != nil {
 		return err
@@ -160,26 +165,26 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	if err != nil {
 		return err
 	}
-	gConfig.Logger.Info("got stack", zap.String("name", stack.GetStackId()))
+	gConfig.Logger.Info("got stack", zap.String("name", stack.StackId()))
 	testConfig, err := gConfig.NewTest(stack, test.Id, test.Description)
 
-	gConfig.Logger.Info("deploying stack", zap.String("name", stack.GetStackId()))
+	gConfig.Logger.Info("deploying stack", zap.String("name", stack.StackId()))
 	err = stack.DeployStack()
 	if err != nil {
 		return err
 	}
-	gConfig.Logger.Debug("stack deployed", zap.String("name", stack.GetStackId()))
+	gConfig.Logger.Debug("stack deployed", zap.String("name", stack.StackId()))
 
 	gConfig.Logger.Info("running test", zap.String("name", test.Id))
 	test.Fn(testConfig)
 	gConfig.Logger.Debug("test is done", zap.String("name", test.Id))
 
-	gConfig.Logger.Info("removing stack", zap.String("name", stack.GetStackId()))
+	gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
 	err = stack.RemoveStack()
 	if err != nil {
 		return err
 	}
-	gConfig.Logger.Debug("stack removed", zap.String("name", stack.GetStackId()))
+	gConfig.Logger.Debug("stack removed", zap.String("name", stack.StackId()))
 
 	return nil
 }

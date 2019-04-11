@@ -1,6 +1,7 @@
-package file
+package json
 
 import (
+	"encoding/json"
 	"github.com/nuweba/faasbenchmark/report"
 	"github.com/pkg/errors"
 	"io"
@@ -13,6 +14,7 @@ const (
 	StackDescription   = "stack-description.txt"
 	HttpTestConfig     = "http-test.conf"
 	StackLogName       = "test.log"
+	jsonName           = "result.json"
 )
 
 type Function struct {
@@ -23,6 +25,17 @@ type Function struct {
 	httpTestConfigFile *os.File
 	logFile            *os.File
 	functionResultPath string
+	jsonFile           *os.File
+	json               *functionJson
+}
+
+type functionJson struct {
+	FunctionName     string
+	Results          []requestJson
+}
+
+func (fj *functionJson) AddResult(result requestJson) {
+	fj.Results = append(fj.Results, result)
 }
 
 func (test *Test) Function(functionName string) (report.Function, error) {
@@ -57,10 +70,24 @@ func (test *Test) Function(functionName string) (report.Function, error) {
 	httpTestConfigFilePath := filepath.Join(f.functionResultPath, HttpTestConfig)
 	httpTestConfigFile, err := os.OpenFile(httpTestConfigFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
-		return nil, errors.Wrap(err, "http test config result file already exists")
+		return nil, errors.Wrap(err, "http test config result file")
 	}
 
 	f.httpTestConfigFile = httpTestConfigFile
+
+	//json
+	f.json = &functionJson{
+		FunctionName: functionName,
+	}
+
+	//json file
+	jsonFilePath := filepath.Join(f.functionResultPath, jsonName)
+	jsonFile, err := os.OpenFile(jsonFilePath, os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		return nil, errors.Wrap(err, "json result file")
+	}
+
+	f.jsonFile = jsonFile
 
 	return f, nil
 }
@@ -77,16 +104,30 @@ func (f *Function) LogWriter() (io.Writer, error) {
 }
 
 func (f *Function) BenchResult(bresult string) error {
-	_, err := f.functionResultFile.WriteString(bresult)
+	f.upperLevel.json.AddFunction(f.json)
+
+	b, err :=json.MarshalIndent(f.upperLevel.json, "", "\t")
+	if err != nil {
+		return err
+	}
+
+	_, err = f.jsonFile.Write(b)
+	if err != nil {
+		return err
+	}
+
+	_, err = f.functionResultFile.WriteString(bresult)
 	return err
 }
 
 func (f *Function) HttpTestConfig(config string) error {
+	f.upperLevel.json.HttpConfig = config
 	_, err := f.httpTestConfigFile.WriteString(config)
 	return err
 }
 
 func (f *Function) StackDescription(sdesc string) error {
+	f.upperLevel.json.StackDescription = sdesc
 	_, err := f.descriptionFile.WriteString(sdesc)
 	return err
 }

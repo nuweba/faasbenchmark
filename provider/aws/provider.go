@@ -8,10 +8,11 @@ import (
 	"github.com/aws/aws-sdk-go/aws/ec2metadata"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/aws/signer/v4"
+	"github.com/nuweba/faasbenchmark/stack"
+	"github.com/nuweba/httpbench/syncedtrace"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"github.com/nuweba/httpbench/syncedtrace"
 	"path"
 	"time"
 )
@@ -110,12 +111,11 @@ func (aws *Aws) buildLambdaInvokeReq(funcName string, qParams *url.Values, heade
 	return req, nil
 }
 
-func (aws *Aws) NewFunctionRequest(funcName string, qParams *url.Values, headers *http.Header, body *[]byte) (func () (*http.Request, error)) {
+func (aws *Aws) NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) (func() (*http.Request, error)) {
 	return func() (*http.Request, error) {
-				return aws.buildLambdaInvokeReq(funcName, qParams, headers, body)
-			}
+		return aws.buildLambdaInvokeReq(function.Name(), qParams, headers, body)
+	}
 }
-
 
 func (aws *Aws) HttpInvocationTriggerStage() syncedtrace.TraceHookType {
 	return syncedtrace.TLSHandshakeDone

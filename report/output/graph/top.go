@@ -1,13 +1,13 @@
 package graph
 
 import (
+	"github.com/nuweba/faasbenchmark/report"
 	"io"
 	"io/ioutil"
-	"github.com/nuweba/faasbenchmark/report"
 )
 
 type Top struct {
-	graphWriter   io.Writer
+	graphWriter io.Writer
 }
 
 func New(graphWriter io.Writer) (report.Top, error) {

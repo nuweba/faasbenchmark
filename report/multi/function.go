@@ -23,43 +23,37 @@ func (mf *multiFunction) LogWriter() (io.Writer, error) {
 	return io.MultiWriter(writers...), nil
 }
 
-func (mf *multiFunction) HttpTestConfigWriter() (io.Writer, error) {
-	var writers []io.Writer
+func (mf *multiFunction) HttpTestConfig(config string) error {
 	for _, t := range mf.function {
-		writer, err := t.HttpTestConfigWriter()
+		err := t.HttpTestConfig(config)
 		if err != nil {
-			return nil, errors.Wrap(err, "multi function http test config writer error")
+			return errors.Wrap(err, "multi function http test config writer error")
 		}
-		writers = append(writers, writer)
 	}
 
-	return io.MultiWriter(writers...), nil
+	return nil
 }
 
-func (mf *multiFunction) ResultWriter() (io.Writer, error) {
-	var writers []io.Writer
+func (mf *multiFunction) BenchResult(bresult string) error {
 	for _, t := range mf.function {
-		writer, err := t.ResultWriter()
+		err := t.BenchResult(bresult)
 		if err != nil {
-			return nil, errors.Wrap(err, "multi function result writer error")
+			return errors.Wrap(err, "multi function result writer error")
 		}
-		writers = append(writers, writer)
 	}
 
-	return io.MultiWriter(writers...), nil
+	return nil
 }
 
-func (mf *multiFunction) DescriptionWriter() (io.Writer, error) {
-	var writers []io.Writer
+func (mf *multiFunction) StackDescription(sdesc string) error {
 	for _, t := range mf.function {
-		writer, err := t.DescriptionWriter()
+		err := t.StackDescription(sdesc)
 		if err != nil {
-			return nil, errors.Wrap(err, "multi function description writer error")
+			return  errors.Wrap(err, "multi function description writer error")
 		}
-		writers = append(writers, writer)
 	}
 
-	return io.MultiWriter(writers...), nil
+	return nil
 }
 
 func (mf *multiFunction) Request() (report.Request, error) {

@@ -3,14 +3,14 @@ package httpbench
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/pkg/errors"
-	"go.uber.org/zap"
-	"gopkg.in/yaml.v2"
-	"net/http"
 	"github.com/nuweba/faasbenchmark/config"
 	"github.com/nuweba/faasbenchmark/provider"
 	"github.com/nuweba/httpbench/engine"
 	"github.com/nuweba/httpbench/syncedtrace"
+	"github.com/pkg/errors"
+	"go.uber.org/zap"
+	"gopkg.in/yaml.v2"
+	"net/http"
 	"time"
 )
 
@@ -95,27 +95,10 @@ func TraceResultSummaryHttps(httpConf *config.Http, tr *engine.TraceResult, func
 	}
 }
 
-func ReportRequestResults(funcConfig *config.HttpFunction,resultCh chan *engine.TraceResult, outputFn provider.RequestFilter) {
+func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine.TraceResult, outputFn provider.RequestFilter) {
 	reqReport, err := funcConfig.Report.Request()
 	if err != nil {
 		funcConfig.Logger.Error("request report", zap.Error(err))
-		return
-	}
-	reqReportW, err := reqReport.ResultWriter()
-	if err != nil {
-		funcConfig.Logger.Error("result writer", zap.Error(err))
-		return
-	}
-
-	rawReportW, err := reqReport.RawResultWriter()
-	if err != nil {
-		funcConfig.Logger.Error("raw result writer", zap.Error(err))
-		return
-	}
-
-	SummaryReportW, err := reqReport.SummaryWriter()
-	if err != nil {
-		funcConfig.Logger.Error("summary writer", zap.Error(err))
 		return
 	}
 
@@ -129,23 +112,19 @@ func ReportRequestResults(funcConfig *config.HttpFunction,resultCh chan *engine.
 
 		if result.Err != nil || result.Error {
 			funcConfig.Logger.Error("trace error", zap.Error(result.Err), zap.Any("summary", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput)))
-			ErrorReportW, err := reqReport.ErrorWriter()
+			err = reqReport.Error(TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
 			if err != nil {
 				funcConfig.Logger.Error("report error writer", zap.Error(err))
-				continue
 			}
-			fmt.Fprintln(ErrorReportW, TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput))
 			continue
 		}
 
 		if result.Response.StatusCode != http.StatusOK {
 			funcConfig.Logger.Error("function did not return 200 ok", zap.Any("summary", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput)))
-			ErrorReportW, err := reqReport.ErrorWriter()
+			err = reqReport.Error(TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
 			if err != nil {
 				funcConfig.Logger.Error("report error writer", zap.Error(err))
-				continue
 			}
-			fmt.Fprintln(ErrorReportW, TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput))
 			continue
 		}
 
@@ -159,19 +138,29 @@ func ReportRequestResults(funcConfig *config.HttpFunction,resultCh chan *engine.
 		}
 
 		funcConfig.Logger.Debug("filter function result", zap.String("output", coldStart))
-		fmt.Fprintln(reqReportW, result.Id, coldStart)
+		err = reqReport.Result(fmt.Sprintf("%d, %s", result.Id, coldStart))
+		if err != nil {
+			funcConfig.Logger.Error("result writer", zap.Error(err))
+		}
 
-		fmt.Fprintf(SummaryReportW, "%v: %v\n", result.Id, coldStart)
-		fmt.Fprintf(SummaryReportW, "%s\n", TraceResultSummaryHttps(funcConfig.HttpConfig, result, funcOutput))
+		err = reqReport.Summary(fmt.Sprintf("%v: %v\n%s\n", result.Id, coldStart, TraceResultSummaryHttps(funcConfig.HttpConfig, result, funcOutput)))
+		if err != nil {
+			funcConfig.Logger.Error("summary writer", zap.Error(err))
+			return
+		}
 
 		raw, err := TraceResultString(result)
 		if err != nil {
 			funcConfig.Logger.Error("error marshaling trace result", zap.Error(err))
 			continue
 		}
-		funcConfig.Logger.Debug("writing raw result")
 
-		fmt.Fprintln(rawReportW, raw)
+		funcConfig.Logger.Debug("writing raw result")
+		err = reqReport.RawResult(raw)
+		if err != nil {
+			funcConfig.Logger.Error("raw result writer", zap.Error(err))
+		}
+
 		funcConfig.Logger.Info("request done", zap.Uint64("id", result.Id))
 	}
 

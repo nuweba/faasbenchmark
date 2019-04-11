@@ -1,12 +1,12 @@
 package tests
 
 import (
-	"math"
-	"net/http"
-	"net/url"
 	"github.com/nuweba/faasbenchmark/config"
 	httpbenchReport "github.com/nuweba/faasbenchmark/report/generate/httpbench"
 	"github.com/nuweba/httpbench"
+	"math"
+	"net/http"
+	"net/url"
 	"strconv"
 	"sync"
 	"time"
@@ -40,6 +40,7 @@ func coldStart(test *config.Test) {
 		RequestDelay:     20 * time.Millisecond,
 		ConcurrencyLimit: 3,
 		Body:             &body,
+		TestType:         httpbench.ConcurrentRequestsSyncedOnce.String(),
 	}
 	wg := &sync.WaitGroup{}
 	for _, function := range test.Stack.ListFunctions() {
@@ -48,7 +49,7 @@ func coldStart(test *config.Test) {
 			continue
 		}
 
-		newReq := test.Config.Provider.NewFunctionRequest(hfConf.Function.Name(), hfConf.HttpConfig.QueryParams, hfConf.HttpConfig.Headers, hfConf.HttpConfig.Body)
+		newReq := test.Config.Provider.NewFunctionRequest(hfConf.Test.Stack, hfConf.Function, hfConf.HttpConfig.QueryParams, hfConf.HttpConfig.Headers, hfConf.HttpConfig.Body)
 		trace := httpbench.New(newReq, hfConf.HttpConfig.Hook)
 
 		wg.Add(1)
@@ -58,8 +59,8 @@ func coldStart(test *config.Test) {
 		}()
 
 		requestsResult := trace.ConcurrentRequestsSyncedOnce(hfConf.HttpConfig.ConcurrencyLimit, hfConf.HttpConfig.RequestDelay)
-		httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
 		wg.Wait()
+		httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
 	}
 }
 
@@ -78,6 +79,7 @@ func RequestsFor1Minute(test *config.Test) {
 		RequestDelay:     500 * time.Millisecond,
 		ConcurrencyLimit: 0,
 		Body:             &body,
+		TestType:         httpbench.RequestPerDuration.String(),
 	}
 
 	wg := &sync.WaitGroup{}
@@ -87,7 +89,7 @@ func RequestsFor1Minute(test *config.Test) {
 			continue
 		}
 
-		newReq := test.Config.Provider.NewFunctionRequest(hfConf.Function.Name(), hfConf.HttpConfig.QueryParams, hfConf.HttpConfig.Headers, hfConf.HttpConfig.Body)
+		newReq := test.Config.Provider.NewFunctionRequest(hfConf.Test.Stack, hfConf.Function, hfConf.HttpConfig.QueryParams, hfConf.HttpConfig.Headers, hfConf.HttpConfig.Body)
 		trace := httpbench.New(newReq, hfConf.HttpConfig.Hook)
 
 		wg.Add(1)
@@ -97,8 +99,8 @@ func RequestsFor1Minute(test *config.Test) {
 		}()
 
 		requestsResult := trace.RequestPerDuration(hfConf.HttpConfig.RequestDelay, hfConf.HttpConfig.Duration)
-		httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
 		wg.Wait()
+		httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
 	}
 }
 

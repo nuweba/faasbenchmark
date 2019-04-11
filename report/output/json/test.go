@@ -1,4 +1,4 @@
-package file
+package json
 
 import (
 	"github.com/nuweba/faasbenchmark/report"
@@ -17,6 +17,20 @@ type Test struct {
 	testId            string
 	ProviderName      string
 	descriptionWriter *os.File
+	json              *testJson
+}
+
+type testJson struct {
+	Provider         string
+	TestName         string
+	TestDescription  string
+	StackDescription string
+	HttpConfig       string
+	Functions        []functionJson
+}
+
+func (tj *testJson) AddFunction(function *functionJson) {
+	tj.Functions = append(tj.Functions, *function)
 }
 
 func (t *Top) Test(testId string, providerName string) (report.Test, error) {
@@ -38,10 +52,17 @@ func (t *Top) Test(testId string, providerName string) (report.Test, error) {
 	}
 	test.descriptionWriter = functionDescriptionFile
 
+	//json
+	test.json = &testJson{
+		Provider: providerName,
+		TestName: testId,
+	}
+
 	return test, nil
 }
 
 func (test *Test) Description(desc string) error {
+	test.json.TestDescription = desc
 	_, err := test.descriptionWriter.WriteString(desc)
 	return err
 }

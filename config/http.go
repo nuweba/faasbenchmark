@@ -1,10 +1,10 @@
 package config
 
 import (
-	"gopkg.in/yaml.v2"
+	"encoding/json"
+	"github.com/nuweba/httpbench/syncedtrace"
 	"net/http"
 	"net/url"
-	"github.com/nuweba/httpbench/syncedtrace"
 	"time"
 )
 
@@ -17,12 +17,17 @@ type Http struct {
 	RequestDelay     time.Duration
 	ConcurrencyLimit uint64
 	Body             *[]byte
+	TestType         string
 }
 
 func (h *Http) String() (string, error) {
-	b, err := yaml.Marshal(h)
+	b, err :=json.MarshalIndent(h, "", "\t")
 	if err != nil {
 		return "", err
 	}
+	//b, err := yaml.Marshal(h)
+	//if err != nil {
+	//	return "", err
+	//}
 	return string(b), nil
 }

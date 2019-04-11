@@ -1,13 +1,12 @@
 package config
 
 import (
-	"fmt"
+	"github.com/nuweba/faasbenchmark/report"
+	"github.com/nuweba/faasbenchmark/stack"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"io"
-	"github.com/nuweba/faasbenchmark/report"
-	"github.com/nuweba/faasbenchmark/stack"
 )
 
 type HttpFunction struct {
@@ -57,25 +56,23 @@ func (t *Test) NewFunction(httpConfig *Http, function stack.Function) (*HttpFunc
 
 	l.Debug("testing function", zap.String("name", function.Name()), zap.String("description", function.Description()))
 
-	descriptionWriter, err := hf.Report.DescriptionWriter()
+	err = hf.Report.StackDescription(t.Stack.Description)
 	if err != nil {
 		t.Config.Logger.Error("description writer", zap.Error(err))
 		return nil, errors.Wrap(err, "function report description writer")
 	}
-	fmt.Fprintln(descriptionWriter, t.Stack.Description)
-
-	httpTestConfigWriter, err := hf.Report.HttpTestConfigWriter()
-	if err != nil {
-		t.Config.Logger.Error("HttpTestConfigWriter", zap.Error(err))
-		return nil, errors.Wrap(err, "function report http test config writer")
-	}
 
 	httpConfigRaw, err := httpConfig.String()
 	if err!= nil {
-		t.Config.Logger.Error("HttpTestConfigWriter", zap.Error(err))
+		t.Config.Logger.Error("HttpTestConfig", zap.Error(err))
 		return nil, errors.Wrap(err, "function report http test config to string")
 	}
-	fmt.Fprintln(httpTestConfigWriter, httpConfigRaw)
+
+	err = hf.Report.HttpTestConfig(httpConfigRaw)
+	if err != nil {
+		t.Config.Logger.Error("HttpTestConfig", zap.Error(err))
+		return nil, errors.Wrap(err, "function report http test config writer")
+	}
 
 	return hf, nil
 }

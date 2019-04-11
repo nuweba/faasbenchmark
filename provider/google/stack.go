@@ -1,16 +1,18 @@
-package sls
+package google
 
 import (
 	"github.com/nuweba/faasbenchmark/stack"
-	"github.com/nuweba/sls"
+	"github.com/nuweba/faasbenchmark/stack/sls"
+	"path/filepath"
 )
 
 type Stack struct {
-	*sls.Wrapper
+	*sls.Stack
 }
 
-func New(provider string, slsDirPath string) (*Stack, error) {
-	stack, err := sls.New(provider, slsDirPath)
+func (google *Google) NewStack(stackPath string) (stack.Stack, error) {
+	slsYamlDirPath := filepath.Join(stackPath, google.Name())
+	stack, err := sls.New(google.Name(), slsYamlDirPath)
 
 	if err != nil {
 		return nil, err
