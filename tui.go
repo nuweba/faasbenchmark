@@ -14,5 +14,10 @@ func main() {
 	}
 	defer ui.Close()
 
-	tui.UI()
+	provider,pImage, err := tui.ChooseProvider()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	tui.Tui(provider, pImage)
 }

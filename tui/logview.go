@@ -1,0 +1,50 @@
+package tui
+
+import (
+	"bufio"
+	"bytes"
+	ui "github.com/gizak/termui"
+	"github.com/gizak/termui/widgets"
+)
+
+type LogView struct {
+	*widgets.List
+	prevHadLine bool
+}
+
+func logView() *LogView {
+	textList := widgets.NewList()
+
+	textList.Rows = append(textList.Rows, "choose a test")
+	textList.SelectedRowStyle = ui.NewStyle(ui.ColorYellow, ui.ColorClear, ui.ModifierBold)
+	return &LogView{List: textList, prevHadLine: false}
+}
+
+
+func (l *LogView) Modify(data []byte) {
+	d := bytes.NewReader(data)
+	scan := bufio.NewScanner(d)
+	for scan.Scan() {
+		s := scan.Text()
+		if l.prevHadLine == false && len(l.Rows) != 0 {
+			l.Rows[len(l.Rows)-1] = l.Rows[len(l.Rows)-1] + s
+		} else {
+			l.Rows = append(l.Rows, s)
+		}
+
+		if l.SelectedRow == uint(len(l.Rows) - 2) {
+			l.ScrollBottom()
+		}
+
+		if s == string(data) {
+			l.prevHadLine = false
+		} else {
+			l.prevHadLine = true
+		}
+	}
+}
+
+func (l *LogView) Reset() {
+	l.Rows = []string{}
+	l.ScrollTop()
+}
