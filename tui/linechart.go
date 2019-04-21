@@ -2,8 +2,8 @@ package tui
 
 import (
 	"fmt"
-	ui "github.com/gizak/termui"
-	"github.com/gizak/termui/widgets"
+	ui "github.com/gizak/termui/v3"
+	"github.com/gizak/termui/v3/widgets"
 )
 
 type LineChart struct {

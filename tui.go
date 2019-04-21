@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	ui "github.com/gizak/termui"
+	ui "github.com/gizak/termui/v3"
 	"github.com/nuweba/faasbenchmark/tui"
 	"os"
 )

@@ -1,8 +1,8 @@
 package tui
 
 import (
-	ui "github.com/gizak/termui"
-	"github.com/gizak/termui/widgets"
+	ui "github.com/gizak/termui/v3"
+	"github.com/gizak/termui/v3/widgets"
 )
 
 type ToggleList struct {
@@ -46,13 +46,13 @@ func (t *ToggleList) HandleEvent(e *ui.Event) bool {
 	case "k", "<Up>", "<MouseWheelUp>":
 		t.current.ScrollUp()
 	case "<C-d>":
-		t.current.HalfPageDown()
+		t.current.ScrollHalfPageDown()
 	case "<C-u>":
-		t.current.HalfPageUp()
+		t.current.ScrollHalfPageUp()
 	case "<C-f>":
-		t.current.PageDown()
+		t.current.ScrollPageDown()
 	case "<C-b>":
-		t.current.PageUp()
+		t.current.ScrollPageUp()
 	case "<Home>":
 		t.current.ScrollTop()
 	case "G", "<End>":

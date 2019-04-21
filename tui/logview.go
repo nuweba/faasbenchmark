@@ -3,8 +3,8 @@ package tui
 import (
 	"bufio"
 	"bytes"
-	ui "github.com/gizak/termui"
-	"github.com/gizak/termui/widgets"
+	ui "github.com/gizak/termui/v3"
+	"github.com/gizak/termui/v3/widgets"
 )
 
 type LogView struct {
@@ -32,7 +32,7 @@ func (l *LogView) Modify(data []byte) {
 			l.Rows = append(l.Rows, s)
 		}
 
-		if l.SelectedRow == uint(len(l.Rows) - 2) {
+		if l.SelectedRow == int(len(l.Rows) - 2) {
 			l.ScrollBottom()
 		}
 
