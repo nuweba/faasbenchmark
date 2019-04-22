@@ -5,44 +5,48 @@
 This is the framework behind FaaStest.com.
 FaaSbenchmark is a framework to run and add generic tests to accurately benchmark FaaS providers.
 #### Motivation
-In order to reliably test our (Nuweba) FaaS and compare it to other managed FaaS solutions, we created this framework.
-With time we saw a lot of blogs and scripts that talked about FaaS performance, each one wrote their own code to test.
-So to make it easy for future tests developers wants to perform and code, we decided to open source this framework and to create a centralized place to see the results and add new tests.
-The main objective is the site (FaaStest.com), but to be fully transparent and show the actual code that test the FaaS provider, we open sourced it.
+In order to reliably test our own FaaS platform (Nuweba) and compare it to other managed FaaS solutions, we created this framework.
+With the growing popularity of FaaS platforms, we saw many new blogs and tools attempting to deal with FaaS benchmarking, each from their own perspective.
+As active members in the serverless community, we decided to offer an accessible and pluggable solution by open sourcing this framework and inviting the community to participate in our efforts to add new tests cases for the various FaaS providers.
+The results will be published on a regular basis on FaaStest.com, and the source for the tests will be available in this repo.  
 If you feel that the tests are inaccurate or unreliable, please contact us as soon as possible so we can address it.
-#### where is Nuweba?
-At the moment Nuweba FaaS performance test code and results will not be shown here.
-Our core values is to be reliable and transparent as possible, and because we don't currently offer a self service solution , other users can't corroborate the tests results.
+#### Where is Nuweba?
+At the moment Nuweba's benchmark sources and results will not be shown here.  
+Our core values include reliablity and transparency - since we don't currently offer a self service solution, other users can't corroborate our results.
 #### How to accurately test invocation overhead
-There is a lot of confusion about FaaS "cold start",
-it's important to clarify this and standardized the way we benchmark FaaS providers
+There is a lot of confusion about FaaS terminology, in particular "cold start".  
+It's important to clarify the terminology, and standardize the way we benchmark FaaS providers.
 ![Invocation Overhead](https://github.com/nuweba/faasbenchmark/blob/master/_assets/Invocation_overhead.svg)
-Invocation overhead = the time it took to call the user function and return the response.
-*in async functions response time is not always relevant.
-This is the full flow of a generalized generic invocation
-As you can see, there is a lot more going on then just cold start,
-And realize that from the outside, we cannot test only cold start / warm start.
-The benchmark code will run as close as possible to the actual FaaS servers (for example: aws ec2) to minimize the network latency.
-The function will measure the actual duration inside the user function.
+Invocation overhead = The time it took to call the user function and *return the response.   
+*in async functions response time is not always relevant.  
+The illustration above depicts the full flow of a generic invocation.  
+As you can see, there is a lot more going on then just cold start.  
+It is important to realize that as FaaS platform users - it is very hard if not impossible to accurately separate cold start / warm start overheads without access to the platform's internals.
+The benchmark code will run as close as possible to the actual platform servers (for example: aws ec2 for lambda) to minimize the network latency.
+The test code will attempt to measure the actual duration inside the user function.  
 * we consider the load time of user code as part of the cold start.
-The full invocation overhead will be calculated as such:
-First Byte Response time - Request Sent time - function duration = invocation overhead
-Note that to accurately calculate the invocation latency we do not take into account earlier steps before the step that triggers the invocation.
-for example in AWS Lambda:
-- dns resolve
-- tcp handshake
-- tls handshake
+In simple terms, the full invocation overhead will be calculated as such:  
+```
+Invocation overhead = First Byte Response time - Request Sent time - Function duration
+```
+Note that to accurately calculate the invocation overhead we take the latest possible "Request Sent Time" by eliminating other time consuming operations.
+These operations include but are not limited to:  
+- dns resolve  
+- tcp handshake  
+- tls handshake  
+
 In other scenarios for example, other FaaS providers trigger to invoke a function can be the UDP DNS packet, or the second GET HTTP request.
 
-To create a concurrent load a sleep function will be used, it had minimal overhead and we can make sure it will stay alive while other incoming requests will trigger new functions.
+To generate a concurrent load a sleep function will be used, it has minimal overhead and we can assume it will stay alive while other incoming requests will trigger new functions.
 
-The benchmarks results will be the invocation overhead
-#### cold start, warm start and container reuse
-Most of the time when referring to warm start, the assumption is that its the same container / sandbox ready to receive a new connection, but it's important to the right distinction between cold start, warm start and container reuse.
-- container reuse - using the same environment / container / sandbox for more then one invocation, it can be full reuse or partial reuse (same storage, same process, reloaded user code / same storage, restart the runtime process / ect)
-- warm start - Invocation can get a warm container without it been ever used, there was not container reuse.
-- cold start - the time it took to start a fresh new container and load the runtime and user code.
-cold start is mostly an internal measurement, from the outside the cold start is only part of the total measurement that can effect the end-user experience. in some scenarios we can encounter most of the time with only a portion of the full cold start, think about scale prediction and statistical algorithms
+The benchmarks results will show the invocation overhead as described above.  
+#### Cold start, Warm start and Scalding start
+When referring to warm start, the common assumption is that the same container / sandbox is ready to receive a new connection, but it's important to explain our view of the terminologies and highlight the differences.
+- Container reuse - using the same environment / container / sandbox for more than one invocation, it can be full reuse or partial reuse (same storage, same process, reloaded user code / same storage, restart the runtime process / etc)
+- Scalding start - invoking a function based on a reused container.
+- Warm start - invoking a function using a warm container with a prebaked unused sandbox - resources from previous invocations are not recycled.
+- Cold start - invoking a function when no container / sandbox is ready to receive the request. A new container must be created and the runtime and user code loaded.
+cold start latency is mostly an internal metric, from the outside the cold start is only part of the total overhead that can affect the end-user experience. in some scenarios we can encounter most of the time with only a portion of the full cold start, think about scale prediction and statistical algorithms
 
 #### Run Requirements
 The tests should be run as close as possible to the FaaS provider.
