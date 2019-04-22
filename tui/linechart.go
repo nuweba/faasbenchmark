@@ -12,7 +12,7 @@ type LineChart struct {
 
 func lineChart() *LineChart {
 	lc := widgets.NewPlot()
-	lc.Title = "braille-mode Line Chart"
+	lc.Title = "Result Graph"
 	lc.Data = append(lc.Data, []float64{0, 0})
 	lc.HorizontalScale = 3
 	lc.AxesColor = ui.ColorWhite

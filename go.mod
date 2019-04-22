@@ -4,6 +4,7 @@ go 1.12
 
 require (
 	github.com/aws/aws-sdk-go v1.19.15
+	github.com/disintegration/gift v1.2.0
 	github.com/gizak/termui/v3 v3.0.0
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/nuweba/counter v0.0.0-20190411141351-b62517205c5e // indirect

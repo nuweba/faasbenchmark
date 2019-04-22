@@ -57,6 +57,9 @@ Each provider New() function will enforce you to use a VM inside the FaaS provid
 ```sh
 go run tui.go
 ```
+<h1><p align="center"><img alt="first screen" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/screen-choose-provider.png"/></p></h1>
+<h1><p align="center"><img alt="main screen" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/screen-main.png"/></p></h1>
+
 ##### CLI
 ```sh
 go run main.go

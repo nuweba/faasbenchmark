@@ -37,8 +37,8 @@ func grid(lineChart *widgets.Plot, leftTestView *widgets.List, logView *widgets.
 	grid.Set(
 		ui.NewRow(2.0/3,
 			ui.NewCol(1.0/6,
-				ui.NewRow(3.0/10, pImage),
-				ui.NewRow(7.0/10, leftTestView),
+				ui.NewRow(1.0/2,pImage),
+				ui.NewRow(1.0/2, leftTestView),
 			),
 			ui.NewCol(5.0/6, lineChart),
 		),

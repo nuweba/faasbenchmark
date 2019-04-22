@@ -2,6 +2,8 @@ github.com/aws/aws-sdk-go v1.19.15 h1:Ov8zxPunHxZFxrXBarqzkZBSZugJRzPgb4mfq/SyVg
 github.com/aws/aws-sdk-go v1.19.15/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/cjbassi/drawille-go v0.0.0-20190126131713-27dc511fe6fd h1:XtfPmj9tQRilnrEmI1HjQhxXWRhEM+m8CACtaMJE/kM=
 github.com/cjbassi/drawille-go v0.0.0-20190126131713-27dc511fe6fd/go.mod h1:vjcQJUZJYD3MeVGhtZXSMnCHfUNZxsyYzJt90eCYxK4=
+github.com/disintegration/gift v1.2.0 h1:VMQeei2F+ZtsHjMgP6Sdt1kFjRhs2lGz8ljEOPeIR50=
+github.com/disintegration/gift v1.2.0/go.mod h1:Jh2i7f7Q2BM7Ezno3PhfezbR1xpUg9dUg3/RlKGr4HI=
 github.com/gizak/termui/v3 v3.0.0 h1:NYTUG6ig/sJK05O5FyhWemwlVPO8ilNpvS/PgRtrKAE=
 github.com/gizak/termui/v3 v3.0.0/go.mod h1:uinu2dMdtMI+FTIdEFUJQT5y+KShnhQRshvPblXq3lY=
 github.com/inconshreveable/mousetrap v1.0.0 h1:Z8tu5sraLXCXIcARxBp/8cbvlwVa7Z1NHg9XEKhtSvM=

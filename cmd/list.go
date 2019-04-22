@@ -57,7 +57,8 @@ func listTests(cmd *cobra.Command, args []string) {
 }
 
 func listProviders(cmd *cobra.Command, args []string) {
-	for providerId := provider.Providers(0); providerId < provider.ProvidersCount; providerId++ {
-		fmt.Println(int(providerId) + 1, providerId.String())
+	providers := provider.ProviderList()
+	for i, provider := range providers {
+		fmt.Println(int(i) + 1, provider)
 	}
 }

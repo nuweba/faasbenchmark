@@ -69,3 +69,12 @@ func NewProvider(providerName string) (FaasProvider, error) {
 
 	return faasProvider, nil
 }
+
+func ProviderList() []string{
+	var providers []string
+	for providerId := Providers(0); providerId < ProvidersCount; providerId++ {
+		providers = append(providers, providerId.String())
+	}
+
+	return providers
+}
