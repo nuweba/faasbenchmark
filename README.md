@@ -20,7 +20,7 @@ It's important to clarify the terminology, and standardize the way we benchmark 
 Invocation overhead = The time it took to call the user function and *return the response.   
 *in async functions response time is not always relevant.  
 The illustration above depicts the full flow of a generic invocation.  
-As you can see, there is a lot more going on then just cold start.  
+As you can see, there is a lot more going on than just cold start.  
 It is important to realize that as FaaS platform users - it is very hard if not impossible to accurately separate cold start / warm start overheads without access to the platform's internals.
 The benchmark code will run as close as possible to the actual platform servers (for example: aws ec2 for lambda) to minimize the network latency.
 The test code will attempt to measure the actual duration inside the user function.  
@@ -40,13 +40,18 @@ In other scenarios for example, other FaaS providers trigger to invoke a functio
 To generate a concurrent load a sleep function will be used, it has minimal overhead and we can assume it will stay alive while other incoming requests will trigger new functions.
 
 The benchmarks results will show the invocation overhead as described above.  
-#### Cold start, Warm start and Scalding start
+#### Cold start, Warm start and Container reuse
 When referring to warm start, the common assumption is that the same container / sandbox is ready to receive a new connection, but it's important to explain our view of the terminologies and highlight the differences.
-- Container reuse - using the same environment / container / sandbox for more than one invocation, it can be full reuse or partial reuse (same storage, same process, reloaded user code / same storage, restart the runtime process / etc)
-- Scalding start - invoking a function based on a reused container.
+- Container reuse - invoking a function by using the same environment / container / sandbox for more than one invocation, it can be full reuse or partial reuse (same storage, same process, reloaded user code / same storage, restart the runtime process / etc)
 - Warm start - invoking a function using a warm container with a prebaked unused sandbox - resources from previous invocations are not recycled.
 - Cold start - invoking a function when no container / sandbox is ready to receive the request. A new container must be created and the runtime and user code loaded.
-cold start latency is mostly an internal metric, from the outside the cold start is only part of the total overhead that can affect the end-user experience. in some scenarios we can encounter most of the time with only a portion of the full cold start, think about scale prediction and statistical algorithms
+cold start latency is mostly an internal metric, from the outside the cold start is only part of the total overhead that can affect the end-user experience.  
+
+A FaaS platform might support some or all of the above invocation types.  
+Depending on the load pattern, we might encounter different ratios of invocation types.  
+For example, consider a simple FaaS platform which keeps a container up for a minute after invocation is finished.  
+When benchmarking this provider, we might encounter a mix of warm and cold starts, with the ratio depending on the load pattern we are testing.  
+In realty, most FaaS platforms probably use complex heuristics to optimize their invocation overheads, and these heuristics are a major part of what we are attempting to benchmark here.
 
 #### Run Requirements
 The tests should be run as close as possible to the FaaS provider.
