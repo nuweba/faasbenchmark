@@ -67,6 +67,7 @@ func ChooseProvider() (string, *widgets.Image, error) {
 
 	uiEvents := ui.PollEvents()
 	for {
+		ui.Render(grid)
 		e := <-uiEvents
 		switch e.ID {
 		case "q", "<C-c>":
@@ -83,8 +84,5 @@ func ChooseProvider() (string, *widgets.Image, error) {
 			grid.SetRect(0, 0, payload.Width, payload.Height)
 			ui.Clear()
 		}
-
-		ui.Render(grid)
-
 	}
 }

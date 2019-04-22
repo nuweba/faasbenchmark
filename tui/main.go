@@ -109,10 +109,9 @@ func Tui(provider string, pImage *widgets.Image) {
 		return
 	}
 
-	ui.Render(grid)
 	uiEvents := ui.PollEvents()
-
 	for {
+		ui.Render(grid)
 		select {
 		case data := <-logs.ch:
 			logView.Modify(data)
@@ -143,7 +142,6 @@ func Tui(provider string, pImage *widgets.Image) {
 				toggleList.HandleEvent(&e)
 			}
 		}
-		ui.Render(grid)
 	}
 
 }

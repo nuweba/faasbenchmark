@@ -20,10 +20,14 @@ github.com/nuweba/counter v0.0.0-20190411141351-b62517205c5e h1:/Pv7ndf/89pOgskF
 github.com/nuweba/counter v0.0.0-20190411141351-b62517205c5e/go.mod h1:UNYYJjH1CDokWN/m+WYy40uM1UfPTfeV3h/Xuq1MfTc=
 github.com/nuweba/httpbench v0.0.0-20190411141507-0620df11a48f h1:/Iq+5AsRS+qUK9Ko/vNOW2H/d/VIwe299NAjOMzaN2Y=
 github.com/nuweba/httpbench v0.0.0-20190411141507-0620df11a48f/go.mod h1:dWvqsKb+gT2VPCQZ6x2zzdpHHZHoaoE2mipWua0+HLc=
+github.com/nuweba/httpbench v0.0.0-20190422092826-91a7aa00d265 h1:RACMiyBSOFFOVnUMoYhCNKcrbmDVE7iWZn5+XKauC7c=
+github.com/nuweba/httpbench v0.0.0-20190422092826-91a7aa00d265/go.mod h1:RfsPIwMQqT15Sgg3Dbt5jr0WtZFLtccZItBnqcEPu5g=
 github.com/nuweba/semaphore v0.0.0-20190319094739-5f91e06f5ad3 h1:I8pyWqpjthlU9AdzBO0VHxaikYwJVyEWtA4rbFYOwhM=
 github.com/nuweba/semaphore v0.0.0-20190319094739-5f91e06f5ad3/go.mod h1:WopuZYv2JgV+ZVmeawUwYAw7rnkji/DHqwYj0PXQ/uE=
 github.com/nuweba/sls v0.0.0-20190411141321-bf231afc7566 h1:Cj9Khma7R9BzxKkzIyq97UQZAnj8Eyq56ZIKblY0wcE=
 github.com/nuweba/sls v0.0.0-20190411141321-bf231afc7566/go.mod h1:mlja4FYQ5m4ANdz/kCOBnsJayQVMXCTmH9tap4dK7Gk=
+github.com/nuweba/sls v0.0.0-20190422092932-d0d1e1dc18b8 h1:SdfA0Jpjl4EiWkK/0a+JwChrQB+MKYcfiTX50SwQiiI=
+github.com/nuweba/sls v0.0.0-20190422092932-d0d1e1dc18b8/go.mod h1:Lq72cIMU0GKkJgyMkCf9PW4gz9HdfJG6GF8MWY7w9hg=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/spf13/cobra v0.0.3 h1:ZlrZ4XsMRm04Fr5pSFxBgfND2EBVa1nLpiy1stUsX/8=

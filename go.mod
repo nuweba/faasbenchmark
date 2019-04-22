@@ -7,10 +7,8 @@ require (
 	github.com/disintegration/gift v1.2.0
 	github.com/gizak/termui/v3 v3.0.0
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
-	github.com/nuweba/counter v0.0.0-20190411141351-b62517205c5e // indirect
-	github.com/nuweba/httpbench v0.0.0-20190411141507-0620df11a48f
-	github.com/nuweba/semaphore v0.0.0-20190319094739-5f91e06f5ad3 // indirect
-	github.com/nuweba/sls v0.0.0-20190411141321-bf231afc7566
+	github.com/nuweba/httpbench v0.0.0-20190422092826-91a7aa00d265
+	github.com/nuweba/sls v0.0.0-20190422092932-d0d1e1dc18b8
 	github.com/pkg/errors v0.8.1
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3 // indirect

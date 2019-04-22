@@ -71,21 +71,13 @@ func loadImages(providers []string) ([]image.Image, error) {
 			return nil, err
 		}
 
-
-		// 1. Create a new filter list and add some filters.
 		g := gift.New(
-			gift.Contrast(30),
 			gift.Pixelate(3),
-
 			gift.ResizeToFit(imageSize * imageRatio, imageSize, gift.LanczosResampling),
-
 		)
 
-		// 2. Create a new image of the corresponding size.
-		// dst is a new target image, src is the original image.
 		dst := image.NewRGBA(g.Bounds(image1.Bounds()))
 
-		// 3. Use the Draw func to apply the filters to src and store the result in dst.
 		g.Draw(dst, image1)
 		images = append(images, dst)
 	}
