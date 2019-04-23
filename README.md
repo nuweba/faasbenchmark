@@ -48,10 +48,11 @@ When referring to warm start, the common assumption is that the same container /
 cold start latency is mostly an internal metric, from the outside the cold start is only part of the total overhead that can affect the end-user experience.  
 
 A FaaS platform might support some or all of the above invocation types.  
-Depending on the load pattern, we might encounter different ratios of invocation types.  
+Depending on the load pattern, we might encounter different ratios of invocation types.
 For example, consider a simple FaaS platform which keeps a container up for a minute after invocation is finished.  
 When benchmarking this provider, we might encounter a mix of warm and cold starts, with the ratio depending on the load pattern we are testing.  
-In realty, most FaaS platforms probably use complex heuristics to optimize their invocation overheads, and these heuristics are a major part of what we are attempting to benchmark here.
+In realty, most FaaS platforms probably use complex heuristics to optimize their invocation overheads.  
+These heuristics often include partial/full container reuse, and in many scenarios the ratio of cold starts we encounter is small.
 
 #### Run Requirements
 The tests should be run as close as possible to the FaaS provider.
