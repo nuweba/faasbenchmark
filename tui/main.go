@@ -95,12 +95,6 @@ func Tui(provider string, pImage *widgets.Image) {
 		ch: make(chan float64),
 	}
 
-	faasTestConfig, err := faasTestConfig(provider, result)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
 	toggleList := NewToggleList(leftTestsMenu, logView.List)
 	logs, err := hookStdout()
 
@@ -133,7 +127,13 @@ func Tui(provider string, pImage *widgets.Image) {
 
 				testId := leftTestsMenu.Rows[leftTestsMenu.SelectedRow]
 				go func() {
-					err := cmd.RunSpecificTests(faasTestConfig, testId)
+					faasTestConfig, err := faasTestConfig(provider, result)
+					if err != nil {
+						fmt.Println(err)
+						return
+					}
+
+					err = cmd.RunSpecificTests(faasTestConfig, testId)
 					if err != nil {
 						fmt.Println(err)
 					}
