@@ -45,7 +45,7 @@ When referring to warm start, the common assumption is that the same container /
 - Container reuse - invoking a function by using the same environment / container / sandbox for more than one invocation, it can be full reuse or partial reuse (same storage, same process, reloaded user code / same storage, restart the runtime process / etc)
 - Warm start - invoking a function using a warm container with a prebaked unused sandbox - resources from previous invocations are not recycled.
 - Cold start - invoking a function when no container / sandbox is ready to receive the request. A new container must be created and the runtime and user code loaded.
-cold start latency is mostly an internal metric, from the outside the cold start is only part of the total overhead that can affect the end-user experience.  
+cold start latency is mostly an internal metric, from the outside the cold start is only part of the total overhead that can affect the end-user experience. in some scenarios we can encounter a portion of the full cold start, think about scale prediction and statistical algorithms
 
 A FaaS platform might support some or all of the above invocation types.  
 Depending on the load pattern, we might encounter different ratios of invocation types.
