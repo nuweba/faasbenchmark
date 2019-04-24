@@ -1,6 +1,5 @@
 # Distribution / packaging
-result_*
-result_*/*
+results_*
 .idea
 
 # Serverless directories
