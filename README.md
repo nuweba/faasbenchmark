@@ -429,7 +429,9 @@ exports.hello = async (event) => {
 type Stack interface {
 	DeployStack() error
 	RemoveStack() error
-	GetStackId() string
+	StackId() string
+	Project() string
+	Stage() string
 	ListFunctions() []Function
 }
 
