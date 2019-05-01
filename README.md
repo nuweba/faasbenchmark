@@ -15,8 +15,6 @@
 - [Add a new stack](#add-a-new-stack)
 - [Add a new provider](#add-a-new-provider)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 <h1><p align="center"><img alt="faastest logo" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/logo.svg" width="399" height="135" /></p></h1>
 
 #### Purpose
