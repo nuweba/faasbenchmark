@@ -1,4 +1,22 @@
-[TOC]
+- [Purpose](#purpose)
+- [Motivation](#motivation)
+- [Where is Nuweba?](#where-is-nuweba-)
+- [How to accurately test invocation overhead](#how-to-accurately-test-invocation-overhead)
+- [Cold start, Warm start and Container reuse](#cold-start--warm-start-and-container-reuse)
+- [Run Requirements](#run-requirements)
+  * [Install Requirements](#install-requirements)
+- [Run](#run)
+  * [Terminal UI](#terminal-ui)
+  * [CLI](#cli)
+- [Project structure](#project-structure)
+- [Add a new test](#add-a-new-test)
+  * [Full Test:](#full-test-)
+- [Add a new test stack to the arsenal](#add-a-new-test-stack-to-the-arsenal)
+- [Add a new stack](#add-a-new-stack)
+- [Add a new provider](#add-a-new-provider)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 <h1><p align="center"><img alt="faastest logo" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/logo.svg" width="399" height="135" /></p></h1>
 
 #### Purpose
@@ -293,8 +311,10 @@ requestsResult := trace.ConcurrentRequestsSyncedOnce(hfConf.HttpConfig.Concurren
 httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
 ```
 11. add an init function to register the test
- 11.1. specify the required stack (use existing one or see add a new stack)
- 11.2. give an informative description
+
+	11.1. specify the required stack (use existing one or see add a new stack)
+	
+	11.2. give an informative description
  ```go
 func init() {
 	Tests.Register(Test{Id: "ColdStart", Fn: coldStart, RequiredStack: "coldstart", Description: "Test cold start"})
