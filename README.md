@@ -1,3 +1,5 @@
+<h1><p align="center"><img alt="faastest logo" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/logo.svg" width="399" height="135" /></p></h1>
+
 - [Purpose](#purpose)
 - [Motivation](#motivation)
 - [Where is Nuweba?](#where-is-nuweba-)
@@ -14,8 +16,6 @@
 - [Add a new test stack to the arsenal](#add-a-new-test-stack-to-the-arsenal)
 - [Add a new stack](#add-a-new-stack)
 - [Add a new provider](#add-a-new-provider)
-
-<h1><p align="center"><img alt="faastest logo" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/logo.svg" width="399" height="135" /></p></h1>
 
 #### Purpose
 This is the framework behind FaaStest.com.
