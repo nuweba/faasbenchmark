@@ -1,4 +1,5 @@
-<h1><p align="center"><img alt="faastest logo" src="blob/master/_assets/logo.svg" width="399" height="135" /></p></h1>
+
+<h1><p align="center"><img alt="faastest logo" src="_assets/logo.svg" width="399" height="135" /></p></h1>
 
 - [Purpose](#purpose)
 - [Motivation](#motivation)
