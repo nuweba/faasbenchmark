@@ -33,7 +33,7 @@ Our core values include reliablity and transparency - since we don't currently o
 #### How to accurately test invocation overhead
 There is a lot of confusion about FaaS terminology, in particular "cold start".  
 It's important to clarify the terminology, and standardize the way we benchmark FaaS providers.
-![Invocation Overhead](https://github.com/nuweba/faasbenchmark/blob/master/_assets/Invocation_overhead.svg)
+![Invocation Overhead](_assets/Invocation_overhead.svg)
 Invocation overhead = The time it took to call the user function and *return the response.   
 *in async functions response time is not always relevant.  
 The illustration above depicts the full flow of a generic invocation.  
@@ -84,8 +84,8 @@ Each provider New() function will enforce you to use a VM inside the FaaS provid
 ```sh
 go run tui.go
 ```
-<h1><p align="center"><img alt="first screen" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/screen-choose-provider.bmp"/></p></h1>
-<h1><p align="center"><img alt="main screen" src="https://github.com/nuweba/faasbenchmark/blob/master/_assets/main-screen.bmp"/></p></h1>
+<h1><p align="center"><img alt="first screen" src="_assets/screen-choose-provider.bmp"/></p></h1>
+<h1><p align="center"><img alt="main screen" src="_assets/main-screen.bmp"/></p></h1>
 
 ##### CLI
 ```sh
