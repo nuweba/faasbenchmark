@@ -8,8 +8,8 @@ import (
 	"github.com/nuweba/faasbenchmark/config"
 	"github.com/nuweba/faasbenchmark/provider"
 	"github.com/nuweba/faasbenchmark/report/multi"
-	"github.com/nuweba/faasbenchmark/report/output/file"
 	"github.com/nuweba/faasbenchmark/report/output/graph"
+	"github.com/nuweba/faasbenchmark/report/output/json"
 	"github.com/nuweba/faasbenchmark/testsuite"
 	"os"
 	"path/filepath"
@@ -37,7 +37,7 @@ func grid(lineChart *widgets.Plot, leftTestView *widgets.List, logView *widgets.
 	grid.Set(
 		ui.NewRow(2.0/3,
 			ui.NewCol(1.0/6,
-				ui.NewRow(1.0/2,pImage),
+				ui.NewRow(1.0/2, pImage),
 				ui.NewRow(1.0/2, leftTestView),
 			),
 			ui.NewCol(5.0/6, lineChart),
@@ -63,7 +63,7 @@ func faasTestConfig(providerName string, resultCh *graphStream) (*config.Global,
 		return nil, err
 	}
 
-	fileReport, err := file.New(dir)
+	fileReport, err := json.New(dir)
 	if err != nil {
 		return nil, err
 	}

@@ -2,21 +2,18 @@ package config
 
 import (
 	"fmt"
-	"github.com/pkg/errors"
-	"io/ioutil"
+	"github.com/microcosm-cc/bluemonday"
 	"github.com/nuweba/faasbenchmark/provider"
 	"github.com/nuweba/faasbenchmark/stack"
+	"github.com/pkg/errors"
+	"io/ioutil"
 	"os"
 	"path/filepath"
-	"regexp"
 )
 
 const (
 	DescriptionFile = "description.txt"
 )
-
-//todo: add more chars
-var SanitizeRegEx = regexp.MustCompile("[^a-zA-Z0-9]+")
 
 type Stack struct {
 	stack.Stack
@@ -54,7 +51,7 @@ func newStacks(provider provider.FaasProvider, arsenalPath string) (*Stacks, err
 	return stacks, nil
 }
 
-func newStack(provider provider.FaasProvider, stackPath string) (*Stack, error){
+func newStack(provider provider.FaasProvider, stackPath string) (*Stack, error) {
 	stack, err := provider.NewStack(stackPath)
 
 	if err != nil {
@@ -114,7 +111,8 @@ func getStackPaths(arsenalPath string) ([]string, error) {
 }
 
 func sanitizeDescription(data []byte) []byte {
-	return SanitizeRegEx.ReplaceAll(data, []byte(""))
+	p := bluemonday.StrictPolicy()
+	return p.SanitizeBytes(data)
 }
 
 func readDescription(testDirPath string) (string, error) {
