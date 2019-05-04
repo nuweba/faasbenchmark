@@ -31,7 +31,7 @@ func init() {
 		Short: "run a specific test",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("not supported: " + strings.Join(args, " "))
+			fmt.Println("provider not supported: " + strings.Join(args, " "))
 		},
 	}
 

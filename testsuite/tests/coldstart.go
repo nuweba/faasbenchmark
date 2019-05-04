@@ -4,10 +4,7 @@ import (
 	"github.com/nuweba/faasbenchmark/config"
 	httpbenchReport "github.com/nuweba/faasbenchmark/report/generate/httpbench"
 	"github.com/nuweba/httpbench"
-	"math"
 	"net/http"
-	"net/url"
-	"strconv"
 	"sync"
 	"time"
 )
@@ -17,24 +14,15 @@ func init() {
 	Tests.Register(Test{Id: "ColdStart", Fn: coldStart, RequiredStack: "coldstart", Description: "Test cold start"})
 }
 
-func sleepQueryParam(sleep time.Duration) url.Values {
-	qParams := url.Values{}
-	sleepTimeMillisecond := strconv.FormatInt(int64(math.Ceil(float64(sleep.Nanoseconds())/float64(time.Millisecond))), 10)
-	qParams.Add("sleep", sleepTimeMillisecond)
-
-	return qParams
-}
-
 func coldStart(test *config.Test) {
 	sleep := 2000 * time.Millisecond
-	qParams := sleepQueryParam(sleep)
 	headers := http.Header{}
 	body := []byte("")
 
 	httpConfig := &config.Http{
 		SleepTime:        sleep,
 		Hook:             test.Config.Provider.HttpInvocationTriggerStage(),
-		QueryParams:      &qParams,
+		QueryParams:      sleepQueryParam(sleep),
 		Headers:          &headers,
 		Duration:         0,
 		RequestDelay:     20 * time.Millisecond,
@@ -66,14 +54,13 @@ func coldStart(test *config.Test) {
 
 func RequestsFor1Minute(test *config.Test) {
 	sleep := 0 * time.Millisecond
-	qParams := sleepQueryParam(sleep)
 	headers := http.Header{}
 	body := []byte("")
 
 	httpConfig := &config.Http{
 		SleepTime:        sleep,
 		Hook:             test.Config.Provider.HttpInvocationTriggerStage(),
-		QueryParams:      &qParams,
+		QueryParams:      sleepQueryParam(sleep),
 		Headers:          &headers,
 		Duration:         1 * time.Minute,
 		RequestDelay:     500 * time.Millisecond,
