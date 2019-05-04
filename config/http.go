@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"github.com/nuweba/httpbench"
 	"github.com/nuweba/httpbench/syncedtrace"
 	"net/http"
 	"net/url"
@@ -18,10 +19,12 @@ type Http struct {
 	ConcurrencyLimit uint64
 	Body             *[]byte
 	TestType         string
+	ConcurrentGraph  *httpbench.ConcurrentGraph
+	HitsGraph        *httpbench.HitsGraph
 }
 
 func (h *Http) String() (string, error) {
-	b, err :=json.MarshalIndent(h, "", "\t")
+	b, err := json.MarshalIndent(h, "", "\t")
 	if err != nil {
 		return "", err
 	}
