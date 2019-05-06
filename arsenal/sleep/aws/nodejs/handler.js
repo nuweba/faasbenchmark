@@ -2,7 +2,7 @@ var wait = ms => new Promise((r, j)=>setTimeout(r, ms));
 
 exports.hello = async (event) => {
     let startTime = process.hrtime();
-	const sleep_time = event.sleep ? parseInt(event.sleep) : null;
+	const sleep_time = event.sleep ? parseInt(event.sleep) : 200;
 	await wait(sleep_time);
 	let is_warm = process.env.warm ? true : false;
 	process.env.warm = true;

@@ -1,4 +1,4 @@
-service: memorystress
+service: memstress
 
 provider:
   name: aws

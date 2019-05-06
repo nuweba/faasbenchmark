@@ -6,6 +6,7 @@ import (
 	httpbenchReport "github.com/nuweba/faasbenchmark/report/generate/httpbench"
 	"github.com/nuweba/httpbench"
 	"net/http"
+	"net/url"
 	"sync"
 	"time"
 )
@@ -86,7 +87,6 @@ func init() {
 
 func gradualLoadGrowthFastest(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Fastest),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -95,7 +95,6 @@ func gradualLoadGrowthFastest(test *config.Test) {
 
 func gradualLoadGrowthFast(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Fast),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -104,7 +103,6 @@ func gradualLoadGrowthFast(test *config.Test) {
 
 func gradualLoadGrowthMedium(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Medium),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -113,7 +111,6 @@ func gradualLoadGrowthMedium(test *config.Test) {
 
 func gradualLoadGrowthSlow(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Slow),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -122,7 +119,6 @@ func gradualLoadGrowthSlow(test *config.Test) {
 
 func gradualLoadGrowthSlowest(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Slowest),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -131,7 +127,6 @@ func gradualLoadGrowthSlowest(test *config.Test) {
 
 func gradualLoadGrowthPostBurstFastest(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Fastest),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -140,7 +135,6 @@ func gradualLoadGrowthPostBurstFastest(test *config.Test) {
 
 func gradualLoadGrowthPostBurstFast(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Fast),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -149,7 +143,6 @@ func gradualLoadGrowthPostBurstFast(test *config.Test) {
 
 func gradualLoadGrowthPostBurstMedium(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Medium),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -158,7 +151,6 @@ func gradualLoadGrowthPostBurstMedium(test *config.Test) {
 
 func gradualLoadGrowthPostBurstSlow(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Slow),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -167,7 +159,6 @@ func gradualLoadGrowthPostBurstSlow(test *config.Test) {
 
 func gradualLoadGrowthPostBurstSlowest(test *config.Test) {
 	gradualLoadGrowth(test, config.Http{
-		SleepTime: sleepTime,
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Slowest),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -175,9 +166,12 @@ func gradualLoadGrowthPostBurstSlowest(test *config.Test) {
 }
 
 func gradualLoadGrowth(test *config.Test, httpConfig config.Http, cb func(hfConf *config.HttpFunction)) {
-	httpConfig.QueryParams = sleepQueryParam(httpConfig.SleepTime)
-	httpConfig.Headers = new(http.Header)
-	httpConfig.Body = new([]byte)
+	headers := http.Header{}
+	body := []byte{}
+	queryParams := url.Values{}
+	httpConfig.QueryParams = &queryParams
+	httpConfig.Headers = &headers
+	httpConfig.Body = &body
 	for _, function := range test.Stack.ListFunctions() {
 		hfConf, err := test.NewFunction(&httpConfig, function)
 
@@ -213,7 +207,13 @@ func sendOpeningBurst(hfConf *config.HttpFunction) {
 	traceToDiscard := httpbench.New(newReq, hfConf.HttpConfig.Hook)
 	// we send roughly the same number of concurrent requests as at the peak time of our hits graph test
 	requestsToSend := lastHit.Concurrent * uint64(hfConf.HttpConfig.SleepTime/lastHit.Time+1)
+	wg := &sync.WaitGroup{}
+	wg.Add(1)
+	go func() {
+		for range traceToDiscard.ResultCh {
+		}
+		wg.Done()
+	}()
 	traceToDiscard.ConcurrentRequestsSyncedOnce(requestsToSend, 0)
-	for range traceToDiscard.ResultCh {
-	} // block until the burst is over
+	wg.Wait()
 }
