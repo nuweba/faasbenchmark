@@ -165,3 +165,8 @@ func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine
 	}
 
 }
+
+func DiscardRequestResults(resultCh chan *engine.TraceResult) {
+	for range resultCh {
+	}
+}
