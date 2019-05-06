@@ -12,8 +12,8 @@ async function testfunc(req, res) {
 	
 }
 
-exports.test128 = testfunc
-exports.test256 = testfunc
-exports.test512 = testfunc
-exports.test1024 = testfunc
-exports.test2048 = testfunc
+exports.test128 = testfunc;
+exports.test256 = testfunc;
+exports.test512 = testfunc;
+exports.test1024 = testfunc;
+exports.test2048 = testfunc;

@@ -5,7 +5,7 @@ exports.hello = async (event) => {
 	const sleep_time = event.sleep ? parseInt(event.sleep) : null;
 	await wait(sleep_time);
 	let is_warm = process.env.warm ? true : false;
-	process.env.warm = true
+	process.env.warm = true;
 	let end = process.hrtime(startTime);
 	return {
 	    "reused" : is_warm,

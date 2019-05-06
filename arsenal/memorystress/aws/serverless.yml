@@ -1,0 +1,43 @@
+service: memorystress
+
+provider:
+  name: aws
+  project: faastest
+  stage: dev
+  versionFunctions: false
+
+functions:
+  node810-memorystress-128:
+    name: memorystress-node810-128mb
+    description: memory intensive function 128mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 128
+
+  node810-memorystress-256:
+    name: memorystress-node810-256mb
+    description: memory intensive function 256mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 256
+
+  node810-memorystress-512:
+    name: memorystress-node810-512mb
+    description: memory intensive function 512mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 512
+
+  node810-memorystress-1024:
+    name: memorystress-node810-1024mb
+    description: memory intensive function 1024mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 1024
+
+  node810-memorystress-1536:
+    name: memorystress-node810-1536mb
+    description: memory intensive function 1536mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 1536
