@@ -56,7 +56,7 @@ func init() {
 
 	Tests.Register(Test{Id: "LinAscMemLoadVar3", Fn: linAscLoadVar3, RequiredStack: "memstress", Description: generateDescription(Var3, "memory intensive", false)})
 	Tests.Register(Test{Id: "LinAscMemLoadVar2", Fn: linAscLoadVar2, RequiredStack: "memstress", Description: generateDescription(Var2, "memory intensive", false)})
-	Tests.Register(Test{Id: "LinAscMemLoadVar1est", Fn: linAscLoadVar1, RequiredStack: "memstress", Description: generateDescription(Var1, "memory intensive", false)})
+	Tests.Register(Test{Id: "LinAscMemLoadVar1", Fn: linAscLoadVar1, RequiredStack: "memstress", Description: generateDescription(Var1, "memory intensive", false)})
 
 	Tests.Register(Test{Id: "LinAscLoadWarmVar3Sleep50ms", Fn: linAscLoadWarmVar3Sleep50ms, RequiredStack: "sleep", Description: generateDescription(Var3, sleep50ms.String(), true)})
 	Tests.Register(Test{Id: "LinAscLoadWarmVar2Sleep50ms", Fn: linAscLoadWarmVar2Sleep50ms, RequiredStack: "sleep", Description: generateDescription(Var2, sleep50ms.String(), true)})
