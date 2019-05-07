@@ -1,10 +1,15 @@
 package tests
 
 import (
+	"fmt"
+	"github.com/nuweba/faasbenchmark/config"
+	httpbenchReport "github.com/nuweba/faasbenchmark/report/generate/httpbench"
 	"github.com/nuweba/httpbench"
+	"github.com/nuweba/httpbench/engine"
 	"math"
 	"net/url"
 	"strconv"
+	"sync"
 	"time"
 )
 
@@ -22,4 +27,23 @@ func gradualHitGraph(maxConcurrent int, durationIntensity time.Duration) *httpbe
 		graph = append(graph, httpbench.RequestsPerTime{Concurrent: uint64(concurrent), Time: durationIntensity})
 	}
 	return &graph
+}
+
+func sendWarmup(hfConf *config.HttpFunction, requestsToSend uint64) {
+	newReq := hfConf.Test.Config.Provider.NewFunctionRequest(hfConf.Test.Stack, hfConf.Function, hfConf.HttpConfig.QueryParams, hfConf.HttpConfig.Headers, hfConf.HttpConfig.Body)
+	trace := httpbench.New(newReq, hfConf.HttpConfig.Hook)
+	// we send roughly the same number of concurrent requests as at the peak time of our hits graph test
+	wg := &sync.WaitGroup{}
+	wg.Add(1)
+	go func() {
+		httpbenchReport.DiscardRequestResults(trace.ResultCh)
+		wg.Done()
+	}()
+	trace.ConcurrentRequestsSyncedOnce(requestsToSend, 0)
+	wg.Wait()
+}
+
+func duration(sleepTime time.Duration, tr *engine.TraceResult, funcDuration time.Duration, reused bool) (string, error) {
+	s := fmt.Sprintf("%f", float64(funcDuration)/float64(time.Millisecond))
+	return s, nil
 }

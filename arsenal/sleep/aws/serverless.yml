@@ -1,4 +1,4 @@
-service: coldstart
+service: sleep
 
 provider:
   name: aws

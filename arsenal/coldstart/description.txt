@@ -1,2 +1,0 @@
-a simple stack with functions with diffrent configs
-the function only sleeps and return if it was warm and the duration of the time inside the function
