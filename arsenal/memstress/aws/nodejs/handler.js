@@ -34,14 +34,18 @@ function memIntensiveCalculation(level) {
     return end[1] + (end[0] * 1e9);
 }
 
-exports.handler = async (event) => {
+function isWarm() {
     var is_warm = process.env.warm ? true : false;
     process.env.warm = true;
-    let custom_level = event["level"] && event["level"] !== "0";
-    let intensityLevel = custom_level ? parseInt(event["level"]) : DEFAULT_INTENSITY_LEVEL;
+    return is_warm;
+}
+
+exports.handler = async (event) => {
+    let got_custom_level = event["level"] && event["level"] !== "0";
+    let intensityLevel = got_custom_level ? parseInt(event["level"]) : DEFAULT_INTENSITY_LEVEL;
 
     return {
-        "reused": is_warm,
+        "reused": isWarm(),
         "duration": memIntensiveCalculation(intensityLevel)
     };
 };
