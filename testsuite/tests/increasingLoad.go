@@ -1,0 +1,147 @@
+package tests
+
+import (
+	"fmt"
+	"github.com/nuweba/faasbenchmark/config"
+	"github.com/nuweba/faasbenchmark/provider"
+	httpbenchReport "github.com/nuweba/faasbenchmark/report/generate/httpbench"
+	"github.com/nuweba/httpbench"
+	"net/http"
+	"net/url"
+	"sync"
+	"time"
+)
+
+const (
+	Lvl3 = 10 * time.Millisecond
+	Lvl2 = 100 * time.Millisecond
+	Lvl1 = 1000 * time.Millisecond
+
+	shortRuntime  = 50 * time.Millisecond
+	mediumRuntime = 500 * time.Millisecond
+	longRuntime   = 5000 * time.Millisecond
+
+	maxConcurrent    = 40
+	estimatedRuntime = 500 * time.Millisecond // used for functions we can't know the runtime of in advance
+)
+
+func generateDescription(duration time.Duration, resourceType string) string {
+	result := "Gradually invoke more concurrent %s functions over time, with a %s delay between hits."
+	return fmt.Sprintf(result, resourceType, duration)
+}
+
+func init() {
+	Tests.Register(Test{Id: "IncreasingLoadLvl3", Fn: increasingLoadLvl3LongRuntime, RequiredStack: "sleep", Description: generateDescription(Lvl3, "long runtime")})
+	Tests.Register(Test{Id: "IncreasingLoadLvl2", Fn: increasingLoadLvl2MedRuntime, RequiredStack: "sleep", Description: generateDescription(Lvl2, "medium runtime")})
+	Tests.Register(Test{Id: "IncreasingLoadLvl1", Fn: increasingLoadLvl1ShortRuntime, RequiredStack: "sleep", Description: generateDescription(Lvl1, "short runtime")})
+
+	Tests.Register(Test{Id: "IncreasingCPULoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "cpustress", Description: generateDescription(Lvl3, "CPU intensive")})
+	Tests.Register(Test{Id: "IncreasingCPULoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "cpustress", Description: generateDescription(Lvl2, "CPU intensive")})
+	Tests.Register(Test{Id: "IncreasingCPULoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "cpustress", Description: generateDescription(Lvl1, "CPU intensive")})
+
+	Tests.Register(Test{Id: "IncreasingIOLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "iostress", Description: generateDescription(Lvl3, "IO intensive")})
+	Tests.Register(Test{Id: "IncreasingIOLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "iostress", Description: generateDescription(Lvl2, "IO intensive")})
+	Tests.Register(Test{Id: "IncreasingIOLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "iostress", Description: generateDescription(Lvl1, "IO intensive")})
+
+	Tests.Register(Test{Id: "IncreasingMemLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "memstress", Description: generateDescription(Lvl3, "memory intensive")})
+	Tests.Register(Test{Id: "IncreasingMemLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "memstress", Description: generateDescription(Lvl2, "memory intensive")})
+	Tests.Register(Test{Id: "IncreasingMemLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "memstress", Description: generateDescription(Lvl1, "memory intensive")})
+}
+
+func increasingLoadLvl3LongRuntime(test *config.Test) {
+	increasingLoad(test, config.Http{
+		SleepTime:   longRuntime,
+		QueryParams: sleepQueryParam(longRuntime),
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl3),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
+	}, false, test.Config.Provider.HttpInvocationLatency)
+}
+
+func increasingLoadLvl2MedRuntime(test *config.Test) {
+	increasingLoad(test, config.Http{
+		SleepTime:   mediumRuntime,
+		QueryParams: sleepQueryParam(mediumRuntime),
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl2),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
+	}, false, test.Config.Provider.HttpInvocationLatency)
+}
+
+func increasingLoadLvl1ShortRuntime(test *config.Test) {
+	increasingLoad(test, config.Http{
+		SleepTime:   shortRuntime,
+		QueryParams: sleepQueryParam(shortRuntime),
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl1),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
+	}, false, test.Config.Provider.HttpInvocationLatency)
+}
+
+func increasingLoadLvl3(test *config.Test) {
+	increasingLoad(test, config.Http{
+		TestType:  httpbench.RequestsForTimeGraph.String(),
+		HitsGraph: gradualHitGraph(maxConcurrent, Lvl3),
+		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
+	}, false, test.Config.Provider.HttpInvocationLatency)
+}
+
+func increasingLoadLvl2(test *config.Test) {
+	increasingLoad(test, config.Http{
+		TestType:  httpbench.RequestsForTimeGraph.String(),
+		HitsGraph: gradualHitGraph(maxConcurrent, Lvl2),
+		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
+	}, false, test.Config.Provider.HttpInvocationLatency)
+}
+
+func increasingLoadLvl1(test *config.Test) {
+	increasingLoad(test, config.Http{
+		TestType:  httpbench.RequestsForTimeGraph.String(),
+		HitsGraph: gradualHitGraph(maxConcurrent, Lvl1),
+		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
+	}, false, test.Config.Provider.HttpInvocationLatency)
+}
+
+func increasingLoad(test *config.Test, httpConfig config.Http, warmup bool, filter provider.RequestFilter) {
+	headers := http.Header{}
+	body := []byte{}
+	queryParams := url.Values{}
+	if httpConfig.QueryParams == nil {
+		httpConfig.QueryParams = &queryParams
+	}
+	httpConfig.Headers = &headers
+	httpConfig.Body = &body
+	for _, function := range test.Stack.ListFunctions() {
+		hfConf, err := test.NewFunction(&httpConfig, function)
+
+		if err != nil {
+			continue
+		}
+
+		if warmup {
+			lastHit := (*hfConf.HttpConfig.HitsGraph)[len(*hfConf.HttpConfig.HitsGraph)-1]
+			expectedRuntime := estimatedRuntime
+			if httpConfig.SleepTime != 0 {
+				expectedRuntime = httpConfig.SleepTime
+			}
+			requestsToSend := lastHit.Concurrent * (uint64(expectedRuntime/lastHit.Time) + 1)
+			sendPreWarmup(hfConf, requestsToSend)
+		}
+
+		executeTest(hfConf, filter)
+	}
+}
+
+func executeTest(hfConf *config.HttpFunction, filter provider.RequestFilter) {
+	newReq := hfConf.Test.Config.Provider.NewFunctionRequest(hfConf.Test.Stack, hfConf.Function, hfConf.HttpConfig.QueryParams, hfConf.HttpConfig.Headers, hfConf.HttpConfig.Body)
+	wg := &sync.WaitGroup{}
+	trace := httpbench.New(newReq, hfConf.HttpConfig.Hook)
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, filter)
+	}()
+	requestsResult := trace.RequestsForTimeGraph(*hfConf.HttpConfig.HitsGraph)
+	wg.Wait()
+	httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
+}
