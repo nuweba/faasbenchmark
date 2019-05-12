@@ -32,10 +32,15 @@ type Function struct {
 type functionJson struct {
 	FunctionName     string
 	Results          []requestJson
+	Failures		 uint64
 }
 
 func (fj *functionJson) AddResult(result requestJson) {
 	fj.Results = append(fj.Results, result)
+}
+
+func (fj *functionJson) AddFailure() {
+	fj.Failures += 1
 }
 
 func (test *Test) Function(functionName string) (report.Function, error) {

@@ -80,6 +80,7 @@ func (r *Request) Summary(summary string) error {
 }
 
 func (r *Request) Error(error string) error {
+	r.upperLevel.json.AddFailure()
 	_, err := r.ErrorFile.WriteString(error)
 	return err
 }

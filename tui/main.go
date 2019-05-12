@@ -13,12 +13,19 @@ import (
 	"github.com/nuweba/faasbenchmark/testsuite"
 	"os"
 	"path/filepath"
+	"sort"
 )
 
 func leftTestsMenu() *widgets.List {
 	testsMenu := widgets.NewList()
 
+	var ids []string
 	for id := range testsuite.Tests.TestFunctions {
+		ids = append(ids, id)
+	}
+	sort.Strings(ids)
+
+	for _, id := range ids {
 		testsMenu.Rows = append(testsMenu.Rows, id)
 	}
 
