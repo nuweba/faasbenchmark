@@ -26,3 +26,4 @@ exports.handler = async (event) => {
         "duration": cpuIntensiveCalculation(intensityLevel)
     };
 };
+

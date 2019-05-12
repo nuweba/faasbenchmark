@@ -18,6 +18,6 @@ exports.hello = async (event) => {
 
     return {
         "reused": isWarm(),
-        "duration": sleep(sleep_time)
+        "duration": await sleep(sleep_time)
     };
 };
