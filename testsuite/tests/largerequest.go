@@ -11,14 +11,15 @@ import (
 	"time"
 )
 
-const parameterRepeats = 1042 * 1024 * 4
+// The lambda docs say the max request size is 6MB, we're using 4MB to be on the safe side.
+const queryParamLen = 1024 * 1024 * 4
 
 func init() {
 	Tests.Register(Test{Id: "largeRequest", Fn: largeRequest, RequiredStack: "sleep", Description: "benchmark the invocation latency of a function invoked with a large request"})
 }
 
 func largeRequest(test *config.Test) {
-	param := strings.Repeat("a", parameterRepeats) // This makes the request large
+	param := strings.Repeat("a", queryParamLen) // This makes the request large
 	headers := http.Header{}
 	body := []byte{}
 	queryParams := url.Values(map[string][]string{"param": {param}, "sleep": {"0"}})

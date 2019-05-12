@@ -3,7 +3,6 @@ package tests
 import (
 	"fmt"
 	"github.com/nuweba/faasbenchmark/config"
-	"github.com/nuweba/faasbenchmark/provider"
 	httpbenchReport "github.com/nuweba/faasbenchmark/report/generate/httpbench"
 	"github.com/nuweba/httpbench"
 	"net/http"
@@ -21,8 +20,7 @@ const (
 	mediumRuntime = 500 * time.Millisecond
 	longRuntime   = 5000 * time.Millisecond
 
-	maxConcurrent    = 40
-	estimatedRuntime = 500 * time.Millisecond // used for functions we can't know the runtime of in advance
+	maxConcurrent = 40
 )
 
 func generateDescription(duration time.Duration, resourceType string) string {
@@ -59,7 +57,7 @@ func increasingLoadLvl3LongRuntime(test *config.Test) {
 		TestType:    httpbench.RequestsForTimeGraph.String(),
 		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl3),
 		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
-	}, false, test.Config.Provider.HttpInvocationLatency)
+	})
 }
 
 func increasingLoadLvl2MedRuntime(test *config.Test) {
@@ -69,7 +67,7 @@ func increasingLoadLvl2MedRuntime(test *config.Test) {
 		TestType:    httpbench.RequestsForTimeGraph.String(),
 		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl2),
 		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
-	}, false, test.Config.Provider.HttpInvocationLatency)
+	})
 }
 
 func increasingLoadLvl1ShortRuntime(test *config.Test) {
@@ -79,7 +77,7 @@ func increasingLoadLvl1ShortRuntime(test *config.Test) {
 		TestType:    httpbench.RequestsForTimeGraph.String(),
 		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl1),
 		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
-	}, false, test.Config.Provider.HttpInvocationLatency)
+	})
 }
 
 func increasingLoadLvl3(test *config.Test) {
@@ -87,7 +85,7 @@ func increasingLoadLvl3(test *config.Test) {
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Lvl3),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
-	}, false, test.Config.Provider.HttpInvocationLatency)
+	})
 }
 
 func increasingLoadLvl2(test *config.Test) {
@@ -95,7 +93,7 @@ func increasingLoadLvl2(test *config.Test) {
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Lvl2),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
-	}, false, test.Config.Provider.HttpInvocationLatency)
+	})
 }
 
 func increasingLoadLvl1(test *config.Test) {
@@ -103,10 +101,10 @@ func increasingLoadLvl1(test *config.Test) {
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Lvl1),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
-	}, false, test.Config.Provider.HttpInvocationLatency)
+	})
 }
 
-func increasingLoad(test *config.Test, httpConfig config.Http, warmup bool, filter provider.RequestFilter) {
+func increasingLoad(test *config.Test, httpConfig config.Http) {
 	headers := http.Header{}
 	body := []byte{}
 	queryParams := url.Values{}
@@ -122,28 +120,18 @@ func increasingLoad(test *config.Test, httpConfig config.Http, warmup bool, filt
 			continue
 		}
 
-		if warmup {
-			lastHit := (*hfConf.HttpConfig.HitsGraph)[len(*hfConf.HttpConfig.HitsGraph)-1]
-			expectedRuntime := estimatedRuntime
-			if httpConfig.SleepTime != 0 {
-				expectedRuntime = httpConfig.SleepTime
-			}
-			requestsToSend := lastHit.Concurrent * (uint64(expectedRuntime/lastHit.Time) + 1)
-			sendPreWarmup(hfConf, requestsToSend)
-		}
-
-		executeTest(hfConf, filter)
+		executeTest(hfConf)
 	}
 }
 
-func executeTest(hfConf *config.HttpFunction, filter provider.RequestFilter) {
+func executeTest(hfConf *config.HttpFunction) {
 	newReq := hfConf.Test.Config.Provider.NewFunctionRequest(hfConf.Test.Stack, hfConf.Function, hfConf.HttpConfig.QueryParams, hfConf.HttpConfig.Headers, hfConf.HttpConfig.Body)
 	wg := &sync.WaitGroup{}
 	trace := httpbench.New(newReq, hfConf.HttpConfig.Hook)
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, filter)
+		httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpInvocationLatency)
 	}()
 	requestsResult := trace.RequestsForTimeGraph(*hfConf.HttpConfig.HitsGraph)
 	wg.Wait()
