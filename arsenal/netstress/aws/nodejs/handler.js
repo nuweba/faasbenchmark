@@ -1,11 +1,11 @@
+const http = require('http');
 const DEFAULT_INTENSITY_LEVEL = 1;
 
-function cpuIntensiveCalculation(baseNumber) {
+async function networkIntensive(baseNumber) {
     var startTime = process.hrtime();
     var iterationCount = 50000 * Math.pow(baseNumber, 3);
-    var result = 0;
     for (var i = iterationCount; i >= 0; i--) {
-        result += Math.atan(i) * Math.tan(i);
+        await new Promise((resolve, reject) => http.get({hostname:'google.com'}, (res) => {resolve(res)}))
     }
     var end = process.hrtime(startTime);
     return end[1] + (end[0] * 1e9);
@@ -23,7 +23,6 @@ exports.handler = async (event) => {
 
     return {
         "reused": isWarm(),
-        "duration": cpuIntensiveCalculation(intensityLevel)
+        "duration": await networkIntensive(intensityLevel)
     };
 };
-

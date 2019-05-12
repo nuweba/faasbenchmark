@@ -31,6 +31,10 @@ func init() {
 	Tests.Register(Test{Id: "IntensiveLoggingDurationLvl1", Fn: resourceIntensityLvl1, RequiredStack: "logging", Description: fmt.Sprintf(descTemplate, "logging", 1, benchmarkDuration.Minutes())})
 	Tests.Register(Test{Id: "IntensiveLoggingDurationLvl2", Fn: resourceIntensityLvl2, RequiredStack: "logging", Description: fmt.Sprintf(descTemplate, "logging", 2, benchmarkDuration.Minutes())})
 	Tests.Register(Test{Id: "IntensiveLoggingDurationLvl3", Fn: resourceIntensityLvl3, RequiredStack: "logging", Description: fmt.Sprintf(descTemplate, "logging", 3, benchmarkDuration.Minutes())})
+
+	Tests.Register(Test{Id: "IntensiveNetDurationLvl1", Fn: resourceIntensityLvl1, RequiredStack: "netstress", Description: fmt.Sprintf(descTemplate, "netstress", 1, benchmarkDuration.Minutes())})
+	Tests.Register(Test{Id: "IntensiveNetDurationLvl2", Fn: resourceIntensityLvl2, RequiredStack: "netstress", Description: fmt.Sprintf(descTemplate, "netstress", 2, benchmarkDuration.Minutes())})
+	Tests.Register(Test{Id: "IntensiveNetDurationLvl3", Fn: resourceIntensityLvl3, RequiredStack: "netstress", Description: fmt.Sprintf(descTemplate, "netstress", 3, benchmarkDuration.Minutes())})
 }
 
 func resourceIntensityLvl1(test *config.Test) {

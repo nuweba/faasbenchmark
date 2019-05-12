@@ -46,6 +46,10 @@ func init() {
 	Tests.Register(Test{Id: "IncreasingMemLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "memstress", Description: generateDescription(Lvl3, "memory intensive")})
 	Tests.Register(Test{Id: "IncreasingMemLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "memstress", Description: generateDescription(Lvl2, "memory intensive")})
 	Tests.Register(Test{Id: "IncreasingMemLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "memstress", Description: generateDescription(Lvl1, "memory intensive")})
+
+	Tests.Register(Test{Id: "IncreasingNetLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "netstress", Description: generateDescription(Lvl3, "network intensive")})
+	Tests.Register(Test{Id: "IncreasingNetLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "netstress", Description: generateDescription(Lvl2, "network intensive")})
+	Tests.Register(Test{Id: "IncreasingNetLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "netstress", Description: generateDescription(Lvl1, "network intensive")})
 }
 
 func increasingLoadLvl3LongRuntime(test *config.Test) {
