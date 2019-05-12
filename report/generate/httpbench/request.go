@@ -130,12 +130,12 @@ func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine
 		raw, err := TraceResultString(*result)
 		if err != nil {
 			funcConfig.Logger.Error("error marshaling trace result", zap.Error(err))
-		}
-
-		funcConfig.Logger.Debug("writing raw result")
-		err = reqReport.RawResult(raw)
-		if err != nil {
-			funcConfig.Logger.Error("raw result writer", zap.Error(err))
+		} else {
+			funcConfig.Logger.Debug("writing raw result")
+			err = reqReport.RawResult(raw)
+			if err != nil {
+				funcConfig.Logger.Error("raw result writer", zap.Error(err))
+			}
 		}
 
 		funcConfig.Logger.Debug("got new request result", zap.Uint64("id", result.Id))

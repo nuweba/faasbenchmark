@@ -1,0 +1,72 @@
+service: internalservice
+
+provider:
+  name: aws
+  project: faastest
+  stage: dev
+  versionFunctions: false
+  environment:
+    TEST_BUCKET: nwbfaastest
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: "*"
+
+functions:
+  node810-memory-128:
+    name: internalservice-node810-128mb
+    description: sends lots of internal service requests 128mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 128
+
+  node810-memory-256:
+    name: internalservice-node810-256mb
+    description: sends lots of internal service requests 256mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 256
+
+  node810-memory-512:
+    name: internalservice-node810-512mb
+    description: sends lots of internal service requests 512mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 512
+
+  node810-memory-1024:
+    name: internalservice-node810-1024mb
+    description: sends lots of internal service requests 1024mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 1024
+
+  node810-memory-1536:
+    name: internalservice-node810-1536mb
+    description: sends lots of internal service requests 1536mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 1536
+
+resources:
+  Resources:
+    S3BucketNwbfaastest:
+      Type: 'AWS::S3::Bucket'
+      Properties:
+        AccessControl: PublicRead
+        BucketName: ${self:provider.environment.TEST_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
+
