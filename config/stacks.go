@@ -25,7 +25,7 @@ type Stacks struct {
 }
 
 func newStacks(provider provider.FaasProvider, arsenalPath string) (*Stacks, error) {
-	stackPaths, err := getStackPaths(arsenalPath)
+	stackPaths, err := getStackPaths(arsenalPath, provider.Name())
 	if err != nil {
 		return nil, errors.Wrap(err, "failed getting stack paths")
 	}
@@ -88,7 +88,17 @@ func isStackFolder(info os.FileInfo) bool {
 	return true
 }
 
-func getStackPaths(arsenalPath string) ([]string, error) {
+func isProviderStackExists(files []os.FileInfo, provider string) bool {
+	for _, file := range files {
+		if file.Name() == provider {
+			return true
+		}
+	}
+
+	return false
+}
+
+func getStackPaths(arsenalPath string, provider string) ([]string, error) {
 	var stackPaths []string
 
 	err := filepath.Walk(arsenalPath,
@@ -96,9 +106,19 @@ func getStackPaths(arsenalPath string) ([]string, error) {
 			if err != nil {
 				return err
 			}
-			if isStackFolder(info) {
-				stackPaths = append(stackPaths, filepath.Dir(path))
+
+			if !isStackFolder(info) {
+				return nil
 			}
+			files, err := ioutil.ReadDir(filepath.Dir(path))
+			if err != nil {
+				return err
+			}
+			if !isProviderStackExists(files, provider) {
+				return nil
+			}
+			stackPaths = append(stackPaths, filepath.Dir(path))
+
 			return nil
 		},
 	)
