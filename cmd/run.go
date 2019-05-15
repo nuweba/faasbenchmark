@@ -135,7 +135,8 @@ func RunAllTests(gConfig *config.Global) error {
 	for id := range testsuite.Tests.TestFunctions {
 		err := runOneTest(gConfig, id)
 		if err != nil {
-			return err
+			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))
+			continue
 		}
 	}
 
@@ -146,7 +147,8 @@ func RunSpecificTests(gConfig *config.Global, testIds ...string) error {
 	for _, id := range testIds {
 		err := runOneTest(gConfig, id)
 		if err != nil {
-			return err
+			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))
+			continue
 		}
 	}
 
@@ -176,7 +178,9 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	gConfig.Logger.Debug("stack deployed", zap.String("name", stack.StackId()))
 
 	gConfig.Logger.Info("running test", zap.String("name", test.Id))
+
 	test.Fn(testConfig)
+
 	gConfig.Logger.Debug("test is done", zap.String("name", test.Id))
 
 	gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
