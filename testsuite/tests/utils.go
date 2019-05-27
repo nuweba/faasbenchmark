@@ -53,5 +53,3 @@ func duration(sleepTime time.Duration, tr *engine.TraceResult, funcDuration time
 	s := fmt.Sprintf("%f", float64(funcDuration)/float64(time.Millisecond))
 	return s, nil
 }
-
-const benchmarkDuration = 1 * time.Minute

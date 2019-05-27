@@ -1,4 +1,4 @@
-const DEFAULT_INTENSITY_LEVEL = 2;
+const DEFAULT_INTENSITY_LEVEL = 1;
 const MEGABYTE = 1024 * 1024;
 
 function memIntensiveCalculation(level) {

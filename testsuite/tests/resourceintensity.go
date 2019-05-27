@@ -12,29 +12,31 @@ import (
 )
 
 const (
-	descTemplate = "Invoke one %s intensive function (intensity level %d) at a time for %.0f minute(s)."
+	descTemplate = "Invoke one %s intensive function (intensity level %d) at a time for %d minute(s) and benchmark the runtime duration."
 )
 
 func init() {
-	Tests.Register(Test{Id: "IntensiveCPUDurationLvl1", Fn: resourceIntensityLvl1, RequiredStack: "cpustress", Description: fmt.Sprintf(descTemplate, "CPU", 1, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveCPUDurationLvl2", Fn: resourceIntensityLvl2, RequiredStack: "cpustress", Description: fmt.Sprintf(descTemplate, "CPU", 2, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveCPUDurationLvl3", Fn: resourceIntensityLvl3, RequiredStack: "cpustress", Description: fmt.Sprintf(descTemplate, "CPU", 3, benchmarkDuration.Minutes())})
+	Tests.Register(Test{Id: "CPUIntensiveLvl1", Fn: resourceIntensityLvl1, RequiredStack: "cpustress", Description: fmt.Sprintf(descTemplate, "CPU", 1, 1)})
+	Tests.Register(Test{Id: "CPUIntensiveLvl2", Fn: resourceIntensityLvl2, RequiredStack: "cpustress", Description: fmt.Sprintf(descTemplate, "CPU", 2, 1)})
+	Tests.Register(Test{Id: "CPUIntensiveLvl3", Fn: resourceIntensityLvl3, RequiredStack: "cpustress", Description: fmt.Sprintf(descTemplate, "CPU", 3, 1)})
 
-	Tests.Register(Test{Id: "IntensiveIODurationLvl1", Fn: resourceIntensityLvl1, RequiredStack: "iostress", Description: fmt.Sprintf(descTemplate, "IO", 1, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveIODurationLvl2", Fn: resourceIntensityLvl2, RequiredStack: "iostress", Description: fmt.Sprintf(descTemplate, "IO", 2, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveIODurationLvl3", Fn: resourceIntensityLvl3, RequiredStack: "iostress", Description: fmt.Sprintf(descTemplate, "IO", 3, benchmarkDuration.Minutes())})
+	Tests.Register(Test{Id: "IOIntensiveLvl1", Fn: resourceIntensityLvl1, RequiredStack: "iostress", Description: fmt.Sprintf(descTemplate, "IO", 1, 1)})
+	Tests.Register(Test{Id: "IOIntensiveLvl2", Fn: resourceIntensityLvl2, RequiredStack: "iostress", Description: fmt.Sprintf(descTemplate, "IO", 2, 1)})
+	Tests.Register(Test{Id: "IOIntensiveLvl3", Fn: resourceIntensityLvl3, RequiredStack: "iostress", Description: fmt.Sprintf(descTemplate, "IO", 3, 1)})
 
-	Tests.Register(Test{Id: "IntensiveMemDurationLvl1", Fn: resourceIntensityLvl1, RequiredStack: "memstress", Description: fmt.Sprintf(descTemplate, "memory", 1, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveMemDurationLvl2", Fn: resourceIntensityLvl2, RequiredStack: "memstress", Description: fmt.Sprintf(descTemplate, "memory", 2, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveMemDurationLvl3", Fn: resourceIntensityLvl3, RequiredStack: "memstress", Description: fmt.Sprintf(descTemplate, "memory", 3, benchmarkDuration.Minutes())})
+	Tests.Register(Test{Id: "MemIntensiveLvl1", Fn: resourceIntensityLvl1, RequiredStack: "memstress", Description: fmt.Sprintf(descTemplate, "memory", 1, 1)})
+	Tests.Register(Test{Id: "MemIntensiveLvl2", Fn: resourceIntensityLvl2, RequiredStack: "memstress", Description: fmt.Sprintf(descTemplate, "memory", 2, 1)})
+	Tests.Register(Test{Id: "MemIntensiveLvl3", Fn: resourceIntensityLvl3, RequiredStack: "memstress", Description: fmt.Sprintf(descTemplate, "memory", 3, 1)})
 
-	Tests.Register(Test{Id: "IntensiveLoggingDurationLvl1", Fn: resourceIntensityLvl1, RequiredStack: "logging", Description: fmt.Sprintf(descTemplate, "logging", 1, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveLoggingDurationLvl2", Fn: resourceIntensityLvl2, RequiredStack: "logging", Description: fmt.Sprintf(descTemplate, "logging", 2, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveLoggingDurationLvl3", Fn: resourceIntensityLvl3, RequiredStack: "logging", Description: fmt.Sprintf(descTemplate, "logging", 3, benchmarkDuration.Minutes())})
+	Tests.Register(Test{Id: "LogIntensiveLvl1", Fn: resourceIntensityLvl1, RequiredStack: "logging", Description: fmt.Sprintf(descTemplate, "logging", 1, 1)})
+	Tests.Register(Test{Id: "LogIntensiveLvl2", Fn: resourceIntensityLvl2, RequiredStack: "logging", Description: fmt.Sprintf(descTemplate, "logging", 2, 1)})
+	Tests.Register(Test{Id: "LogIntensiveLvl3", Fn: resourceIntensityLvl3, RequiredStack: "logging", Description: fmt.Sprintf(descTemplate, "logging", 3, 1)})
 
-	Tests.Register(Test{Id: "IntensiveNetDurationLvl1", Fn: resourceIntensityLvl1, RequiredStack: "netstress", Description: fmt.Sprintf(descTemplate, "netstress", 1, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveNetDurationLvl2", Fn: resourceIntensityLvl2, RequiredStack: "netstress", Description: fmt.Sprintf(descTemplate, "netstress", 2, benchmarkDuration.Minutes())})
-	Tests.Register(Test{Id: "IntensiveNetDurationLvl3", Fn: resourceIntensityLvl3, RequiredStack: "netstress", Description: fmt.Sprintf(descTemplate, "netstress", 3, benchmarkDuration.Minutes())})
+	Tests.Register(Test{Id: "NetIntensiveLvl1", Fn: resourceIntensityLvl1, RequiredStack: "network", Description: fmt.Sprintf(descTemplate, "network", 1, 1)})
+	Tests.Register(Test{Id: "NetIntensiveLvl2", Fn: resourceIntensityLvl2, RequiredStack: "network", Description: fmt.Sprintf(descTemplate, "network", 2, 1)})
+	Tests.Register(Test{Id: "NetIntensiveLvl3", Fn: resourceIntensityLvl3, RequiredStack: "network", Description: fmt.Sprintf(descTemplate, "network", 3, 1)})
+
+	Tests.Register(Test{Id: "InternalService", Fn: resourceIntensityLvl1, RequiredStack: "internalservice", Description: "benchmark the runtime duration of a function that accesses an internal provider service. Invokes the function once at a time for 1 minute(s)."})
 }
 
 func resourceIntensityLvl1(test *config.Test) {
@@ -69,6 +71,9 @@ func resourceIntensity(test *config.Test, httpConfig config.Http) {
 	body := []byte{}
 	httpConfig.Headers = &headers
 	httpConfig.Body = &body
+	httpConfig.ConcurrencyLimit = 1
+	httpConfig.RequestDelay = time.Millisecond
+	httpConfig.Duration = time.Minute
 
 	for _, function := range test.Stack.ListFunctions() {
 		hfConf, err := test.NewFunction(&httpConfig, function)
@@ -85,7 +90,7 @@ func resourceIntensity(test *config.Test, httpConfig config.Http) {
 			defer wg.Done()
 			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, duration)
 		}()
-		requestsResult := trace.ConcurrentRequestsSynced(1, time.Millisecond, benchmarkDuration)
+		requestsResult := trace.ConcurrentRequestsSynced(httpConfig.ConcurrencyLimit, httpConfig.RequestDelay, httpConfig.Duration)
 		wg.Wait()
 		httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
 	}

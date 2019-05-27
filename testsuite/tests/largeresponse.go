@@ -11,7 +11,7 @@ import (
 )
 
 func init() {
-	Tests.Register(Test{Id: "largeResponse", Fn: largeResponse, RequiredStack: "largeresponse", Description: "benchmark the response time of a function invoked with a large response"})
+	Tests.Register(Test{Id: "LargeResponse", Fn: largeResponse, RequiredStack: "largeresponse", Description: "Benchmark the response time of a function returning a large (4mb) response body. Invoke the function once at a time for a minute."})
 }
 
 func largeResponse(test *config.Test) {
@@ -19,11 +19,14 @@ func largeResponse(test *config.Test) {
 	body := []byte{}
 	queryParams := url.Values{}
 	httpConfig := config.Http{
-		QueryParams: &queryParams,
-		Headers:     &headers,
-		Body:        &body,
-		TestType:    httpbench.ConcurrentRequestsSynced.String(),
-		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
+		QueryParams:      &queryParams,
+		Headers:          &headers,
+		Body:             &body,
+		TestType:         httpbench.ConcurrentRequestsSynced.String(),
+		Hook:             test.Config.Provider.HttpInvocationTriggerStage(),
+		ConcurrencyLimit: 1,
+		RequestDelay:     time.Millisecond,
+		Duration:         time.Minute,
 	}
 	httpConfig.QueryParams = &queryParams
 	httpConfig.Headers = &headers
@@ -44,7 +47,7 @@ func largeResponse(test *config.Test) {
 			defer wg.Done()
 			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, responseTime)
 		}()
-		requestsResult := trace.ConcurrentRequestsSynced(1, time.Millisecond, benchmarkDuration)
+		requestsResult := trace.ConcurrentRequestsSynced(httpConfig.ConcurrencyLimit, httpConfig.RequestDelay, httpConfig.Duration)
 		wg.Wait()
 		httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
 	}

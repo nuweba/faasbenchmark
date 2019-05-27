@@ -1,0 +1,87 @@
+service: vpc
+
+provider:
+  name: aws
+  vpc:
+    securityGroupIds:
+      - Ref: ServerlessSecurityGroup
+    subnetIds:
+      - Ref: SubnetA
+      - Ref: SubnetB
+  project: faastest
+  stage: dev
+  versionFunctions: false
+
+functions:
+  node810-memory-128:
+    name: vpc-node810-128mb
+    description: function on a vpc 128mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 128
+
+  node810-memory-256:
+    name: vpc-node810-256mb
+    description: function on a vpc 256mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 256
+
+  node810-memory-512:
+    name: vpc-node810-512mb
+    description: function on a vpc 512mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 512
+
+  node810-memory-1024:
+    name: vpc-node810-1024mb
+    description: function on a vpc 1024mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 1024
+
+  node810-memory-1536:
+    name: vpc-node810-1536mb
+    description: function on a vpc 1536mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 1536
+
+resources:
+  Resources:
+    VPC:
+      Type: AWS::EC2::VPC
+      Properties:
+        CidrBlock: '10.0.0.0/16'
+        EnableDnsSupport: true
+        EnableDnsHostnames: true
+        Tags:
+          - Key: Name
+            Value: ${self:service}-${self:provider.stage}
+    SubnetA:
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId:
+          Ref: VPC
+        CidrBlock: 10.0.0.0/24
+        AvailabilityZone: 'us-east-1a'
+        Tags:
+          - Key: Name
+            Value: ${self:service}-${self:provider.stage}
+    SubnetB:
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId:
+          Ref: VPC
+        CidrBlock: 10.0.1.0/24
+        AvailabilityZone: 'us-east-1b'
+        Tags:
+          - Key: Name
+            Value: ${self:service}-${self:provider.stage}
+    ServerlessSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: SecurityGroup for Serverless Functions
+        VpcId:
+          Ref: VPC
