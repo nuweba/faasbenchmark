@@ -1,0 +1,16 @@
+service: singlefunction
+
+provider:
+  name: aws
+  project: faastest
+  stage: dev
+  versionFunctions: false
+
+functions:
+  node810-memory-128:
+    name: sleep-node810-128mb
+    description: sleep function 128mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.hello
+    memorySize: 128
+
