@@ -15,7 +15,7 @@ function isWarm() {
 
 exports.hello = async (event) => {
     const sleep_time = event.sleep ? parseInt(event.sleep) : null;
-	if !sleep_time {
+	if (!sleep_time) {
 		return {"error": "invalid sleep parameter"}
 	}
 

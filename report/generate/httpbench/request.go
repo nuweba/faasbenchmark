@@ -111,7 +111,7 @@ type errorReport struct {
 
 func (e *errorReport) errorReporter(id uint64, err error, errStr string, data string) {
 	e.logger.Error(errStr, zap.Error(err), zap.String("summary", data))
-	err2 := e.reporter.Error(id, fmt.Sprintf("Error id: %d %s %s %s\n", id, errStr, err.Error(), data))
+	err2 := e.reporter.Error(id, fmt.Sprintf("Error id: %d, msg:%s, error: %s, data:%s\n", id, errStr, err.Error(), data))
 	if err2 != nil {
 		e.logger.Error("report error writer", zap.Error(err2))
 	}
