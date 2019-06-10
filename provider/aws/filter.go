@@ -38,13 +38,12 @@ func (r *Result) Reused() bool {
 
 func (aws *Aws) HttpResult(sleepTime time.Duration, tr *engine.TraceResult, funcDuration time.Duration, reused bool) (report.Result, error) {
 	invocationOverHead := tr.Hooks[syncedtrace.GotFirstResponseByte].Duration - funcDuration
-	responseTime := tr.Total - tr.Hooks[syncedtrace.GotFirstResponseByte].Duration
 	duration := funcDuration - sleepTime
 
 	r := &Result{
 		invocationOverHead: invocationOverHead,
 		duration:           duration,
-		responseTime:       responseTime,
+		responseTime:       tr.Summary.ReadingBody,
 		reused:             reused,
 		id:                 tr.Id,
 	}
