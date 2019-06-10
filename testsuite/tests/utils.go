@@ -1,12 +1,9 @@
 package tests
 
 import (
-	"fmt"
 	"github.com/nuweba/faasbenchmark/config"
 	httpbenchReport "github.com/nuweba/faasbenchmark/report/generate/httpbench"
 	"github.com/nuweba/httpbench"
-	"github.com/nuweba/httpbench/engine"
-	"github.com/nuweba/httpbench/syncedtrace"
 	"math"
 	"net/url"
 	"strconv"
@@ -42,16 +39,6 @@ func sendPreWarmup(hfConf *config.HttpFunction, requestsToSend uint64) {
 	}()
 	trace.ConcurrentRequestsSyncedOnce(requestsToSend, 0)
 	wg.Wait()
-}
-
-func responseTime(sleepTime time.Duration, tr *engine.TraceResult, funcDuration time.Duration, reused bool) (string, error) {
-	s := fmt.Sprintf("%f", float64(tr.Total-tr.Hooks[syncedtrace.GotFirstResponseByte].Duration))
-	return s, nil
-}
-
-func duration(sleepTime time.Duration, tr *engine.TraceResult, funcDuration time.Duration, reused bool) (string, error) {
-	s := fmt.Sprintf("%f", float64(funcDuration)/float64(time.Millisecond))
-	return s, nil
 }
 
 const benchmarkDuration = 1 * time.Minute

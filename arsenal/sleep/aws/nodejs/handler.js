@@ -14,7 +14,10 @@ function isWarm() {
 }
 
 exports.hello = async (event) => {
-    const sleep_time = event.sleep ? parseInt(event.sleep) : 200;
+    const sleep_time = event.sleep ? parseInt(event.sleep) : null;
+	if !sleep_time {
+		return {"error": "invalid sleep parameter"}
+	}
 
     return {
         "reused": isWarm(),

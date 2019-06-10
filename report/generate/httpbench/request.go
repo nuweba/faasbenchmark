@@ -50,7 +50,7 @@ func TraceResultString(tr engine.TraceResult) (string, error) {
 	bLen := len(tr.Body)
 	//truncating body if too large to save log space
 	if bLen > MaxBodySize {
-		tr.Body = fmt.Sprintf("%s...truncated...%s", tr.Body[0: MaxBodySize / 2] , tr.Body[bLen - (MaxBodySize / 2): bLen - 1])
+		tr.Body = fmt.Sprintf("%s...truncated...%s", tr.Body[0:MaxBodySize/2], tr.Body[bLen-(MaxBodySize/2):bLen-1])
 	}
 
 	b, err := yaml.Marshal(tr)
@@ -106,12 +106,12 @@ func TraceResultSummaryHttps(httpConf *config.Http, tr *engine.TraceResult, func
 
 type errorReport struct {
 	reporter report.Request
-	logger *zap.Logger
+	logger   *zap.Logger
 }
 
-func (e *errorReport) errorReporter(err error, errStr string, data string) {
+func (e *errorReport) errorReporter(id uint64, err error, errStr string, data string) {
 	e.logger.Error(errStr, zap.Error(err), zap.String("summary", data))
-	err2 := e.reporter.Error(fmt.Sprintln(data))
+	err2 := e.reporter.Error(id, fmt.Sprintf("Error id: %d %s %s %s\n", id, errStr, err.Error(), data))
 	if err2 != nil {
 		e.logger.Error("report error writer", zap.Error(err2))
 	}
@@ -141,36 +141,43 @@ func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine
 		funcConfig.Logger.Debug("got new request result", zap.Uint64("id", result.Id))
 		funcOutput, err := RequestBodyUnmarshal([]byte(result.Body))
 		if err != nil {
-			errorReporter.errorReporter(err, "request body unmarshal", result.Body)
+			errorReporter.errorReporter(result.Id, err, "request body unmarshal", result.Body)
 			continue
 		}
 
 		if result.Err != nil || result.Error {
-			errorReporter.errorReporter(result.Err, "trace error", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
+			errorReporter.errorReporter(result.Id, result.Err, "trace error", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
 			continue
 		}
 
 		if result.Response.StatusCode != http.StatusOK {
-			errorReporter.errorReporter(result.Err, "function did not return 200 ok", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
+			errorReporter.errorReporter(result.Id, result.Err, "function did not return 200 ok", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
 			continue
 		}
 
-		funcConfig.Logger.Debug("trace result", zap.Any("summary", TraceResultSummaryHttps(funcConfig.HttpConfig, result, funcOutput)))
+		summary := TraceResultSummaryHttps(funcConfig.HttpConfig, result, funcOutput)
+		funcConfig.Logger.Debug("trace result", zap.Any("summary", summary))
 
 		funcConfig.Logger.Debug("running filter function on result")
-		coldStart, err := outputFn(funcConfig.HttpConfig.SleepTime, result, funcOutput.Duration, funcOutput.Reused)
+		filteredResult, err := outputFn(funcConfig.HttpConfig.SleepTime, result, funcOutput.Duration, funcOutput.Reused)
 		if err != nil {
-			errorReporter.errorReporter(result.Err, "output fn", "")
+			errorReporter.errorReporter(result.Id, result.Err, "output fn", "")
 			continue
 		}
 
-		funcConfig.Logger.Debug("filter function result", zap.String("output", coldStart))
-		err = reqReport.Result(fmt.Sprintf("%d, %s", result.Id, coldStart))
+		funcConfig.Logger.Debug("filter function result",
+			zap.Uint64("id", filteredResult.Id()),
+			zap.Float64("invocationoverhead", filteredResult.InvocationOverHead()),
+			zap.Float64("duration", filteredResult.Duration()),
+			zap.Float64("contenttransfer", filteredResult.ContentTransfer()),
+			zap.Bool("reused", filteredResult.Reused()),
+		)
+		err = reqReport.Result(filteredResult)
 		if err != nil {
 			funcConfig.Logger.Error("result writer", zap.Error(err))
 		}
 
-		err = reqReport.Summary(fmt.Sprintf("%v: %v\n%s\n", result.Id, coldStart, TraceResultSummaryHttps(funcConfig.HttpConfig, result, funcOutput)))
+		err = reqReport.Summary(fmt.Sprintf("%d: InvocationOverHead: %f, duration: %f\n%s\n", result.Id, filteredResult.InvocationOverHead(), filteredResult.Duration(), summary))
 		if err != nil {
 			funcConfig.Logger.Error("summary writer", zap.Error(err))
 		}

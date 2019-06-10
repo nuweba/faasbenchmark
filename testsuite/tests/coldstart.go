@@ -43,7 +43,7 @@ func coldStart(test *config.Test) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, test.Config.Provider.HttpInvocationLatency)
+			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, test.Config.Provider.HttpResult)
 		}()
 
 		requestsResult := trace.ConcurrentRequestsSyncedOnce(hfConf.HttpConfig.ConcurrencyLimit, hfConf.HttpConfig.RequestDelay)
@@ -82,7 +82,7 @@ func RequestsFor1Minute(test *config.Test) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, test.Config.Provider.HttpInvocationLatency)
+			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, test.Config.Provider.HttpResult)
 		}()
 
 		requestsResult := trace.RequestPerDuration(hfConf.HttpConfig.RequestDelay, hfConf.HttpConfig.Duration)

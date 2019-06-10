@@ -3,6 +3,9 @@ var wait = ms => new Promise((r, j)=>setTimeout(r, ms));
 async function testfunc(req, res) {
 	let startTime = process.hrtime();
 	const sleep_time = req.query.sleep ? parseInt(req.query.sleep) : null;
+	if !sleep_time {
+		res.status(500).send({error: "invalid sleep parameter"});
+	}
 	await wait(sleep_time);
 	let is_warm = process.env.warm ? true : false;
   	process.env.warm = true

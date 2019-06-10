@@ -14,15 +14,22 @@ const (
 )
 
 type Request struct {
-	upperLevel            *Function
-	rawResultDir          string
-	rawResultFile         *os.File
-	SummaryFile           *os.File
-	ErrorFile             *os.File
-	json *requestJson
+	upperLevel    *Function
+	rawResultDir  string
+	rawResultFile *os.File
+	SummaryFile   *os.File
+	ErrorFile     *os.File
+	json          *requestJson
 }
 
-type requestJson string
+type requestJson struct {
+	Id                 uint64
+	InvocationOverHead float64
+	Duration           float64
+	ResponseTime       float64
+	Reused             bool
+	Failed             bool
+}
 
 func (f *Function) Request() (report.Request, error) {
 	r := &Request{upperLevel: f}
@@ -69,8 +76,16 @@ func (f *Function) Request() (report.Request, error) {
 	return r, nil
 }
 
-func (r *Request) Result(result string) error {
-	r.upperLevel.json.AddResult(requestJson(result))
+func (r *Request) Result(result report.Result) error {
+	rj := requestJson{
+		Id:                 result.Id(),
+		InvocationOverHead: result.InvocationOverHead(),
+		Duration:           result.Duration(),
+		ResponseTime:       result.ContentTransfer(),
+		Reused:             result.Reused(),
+		Failed:             false,
+	}
+	r.upperLevel.json.AddResult(rj)
 	return nil
 }
 
@@ -79,8 +94,12 @@ func (r *Request) Summary(summary string) error {
 	return err
 }
 
-func (r *Request) Error(error string) error {
-	r.upperLevel.json.AddFailure()
+func (r *Request) Error(id uint64, error string) error {
+	rj := requestJson{
+		Id:     id,
+		Failed: true,
+	}
+	r.upperLevel.json.AddResult(rj)
 	_, err := r.ErrorFile.WriteString(error)
 	return err
 }
