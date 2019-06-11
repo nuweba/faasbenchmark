@@ -1,4 +1,3 @@
-const DEFAULT_INTENSITY_LEVEL = 1;
 const MEGABYTE = 1024 * 1024;
 
 function memIntensiveCalculation(level) {
@@ -16,8 +15,7 @@ function isWarm() {
 }
 
 exports.handler = async (event) => {
-    let got_custom_level = event["level"] && event["level"] !== "0";
-    let intensityLevel = got_custom_level ? parseInt(event["level"]) : DEFAULT_INTENSITY_LEVEL;
+    let intensityLevel = parseInt(event["level"]);
 
     return {
         "reused": isWarm(),

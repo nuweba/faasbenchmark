@@ -151,6 +151,7 @@ func increasingLoad(test *config.Test, httpConfig config.Http) {
 	if httpConfig.QueryParams == nil {
 		httpConfig.QueryParams = &queryParams
 	}
+	httpConfig.QueryParams.Add("level", "1")
 	httpConfig.Headers = &headers
 	httpConfig.Body = &body
 	for _, function := range test.Stack.ListFunctions() {

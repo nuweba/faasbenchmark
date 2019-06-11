@@ -1,5 +1,4 @@
 var buf = Buffer.allocUnsafe(10 * 1024 * 1024);
-const fs = require('fs');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 

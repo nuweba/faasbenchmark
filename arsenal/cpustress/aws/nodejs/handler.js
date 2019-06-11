@@ -1,5 +1,3 @@
-const DEFAULT_INTENSITY_LEVEL = 1;
-
 function cpuIntensiveCalculation(baseNumber) {
     var startTime = process.hrtime();
     var iterationCount = 50000 * Math.pow(baseNumber, 3);
@@ -18,8 +16,7 @@ function isWarm() {
 }
 
 exports.handler = async (event) => {
-    let got_custom_level = event["level"] && event["level"] !== "0";
-    let intensityLevel = got_custom_level ? parseInt(event["level"]) : DEFAULT_INTENSITY_LEVEL;
+    let intensityLevel = parseInt(event["level"]);
 
     return {
         "reused": isWarm(),
