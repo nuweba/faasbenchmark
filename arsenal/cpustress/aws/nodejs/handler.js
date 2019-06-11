@@ -16,7 +16,10 @@ function isWarm() {
 }
 
 exports.handler = async (event) => {
-    let intensityLevel = parseInt(event["level"]);
+    let intensityLevel = event.level ? parseInt(event.level) : null;
+    if(!intensityLevel || intensityLevel < 1) {
+        return {"error": "invalid level parameter"}
+    }
 
     return {
         "reused": isWarm(),
