@@ -103,9 +103,9 @@ func Tui(provider string, pImage *widgets.Image) {
 	leftTestsMenu := leftTestsMenu()
 	logView := logView()
 
-	tabpane := widgets.NewTabPane("Invocation OverHead", "Duration", "Content Transfer", "Reused", "Fresh")
+	tabpane := widgets.NewTabPane(linePlot.Title, linePlot2.Title, linePlot3.Title, linePlot4.Title, linePlot5.Title)
 	tabpane.Border = false
-	plots := map[string]*widgets.Plot{"Invocation OverHead": linePlot.Plot, "Duration": linePlot2.Plot, "Content Transfer": linePlot3.Plot, "Reused": linePlot4.Plot, "Fresh": linePlot5.Plot}
+	plots := map[string]*widgets.Plot{linePlot.Title : linePlot.Plot, linePlot2.Title : linePlot2.Plot, linePlot3.Title : linePlot3.Plot, linePlot4.Title : linePlot4.Plot, linePlot5.Title : linePlot5.Plot}
 
 	localGrid := grid(tabpane, plots[tabpane.TabNames[tabpane.ActiveTabIndex]], leftTestsMenu, logView.List, pImage)
 
@@ -162,6 +162,10 @@ func Tui(provider string, pImage *widgets.Image) {
 			case "<Enter>":
 				logView.Reset()
 				linePlot.Reset()
+				linePlot2.Reset()
+				linePlot3.Reset()
+				linePlot4.Reset()
+				linePlot5.Reset()
 
 				testId := leftTestsMenu.Rows[leftTestsMenu.SelectedRow]
 				go func() {

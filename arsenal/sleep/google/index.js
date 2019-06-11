@@ -3,7 +3,7 @@ var wait = ms => new Promise((r, j)=>setTimeout(r, ms));
 async function testfunc(req, res) {
 	let startTime = process.hrtime();
 	const sleep_time = req.query.sleep ? parseInt(req.query.sleep) : null;
-	if (!sleep_time) {
+	if (!sleep_time && sleep_time !== 0) {
 		res.status(500).send({error: "invalid sleep parameter"});
 	}
 	await wait(sleep_time);
