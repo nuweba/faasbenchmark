@@ -1,9 +1,17 @@
 package graph
 
 import (
-	"fmt"
+	"encoding/json"
 	"github.com/nuweba/faasbenchmark/report"
 )
+
+type Result struct {
+	Id                 uint64
+	InvocationOverHead float64
+	Duration           float64
+	ContentTransfer       float64
+	Reused             bool
+}
 
 type Request struct {
 	upperLevel *Function
@@ -16,7 +24,16 @@ func (f *Function) Request() (report.Request, error) {
 }
 
 func (r *Request) Result(result report.Result) error {
-	_, err := r.upperLevel.upperLevel.upperLevel.graphWriter.Write([]byte(fmt.Sprintf("%s %s", result.Id() ,result.InvocationOverHead())))
+	//todo: nasty
+	res := &Result{
+		Id: result.Id(),
+		InvocationOverHead: result.InvocationOverHead(),
+		Duration: result.Duration(),
+		ContentTransfer: result.ContentTransfer(),
+		Reused: result.Reused(),
+	}
+	b, err := json.Marshal(res)
+	_, err = r.upperLevel.upperLevel.upperLevel.graphWriter.Write([]byte(b))
 	return err
 }
 

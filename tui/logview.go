@@ -15,7 +15,7 @@ type LogView struct {
 func logView() *LogView {
 	textList := widgets.NewList()
 
-	textList.Rows = append(textList.Rows, "choose a test")
+	textList.Rows = append(textList.Rows, "choose a test\nkeys:\nLeft and Right arrow keys to toggle tests and log view\nTab to toggle results\nQ to quit\nEnter to start test")
 	textList.SelectedRowStyle = ui.NewStyle(ui.ColorYellow, ui.ColorClear, ui.ModifierBold)
 	return &LogView{List: textList, prevHadLine: false}
 }

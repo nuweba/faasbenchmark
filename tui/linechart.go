@@ -10,9 +10,9 @@ type LineChart struct {
 	*widgets.Plot
 }
 
-func lineChart() *LineChart {
+func lineChart(name string) *LineChart {
 	lc := widgets.NewPlot()
-	lc.Title = "Result Graph"
+	lc.Title = name
 	lc.Data = append(lc.Data, []float64{0, 0})
 	lc.HorizontalScale = 3
 	lc.AxesColor = ui.ColorWhite

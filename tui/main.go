@@ -35,7 +35,7 @@ func leftTestsMenu() *widgets.List {
 	return testsMenu
 }
 
-func grid(lineChart *widgets.Plot, leftTestView *widgets.List, logView *widgets.List, pImage *widgets.Image) *ui.Grid {
+func grid(plotTabs *widgets.TabPane, linePlot *widgets.Plot, leftTestView *widgets.List, logView *widgets.List, pImage *widgets.Image) *ui.Grid {
 	grid := ui.NewGrid()
 	termWidth, termHeight := ui.TerminalDimensions()
 	grid.SetRect(0, 0, termWidth, termHeight)
@@ -47,7 +47,10 @@ func grid(lineChart *widgets.Plot, leftTestView *widgets.List, logView *widgets.
 				ui.NewRow(1.0/2, pImage),
 				ui.NewRow(1.0/2, leftTestView),
 			),
-			ui.NewCol(5.0/6, lineChart),
+			ui.NewCol(5.0/6,
+				ui.NewRow(1.0/10, plotTabs),
+				ui.NewRow(9.0/10, linePlot),
+			),
 		),
 		ui.NewRow(1.0/3,
 			ui.NewCol(1.0/1, logView),
@@ -92,14 +95,32 @@ func faasTestConfig(providerName string, resultCh *graphStream) (*config.Global,
 }
 
 func Tui(provider string, pImage *widgets.Image) {
-	lineChart := lineChart()
+	linePlot := lineChart("Invocation OverHead")
+	linePlot2 := lineChart("Duration")
+	linePlot3 := lineChart("Content Transfer")
+	linePlot4 := lineChart("Reused")
+	linePlot5 := lineChart("Fresh")
 	leftTestsMenu := leftTestsMenu()
 	logView := logView()
 
-	grid := grid(lineChart.Plot, leftTestsMenu, logView.List, pImage)
+	tabpane := widgets.NewTabPane("Invocation OverHead", "Duration", "Content Transfer", "Reused", "Fresh")
+	tabpane.Border = false
+	plots := map[string]*widgets.Plot{"Invocation OverHead": linePlot.Plot, "Duration": linePlot2.Plot, "Content Transfer": linePlot3.Plot, "Reused": linePlot4.Plot, "Fresh": linePlot5.Plot}
+
+	localGrid := grid(tabpane, plots[tabpane.TabNames[tabpane.ActiveTabIndex]], leftTestsMenu, logView.List, pImage)
+
+	tabMoveRight := func() {
+		if tabpane.ActiveTabIndex < len(tabpane.TabNames)-1 {
+			tabpane.ActiveTabIndex++
+
+		} else {
+			tabpane.ActiveTabIndex = 0
+		}
+		localGrid = grid(tabpane, plots[tabpane.TabNames[tabpane.ActiveTabIndex]], leftTestsMenu, logView.List, pImage)
+	}
 
 	result := &graphStream{
-		ch: make(chan float64),
+		ch: make(chan *graph.Result),
 	}
 
 	toggleList := NewToggleList(leftTestsMenu, logView.List)
@@ -112,25 +133,35 @@ func Tui(provider string, pImage *widgets.Image) {
 
 	uiEvents := ui.PollEvents()
 	for {
-		ui.Render(grid)
+		ui.Render(localGrid)
 		select {
 		case data := <-logs.ch:
 			logView.Modify(data)
 
-		case point := <-result.ch:
-			lineChart.Modify(point)
+		case resultData := <-result.ch:
+			linePlot.Modify(resultData.InvocationOverHead)
+			linePlot2.Modify(resultData.Duration)
+			linePlot3.Modify(resultData.ContentTransfer)
+			if resultData.Reused {
+				linePlot4.Modify(resultData.InvocationOverHead)
+			} else {
+				linePlot5.Modify(resultData.InvocationOverHead)
+			}
 
 		case e := <-uiEvents:
 			switch e.ID {
+			case "<Tab>":
+				tabMoveRight()
+				ui.Clear()
 			case "q", "<C-c>":
 				return
 			case "<Resize>":
 				payload := e.Payload.(ui.Resize)
-				grid.SetRect(0, 0, payload.Width, payload.Height)
+				localGrid.SetRect(0, 0, payload.Width, payload.Height)
 				ui.Clear()
 			case "<Enter>":
 				logView.Reset()
-				lineChart.Reset()
+				linePlot.Reset()
 
 				testId := leftTestsMenu.Rows[leftTestsMenu.SelectedRow]
 				go func() {
@@ -147,6 +178,7 @@ func Tui(provider string, pImage *widgets.Image) {
 				}()
 			default:
 				toggleList.HandleEvent(&e)
+
 			}
 		}
 	}
