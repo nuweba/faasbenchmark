@@ -21,12 +21,12 @@ type Test struct {
 }
 
 type testJson struct {
-	Provider         string
-	TestName         string
-	TestDescription  string
-	StackDescription string
-	HttpConfig       string
-	Functions        []functionJson
+	Provider         string         `json:"provider"`
+	TestName         string         `json:"testName"`
+	TestDescription  string         `json:"testDescription"`
+	StackDescription string         `json:"stackDescription"`
+	HttpConfig       string         `json:"httpConfig"`
+	Functions        []functionJson `json:"functions"`
 }
 
 func (tj *testJson) AddFunction(function *functionJson) {

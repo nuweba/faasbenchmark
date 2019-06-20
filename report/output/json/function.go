@@ -30,8 +30,8 @@ type Function struct {
 }
 
 type functionJson struct {
-	FunctionName     string
-	Results          []requestJson
+	FunctionName string        `json:"functionName"`
+	Results      []requestJson `json:"results"`
 }
 
 func (fj *functionJson) AddResult(result requestJson) {
@@ -106,7 +106,7 @@ func (f *Function) LogWriter() (io.Writer, error) {
 func (f *Function) BenchResult(bresult string) error {
 	f.upperLevel.json.AddFunction(f.json)
 
-	b, err :=json.MarshalIndent(f.upperLevel.json, "", "\t")
+	b, err := json.MarshalIndent(f.upperLevel.json, "", "\t")
 	if err != nil {
 		return err
 	}

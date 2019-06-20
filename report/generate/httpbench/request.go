@@ -111,6 +111,7 @@ type errorReport struct {
 
 func (e *errorReport) errorReporter(id uint64, err error, errStr string, data string) {
 	e.logger.Error(errStr, zap.Error(err), zap.String("summary", data))
+
 	err2 := e.reporter.Error(id, fmt.Sprintf("Error id: %d, msg:%s, error: %s, data:%s\n", id, errStr, err.Error(), data))
 	if err2 != nil {
 		e.logger.Error("report error writer", zap.Error(err2))
@@ -145,8 +146,13 @@ func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine
 			continue
 		}
 
-		if result.Err != nil || result.Error {
+		if result.Err != nil {
 			errorReporter.errorReporter(result.Id, result.Err, "trace error", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
+			continue
+		}
+
+		if result.Error {
+			errorReporter.errorReporter(result.Id, errors.New("result error without error msg"), "trace error", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
 			continue
 		}
 

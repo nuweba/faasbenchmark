@@ -31,7 +31,7 @@ func (l *LineChart) Modify(point float64) {
 		l.Data[0] = l.Data[0][1:]
 	}
 	l.Data[0] = append(l.Data[0], point)
-	fmt.Println(point)
+	fmt.Println(l.Title, point)
 }
 
 func (l *LineChart) Reset() {

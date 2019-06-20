@@ -23,12 +23,12 @@ type Request struct {
 }
 
 type requestJson struct {
-	Id                 uint64
-	InvocationOverHead float64
-	Duration           float64
-	ResponseTime       float64
-	Reused             bool
-	Failed             bool
+	Id                 uint64  `json:"id"`
+	InvocationOverHead float64 `json:"invocationOverhead"`
+	Duration           float64 `json:"duration"`
+	ResponseTime       float64 `json:"responseTime"`
+	Reused             bool    `json:"reused"`
+	Failed             bool    `json:"failed"`
 }
 
 func (f *Function) Request() (report.Request, error) {
