@@ -13,7 +13,7 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
 	github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e // indirect
-	github.com/nuweba/httpbench v0.0.0-20190507160430-55b9d32b4266
+	github.com/nuweba/httpbench v0.0.0-20190623104034-b63f370adb5d
 	github.com/nuweba/sls v0.0.0-20190422092932-d0d1e1dc18b8
 	github.com/pkg/errors v0.8.1
 	github.com/spf13/cobra v0.0.3
