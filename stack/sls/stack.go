@@ -26,7 +26,14 @@ func (s *Stack) ListFunctions() []stack.Function {
 	funcs := s.ListFunctionsFromYaml()
 
 	for _, f := range funcs {
-		functions = append(functions, &Function{name: f.Name,handler: f.Handler, description: f.Description})
+		nf := &Function{
+			name:        f.Name,
+			handler:     f.Handler,
+			description: f.Description,
+			runtime:     f.Runtime,
+			memorySize:  f.MemorySize,
+		}
+		functions = append(functions, nf)
 	}
 
 	return functions

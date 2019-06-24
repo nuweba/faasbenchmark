@@ -20,10 +20,10 @@ func (mt *multiTest) Description(desc string) error {
 	return nil
 }
 
-func (mt *multiTest) Function(functionName string) (report.Function, error) {
+func (mt *multiTest) Function(functionName, description, runtime, memorySize string) (report.Function, error) {
 	multiFunction := &multiFunction{}
 	for _, t := range mt.test {
-		function, err := t.Function(functionName)
+		function, err := t.Function(functionName, description, runtime, memorySize)
 		if err != nil {
 			return nil, errors.Wrap(err, "multi function error")
 		}

@@ -41,6 +41,8 @@ github.com/nuweba/semaphore v0.0.0-20190319094739-5f91e06f5ad3 h1:I8pyWqpjthlU9A
 github.com/nuweba/semaphore v0.0.0-20190319094739-5f91e06f5ad3/go.mod h1:WopuZYv2JgV+ZVmeawUwYAw7rnkji/DHqwYj0PXQ/uE=
 github.com/nuweba/sls v0.0.0-20190422092932-d0d1e1dc18b8 h1:SdfA0Jpjl4EiWkK/0a+JwChrQB+MKYcfiTX50SwQiiI=
 github.com/nuweba/sls v0.0.0-20190422092932-d0d1e1dc18b8/go.mod h1:Lq72cIMU0GKkJgyMkCf9PW4gz9HdfJG6GF8MWY7w9hg=
+github.com/nuweba/sls v0.0.0-20190624081147-7f92a4aa3050 h1:KdwwAQTnU0FbVpJKkbokguqHiJP5Bi1jzpTexoOmxBU=
+github.com/nuweba/sls v0.0.0-20190624081147-7f92a4aa3050/go.mod h1:Lq72cIMU0GKkJgyMkCf9PW4gz9HdfJG6GF8MWY7w9hg=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

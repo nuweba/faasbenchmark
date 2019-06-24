@@ -31,6 +31,9 @@ type Function struct {
 
 type functionJson struct {
 	FunctionName string        `json:"functionName"`
+	Description  string        `json:"description"`
+	Runtime      string        `json:"runtime"`
+	MemorySize   string        `json:"memorySize"`
 	Results      []requestJson `json:"results"`
 }
 
@@ -38,7 +41,7 @@ func (fj *functionJson) AddResult(result requestJson) {
 	fj.Results = append(fj.Results, result)
 }
 
-func (test *Test) Function(functionName string) (report.Function, error) {
+func (test *Test) Function(functionName, description, runtime, memorySize string) (report.Function, error) {
 	f := &Function{upperLevel: test, functionName: functionName}
 
 	//create provider dir inside the test dir
@@ -78,6 +81,9 @@ func (test *Test) Function(functionName string) (report.Function, error) {
 	//json
 	f.json = &functionJson{
 		FunctionName: functionName,
+		Description:  description,
+		Runtime:      runtime,
+		MemorySize:   memorySize,
 	}
 
 	//json file
