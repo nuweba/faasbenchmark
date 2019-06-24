@@ -10,17 +10,17 @@ import (
 )
 
 type Http struct {
-	SleepTime        time.Duration
-	Hook             syncedtrace.TraceHookType
-	QueryParams      *url.Values
-	Headers          *http.Header
-	Duration         time.Duration
-	RequestDelay     time.Duration
-	ConcurrencyLimit uint64
-	Body             *[]byte
-	TestType         string
-	ConcurrentGraph  *httpbench.ConcurrentGraph
-	HitsGraph        *httpbench.HitsGraph
+	SleepTime        time.Duration              `json:"sleepTime"`
+	Hook             syncedtrace.TraceHookType  `json:"hook"`
+	QueryParams      *url.Values                `json:"queryParams"`
+	Headers          *http.Header               `json:"headers"`
+	Duration         time.Duration              `json:"duration"`
+	RequestDelay     time.Duration              `json:"requestDelay"`
+	ConcurrencyLimit uint64                     `json:"concurrencyLimit"`
+	Body             *[]byte                    `json:"body"`
+	TestType         string                     `json:"testType"`
+	ConcurrentGraph  *httpbench.ConcurrentGraph `json:"concurrentGraph"`
+	HitsGraph        *httpbench.HitsGraph       `json:"hitsGraph"`
 }
 
 func (h *Http) String() (string, error) {
