@@ -127,7 +127,8 @@ func (f *Function) BenchResult(bresult string) error {
 }
 
 func (f *Function) HttpTestConfig(config string) error {
-	f.upperLevel.json.HttpConfig = config
+	rawConfig := json.RawMessage(config)
+	f.upperLevel.json.HttpConfig = &rawConfig
 	_, err := f.httpTestConfigFile.WriteString(config)
 	return err
 }

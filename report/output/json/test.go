@@ -1,6 +1,7 @@
 package json
 
 import (
+	"encoding/json"
 	"github.com/nuweba/faasbenchmark/report"
 	"github.com/pkg/errors"
 	"os"
@@ -21,12 +22,12 @@ type Test struct {
 }
 
 type testJson struct {
-	Provider         string         `json:"provider"`
-	TestName         string         `json:"testName"`
-	TestDescription  string         `json:"testDescription"`
-	StackDescription string         `json:"stackDescription"`
-	HttpConfig       string         `json:"httpConfig"`
-	Functions        []functionJson `json:"functions"`
+	Provider         string           `json:"provider"`
+	TestName         string           `json:"testName"`
+	TestDescription  string           `json:"testDescription"`
+	StackDescription string           `json:"stackDescription"`
+	HttpConfig       *json.RawMessage `json:"httpConfig"`
+	Functions        []functionJson   `json:"functions"`
 }
 
 func (tj *testJson) AddFunction(function *functionJson) {
