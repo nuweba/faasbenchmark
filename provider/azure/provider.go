@@ -47,17 +47,14 @@ func getRegion(session *session.Session) (string, error) {
 func (azure *Azure) buildFuncInvokeReq(funcName string, appName string, qParams *url.Values, headers *http.Header, body *[]byte) (*http.Request, error) {
 	funcUrl := url.URL{}
 
-	// https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/FUNCTION_NAME?sleep={time}
-
 	funcUrl.Scheme = "https"
 	funcUrl.Host = fmt.Sprintf("%s.azurewebsites.net", appName)
 	funcUrl.Path = fmt.Sprintf("/api/%s", funcName)
-
-	fmt.Println(funcUrl)
+	if body == nil || len(*body) == 0 {
+		*body = []byte("test")
+	}
 
 	req, err := http.NewRequest("POST", funcUrl.String(), ioutil.NopCloser(bytes.NewReader(*body)))
-
-	//req.Header.Set("Content-Type", "application/json")
 
 	if err != nil {
 		return nil, err
@@ -76,7 +73,7 @@ func (azure *Azure) buildFuncInvokeReq(funcName string, appName string, qParams 
 
 func (azure *Azure) NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) func() (*http.Request, error) {
 	return func() (*http.Request, error) {
-		return azure.buildFuncInvokeReq(function.Handler(), stack.StackId(), qParams, headers, body)
+		return azure.buildFuncInvokeReq(function.Name(), stack.StackId(), qParams, headers, body)
 	}
 }
 
