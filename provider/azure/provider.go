@@ -20,13 +20,7 @@ type Azure struct {
 func New() (*Azure, error) {
 	name := "azure"
 
-	//todo: change
-	//region, err := getRegion(ses)
-	//
-	//if err != nil {
-	//	return nil, err
-	//}
-	region := "East US"
+	region := "West US"
 
 	return &Azure{region: region, name: name}, nil
 }
