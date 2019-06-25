@@ -3,6 +3,7 @@ package provider
 import (
 	"fmt"
 	"github.com/nuweba/faasbenchmark/provider/aws"
+	"github.com/nuweba/faasbenchmark/provider/azure"
 	"github.com/nuweba/faasbenchmark/provider/google"
 	"github.com/nuweba/faasbenchmark/stack"
 	"github.com/nuweba/httpbench/engine"
@@ -25,7 +26,7 @@ type FaasProvider interface {
 	Name() string
 	HttpInvocationTriggerStage() syncedtrace.TraceHookType
 	NewStack(stackPath string) (stack.Stack, error)
-	NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) (func() (*http.Request, error))
+	NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) func() (*http.Request, error)
 }
 
 type Providers int
@@ -33,6 +34,7 @@ type Providers int
 const (
 	AWS Providers = iota
 	Google
+	Azure
 	ProvidersCount
 )
 
@@ -40,6 +42,7 @@ func (p Providers) String() string {
 	return [...]string{
 		"aws",
 		"google",
+		"azure",
 	}[p]
 }
 
@@ -47,6 +50,7 @@ func (p Providers) Description() string {
 	return [...]string{
 		"aws lambda functions",
 		"google cloud functions",
+		"azure functions",
 	}[p]
 }
 
@@ -59,6 +63,8 @@ func NewProvider(providerName string) (FaasProvider, error) {
 		faasProvider, err = aws.New()
 	case strings.ToLower(Google.String()):
 		faasProvider, err = google.New()
+	case strings.ToLower(Azure.String()):
+		faasProvider, err = azure.New()
 	default:
 		faasProvider, err = nil, errors.New(fmt.Sprintf("provider not supported: %s", providerName))
 	}
@@ -70,7 +76,7 @@ func NewProvider(providerName string) (FaasProvider, error) {
 	return faasProvider, nil
 }
 
-func ProviderList() []string{
+func ProviderList() []string {
 	var providers []string
 	for providerId := Providers(0); providerId < ProvidersCount; providerId++ {
 		providers = append(providers, providerId.String())
