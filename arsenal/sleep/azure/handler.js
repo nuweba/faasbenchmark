@@ -26,6 +26,4 @@ module.exports.hello = async function (context) {
         "reused": isWarm(),
         "duration": await sleep(sleep_time)
     }
-
-    context.done();
 };
