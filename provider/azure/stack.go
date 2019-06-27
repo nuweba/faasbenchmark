@@ -20,16 +20,3 @@ func (azure *Azure) NewStack(stackPath string) (stack.Stack, error) {
 
 	return &Stack{stack}, nil
 }
-
-func (s *Stack) ListFunctions() []stack.Function {
-
-	var functions []stack.Function
-
-	funcs := s.ListFunctionsFromYaml()
-
-	for _, f := range funcs {
-		functions = append(functions, &Function{name: f.Name, handler: f.Handler, description: f.Description})
-	}
-
-	return functions
-}
