@@ -9,7 +9,7 @@ type multiRequest struct {
 	request []report.Request
 }
 
-func (mReq *multiRequest) Result(result string) error {
+func (mReq *multiRequest) Result(result report.Result) error {
 	for _, t := range mReq.request {
 		err := t.Result(result)
 		if err != nil {
@@ -31,9 +31,9 @@ func (mReq *multiRequest) Summary(summary string) error {
 	return nil
 }
 
-func (mReq *multiRequest) Error(error string) error {
+func (mReq *multiRequest) Error(id uint64, error string) error {
 	for _, t := range mReq.request {
-		err := t.Error(error)
+		err := t.Error(id, error)
 		if err != nil {
 			return errors.Wrap(err, "multi request error writer error")
 		}

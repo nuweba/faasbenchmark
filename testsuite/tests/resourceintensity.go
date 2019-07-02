@@ -88,7 +88,7 @@ func resourceIntensity(test *config.Test, httpConfig config.Http) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, duration)
+			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, test.Config.Provider.HttpResult)
 		}()
 		requestsResult := trace.ConcurrentRequestsSynced(httpConfig.ConcurrencyLimit, httpConfig.RequestDelay, httpConfig.Duration)
 		wg.Wait()

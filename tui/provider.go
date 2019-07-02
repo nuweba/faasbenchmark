@@ -5,6 +5,7 @@ import (
 	"fmt"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
+	"github.com/nuweba/faasbenchmark/provider"
 	_ "image/gif"
 	_ "image/jpeg"
 	_ "image/png"
@@ -53,9 +54,9 @@ func providerGrid(widgetImages []*widgets.Image) *ui.Grid {
 
 
 func ChooseProvider() (string, *widgets.Image, error) {
-	providers := []string{"aws", "ibm", "google", "azure"}
-	//todo: change back
-	//providers := provider.ProviderList()
+	//todo: for testing
+	//providers := []string{"aws", "ibm", "google", "azure"}
+	providers := provider.List()
 	images, err := loadImages(providers)
 	if err != nil {
 		fmt.Println(err)
