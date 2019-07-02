@@ -30,20 +30,18 @@ type Function struct {
 }
 
 type functionJson struct {
-	FunctionName     string
-	Results          []requestJson
-	Failures		 uint64
+	FunctionName string        `json:"functionName"`
+	Description  string        `json:"description"`
+	Runtime      string        `json:"runtime"`
+	MemorySize   string        `json:"memorySize"`
+	Results      []requestJson `json:"results"`
 }
 
 func (fj *functionJson) AddResult(result requestJson) {
 	fj.Results = append(fj.Results, result)
 }
 
-func (fj *functionJson) AddFailure() {
-	fj.Failures += 1
-}
-
-func (test *Test) Function(functionName string) (report.Function, error) {
+func (test *Test) Function(functionName, description, runtime, memorySize string) (report.Function, error) {
 	f := &Function{upperLevel: test, functionName: functionName}
 
 	//create provider dir inside the test dir
@@ -83,6 +81,9 @@ func (test *Test) Function(functionName string) (report.Function, error) {
 	//json
 	f.json = &functionJson{
 		FunctionName: functionName,
+		Description:  description,
+		Runtime:      runtime,
+		MemorySize:   memorySize,
 	}
 
 	//json file
@@ -111,7 +112,7 @@ func (f *Function) LogWriter() (io.Writer, error) {
 func (f *Function) BenchResult(bresult string) error {
 	f.upperLevel.json.AddFunction(f.json)
 
-	b, err :=json.MarshalIndent(f.upperLevel.json, "", "\t")
+	b, err := json.MarshalIndent(f.upperLevel.json, "", "\t")
 	if err != nil {
 		return err
 	}
@@ -126,7 +127,8 @@ func (f *Function) BenchResult(bresult string) error {
 }
 
 func (f *Function) HttpTestConfig(config string) error {
-	f.upperLevel.json.HttpConfig = config
+	rawConfig := json.RawMessage(config)
+	f.upperLevel.json.HttpConfig = &rawConfig
 	_, err := f.httpTestConfigFile.WriteString(config)
 	return err
 }

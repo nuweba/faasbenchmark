@@ -25,7 +25,7 @@ type Function struct {
 	functionResultPath string
 }
 
-func (test *Test) Function(functionName string) (report.Function, error) {
+func (test *Test) Function(functionName, description, runtime, memorySize string) (report.Function, error) {
 	f := &Function{upperLevel: test, functionName: functionName}
 
 	//create provider dir inside the test dir

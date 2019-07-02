@@ -13,4 +13,6 @@ type Function interface {
 	Name() string
 	Handler() string
 	Description() string
+	Runtime() string
+	MemorySize() string
 }

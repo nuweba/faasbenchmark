@@ -1,11 +1,11 @@
 package tui
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/nuweba/faasbenchmark/report/output/graph"
 	"io"
 	"os"
-	"strconv"
-	"strings"
 )
 
 type StdoutStream struct {
@@ -40,17 +40,22 @@ func hookStdout() (*StdoutStream, error) {
 
 
 type graphStream struct {
-	ch chan float64
+	ch chan *graph.Result
 }
 
-func (gs *graphStream) parse(p []byte) float64 {
-	fields := strings.Fields(string(p))
-
-	f, err := strconv.ParseFloat(fields[1], 64)
+func (gs *graphStream) parse(p []byte) *graph.Result {
+	result := &graph.Result{}
+	err := json.Unmarshal(p, result)
 	if err != nil {
-		fmt.Println(err)
+		panic(fmt.Sprintf("cant parse graph result, %s", p))
 	}
-	return f
+	//fields := strings.Fields(string(p))
+	//
+	//f, err := strconv.ParseFloat(fields[1], 64)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	return result
 
 }
 

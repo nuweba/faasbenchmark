@@ -32,7 +32,7 @@ func (hf *HttpFunction) newLogger(writer io.Writer) *zap.Logger {
 }
 
 func (t *Test) NewFunction(httpConfig *Http, function stack.Function) (*HttpFunction, error) {
-	functionReport, err := t.Report.Function(function.Name())
+	functionReport, err := t.Report.Function(function.Name(), function.Description(), function.Runtime(), function.MemorySize())
 
 	if err != nil {
 		t.Config.Logger.Error("function report", zap.Error(err))

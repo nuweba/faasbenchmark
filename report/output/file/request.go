@@ -1,6 +1,7 @@
 package file
 
 import (
+	"fmt"
 	"github.com/nuweba/faasbenchmark/report"
 	"github.com/pkg/errors"
 	"os"
@@ -67,8 +68,9 @@ func (f *Function) Request() (report.Request, error) {
 	return r, nil
 }
 
-func (r *Request) Result(result string) error {
-	_, err := r.functionReqResultFile.WriteString(result)
+func (r *Request) Result(result report.Result) error {
+	t := fmt.Sprintf("id: %s, invocationOverHead: %s, duration: %s, responseTime: %s, reused: %s\n", result.Id(), result.InvocationOverHead(), result.Duration(), result.ContentTransfer(), result.Reused())
+	_, err := r.functionReqResultFile.WriteString(t)
 	return err
 }
 
@@ -77,7 +79,7 @@ func (r *Request) Summary(summary string) error {
 	return err
 }
 
-func (r *Request) Error(error string) error {
+func (r *Request) Error(id uint64, error string) error {
 	_, err := r.ErrorFile.WriteString(error)
 	return err
 }

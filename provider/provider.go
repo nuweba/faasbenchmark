@@ -5,6 +5,7 @@ import (
 	"github.com/nuweba/faasbenchmark/provider/aws"
 	"github.com/nuweba/faasbenchmark/provider/azure"
 	"github.com/nuweba/faasbenchmark/provider/google"
+	"github.com/nuweba/faasbenchmark/report"
 	"github.com/nuweba/faasbenchmark/stack"
 	"github.com/nuweba/httpbench/engine"
 	"github.com/nuweba/httpbench/syncedtrace"
@@ -15,10 +16,10 @@ import (
 	"time"
 )
 
-type RequestFilter = func(sleepTime time.Duration, tr *engine.TraceResult, funcDuration time.Duration, reused bool) (string, error)
+type RequestFilter = func(sleepTime time.Duration, tr *engine.TraceResult, funcDuration time.Duration, reused bool) (report.Result, error)
 
 type Filter interface {
-	HttpInvocationLatency(sleepTime time.Duration, tr *engine.TraceResult, funcDuration time.Duration, reused bool) (string, error)
+	HttpResult(sleepTime time.Duration, tr *engine.TraceResult, funcDuration time.Duration, reused bool) (report.Result, error)
 }
 
 type FaasProvider interface {

@@ -12,7 +12,7 @@ type Function struct {
 	functionName string
 }
 
-func (test *Test) Function(functionName string) (report.Function, error) {
+func (test *Test) Function(functionName, description, runtime, memorySize string) (report.Function, error) {
 	f := &Function{upperLevel: test, functionName: functionName}
 
 	fmt.Fprintln(test.upperLevel.stdoutWriter, functionName)
