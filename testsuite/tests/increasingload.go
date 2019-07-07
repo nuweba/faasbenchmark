@@ -57,6 +57,10 @@ func init() {
 	Tests.Register(Test{Id: "IncreasingLargeCodeLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "largecode", Description: generateDescription(Lvl2, "large codebase functions")})
 	Tests.Register(Test{Id: "IncreasingLargeCodeLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "largecode", Description: generateDescription(Lvl1, "large codebase functions")})
 
+	Tests.Register(Test{Id: "IncreasingLoggingLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "logging", Description: generateDescription(Lvl3, "logging functions")})
+	Tests.Register(Test{Id: "IncreasingLoggingLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "logging", Description: generateDescription(Lvl2, "logging functions")})
+	Tests.Register(Test{Id: "IncreasingLoggingLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "logging", Description: generateDescription(Lvl1, "logging functions")})
+
 	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl3", Fn: increasingLoadLvl3, RequiredStack: "vpc", Description: generateDescription(Lvl3, "functions on a vpc")})
 	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl2", Fn: increasingLoadLvl2, RequiredStack: "vpc", Description: generateDescription(Lvl2, "functions on a vpc")})
 	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl1", Fn: increasingLoadLvl1, RequiredStack: "vpc", Description: generateDescription(Lvl1, "functions on a vpc")})
