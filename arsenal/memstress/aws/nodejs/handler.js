@@ -3,7 +3,7 @@ const MEGABYTE = 1024 * 1024;
 function memIntensiveCalculation(level) {
     var startTime = process.hrtime();
     let amountInMB = level * 64 - 1;
-    Buffer.allocUnsafe(amountInMB * MEGABYTE);
+    Buffer.alloc(amountInMB * MEGABYTE);
     let end = process.hrtime(startTime);
     return end[1] + (end[0] * 1e9);
 }
