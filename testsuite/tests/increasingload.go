@@ -49,9 +49,9 @@ func init() {
 	Tests.Register(Test{Id: "IncreasingNetLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "netstress", Description: generateDescription(Lvl2, "network intensive functions")})
 	Tests.Register(Test{Id: "IncreasingNetLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "netstress", Description: generateDescription(Lvl1, "network intensive functions")})
 
-	Tests.Register(Test{Id: "IncreasingInternalNetLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "internalservice", Description: generateDescription(Lvl3, "functions that access an internal provider service")})
-	Tests.Register(Test{Id: "IncreasingInternalNetLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "internalservice", Description: generateDescription(Lvl2, "functions that access an internal provider service")})
-	Tests.Register(Test{Id: "IncreasingInternalNetLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "internalservice", Description: generateDescription(Lvl1, "functions that access an internal provider service")})
+	Tests.Register(Test{Id: "IncreasingProviderStorageLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "providerstorage", Description: generateDescription(Lvl3, "functions that upload to a provider storage service")})
+	Tests.Register(Test{Id: "IncreasingProviderStorageLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "providerstorage", Description: generateDescription(Lvl2, "functions that upload to a provider storage service")})
+	Tests.Register(Test{Id: "IncreasingProviderStorageLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "providerstorage", Description: generateDescription(Lvl1, "functions that upload to a provider storage service")})
 
 	Tests.Register(Test{Id: "IncreasingLargeCodeLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "largecode", Description: generateDescription(Lvl3, "large codebase functions")})
 	Tests.Register(Test{Id: "IncreasingLargeCodeLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "largecode", Description: generateDescription(Lvl2, "large codebase functions")})

@@ -1,1 +1,1 @@
-This stack contains a function that sends an HTTP GET request a user specified amount of iterations.
+This stack contains a function that downloads a file

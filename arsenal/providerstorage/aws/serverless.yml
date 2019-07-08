@@ -1,4 +1,4 @@
-service: internalservice
+service: providerstorage
 
 provider:
   name: aws
@@ -15,36 +15,36 @@ provider:
 
 functions:
   node810-memory-128:
-    name: internalservice-node810-128mb
-    description: sends lots of internal service requests 128mb
+    name: providerstorage-node810-128mb
+    description: upload a file to s3 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 128
 
   node810-memory-256:
-    name: internalservice-node810-256mb
-    description: sends lots of internal service requests 256mb
+    name: providerstorage-node810-256mb
+    description: upload a file to s3 256mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 256
 
   node810-memory-512:
-    name: internalservice-node810-512mb
-    description: sends lots of internal service requests 512mb
+    name: providerstorage-node810-512mb
+    description: upload a file to s3 512mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 512
 
   node810-memory-1024:
-    name: internalservice-node810-1024mb
-    description: sends lots of internal service requests 1024mb
+    name: providerstorage-node810-1024mb
+    description: upload a file to s3 1024mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 1024
 
   node810-memory-1536:
-    name: internalservice-node810-1536mb
-    description: sends lots of internal service requests 1536mb
+    name: providerstorage-node810-1536mb
+    description: upload a file to s3 1536mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 1536
