@@ -1,16 +1,18 @@
 const http = require('http');
+const fs = require('fs');
 
-async function networkIntensive(baseNumber) {
-    var startTime = process.hrtime();
+const files = {1: '/files/1Mb.dat', 2: '/files/10Mb.dat', 3: '/files/100Mb.dat'};
 
-    var iterationCount = 500 * Math.pow(baseNumber, 3);
-    for (var i = iterationCount; i >= 0; i--) {
-        await new Promise((resolve, reject) => http.get({hostname: 'google.com'}, (res) => {
-            resolve(res);
-        }));
-    }
-    var end = process.hrtime(startTime);
-    return end[1] + (end[0] * 1e9);
+async function networkIntensive(level) {
+    const writable = fs.createWriteStream('/dev/null');
+    await new Promise((resolve) => http.get({
+        host: `www.ovh.net`,
+        port: 80,
+        path: files[level]
+    }, (res) => {
+        var download = res.pipe(writable);
+        download.on('close', () => resolve(res));
+    }));
 }
 
 function isWarm() {
@@ -19,14 +21,41 @@ function isWarm() {
     return is_warm;
 }
 
-exports.handler = async (event) => {
+function getLevel(event) {
     let intensityLevel = event.level ? parseInt(event.level) : null;
-    if(!intensityLevel || intensityLevel < 1) {
-        return {"error": "invalid level parameter"}
+    if (!intensityLevel || intensityLevel < 1) {
+        return {"error": "invalid level parameter"};
+    }
+    return intensityLevel;
+}
+
+function getParameters(event) {
+    return getLevel(event);
+}
+
+function getDuration(startTime) {
+    var end = process.hrtime(startTime);
+    return end[1] + (end[0] * 1e9);
+}
+
+async function runTest(intensityLevel){
+    await networkIntensive(intensityLevel)
+}
+
+exports.handler = async (event) => {
+    var startTime = process.hrtime();
+    let params = getParameters(event);
+    if (params.error) {
+        return {"error": params.error}
     }
 
+    await runTest(params);
+
+    var reused = isWarm();
+    var duration = getDuration(startTime);
+
     return {
-        "reused": isWarm(),
-        "duration": await networkIntensive(intensityLevel)
+        "reused": reused,
+        "duration": duration
     };
 };

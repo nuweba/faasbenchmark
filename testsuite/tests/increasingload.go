@@ -49,45 +49,25 @@ func init() {
 	Tests.Register(Test{Id: "IncreasingNetLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "netstress", Description: generateDescription(Lvl2, "network intensive functions")})
 	Tests.Register(Test{Id: "IncreasingNetLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "netstress", Description: generateDescription(Lvl1, "network intensive functions")})
 
-	Tests.Register(Test{Id: "IncreasingInternalNetLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "internalservice", Description: generateDescription(Lvl3, "functions that access an internal provider service")})
-	Tests.Register(Test{Id: "IncreasingInternalNetLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "internalservice", Description: generateDescription(Lvl2, "functions that access an internal provider service")})
-	Tests.Register(Test{Id: "IncreasingInternalNetLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "internalservice", Description: generateDescription(Lvl1, "functions that access an internal provider service")})
+	Tests.Register(Test{Id: "IncreasingProviderStorageLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "providerstorage", Description: generateDescription(Lvl3, "functions that upload to a provider storage service")})
+	Tests.Register(Test{Id: "IncreasingProviderStorageLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "providerstorage", Description: generateDescription(Lvl2, "functions that upload to a provider storage service")})
+	Tests.Register(Test{Id: "IncreasingProviderStorageLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "providerstorage", Description: generateDescription(Lvl1, "functions that upload to a provider storage service")})
 
 	Tests.Register(Test{Id: "IncreasingLargeCodeLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "largecode", Description: generateDescription(Lvl3, "large codebase functions")})
 	Tests.Register(Test{Id: "IncreasingLargeCodeLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "largecode", Description: generateDescription(Lvl2, "large codebase functions")})
 	Tests.Register(Test{Id: "IncreasingLargeCodeLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "largecode", Description: generateDescription(Lvl1, "large codebase functions")})
 
-	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl3", Fn: increasingLoadLvl3, RequiredStack: "vpc", Description: generateDescription(Lvl3, "functions on a vpc")})
-	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl2", Fn: increasingLoadLvl2, RequiredStack: "vpc", Description: generateDescription(Lvl2, "functions on a vpc")})
-	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl1", Fn: increasingLoadLvl1, RequiredStack: "vpc", Description: generateDescription(Lvl1, "functions on a vpc")})
+	Tests.Register(Test{Id: "IncreasingLoggingLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "logging", Description: generateDescription(Lvl3, "logging functions")})
+	Tests.Register(Test{Id: "IncreasingLoggingLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "logging", Description: generateDescription(Lvl2, "logging functions")})
+	Tests.Register(Test{Id: "IncreasingLoggingLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "logging", Description: generateDescription(Lvl1, "logging functions")})
 
-	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl3", Fn: increasingLargeRequestLoadLvl3, RequiredStack: "largerequest", Description: generateDescription(Lvl3, "functions with a large (4mb) request body")})
-	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl2", Fn: increasingLargeRequestLoadLvl2, RequiredStack: "largerequest", Description: generateDescription(Lvl2, "functions with a large (4mb) request body")})
-	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl1", Fn: increasingLargeRequestLoadLvl1, RequiredStack: "largerequest", Description: generateDescription(Lvl1, "functions with a large (4mb) request body")})
-}
+	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl3", Fn: increasingLoadLvl3LongRuntime, RequiredStack: "vpc", Description: generateDescription(Lvl3, "functions on a vpc")})
+	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl2", Fn: increasingLoadLvl2MedRuntime, RequiredStack: "vpc", Description: generateDescription(Lvl2, "functions on a vpc")})
+	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl1", Fn: increasingLoadLvl1ShortRuntime, RequiredStack: "vpc", Description: generateDescription(Lvl1, "functions on a vpc")})
 
-func increasingLargeRequestLoadLvl3(test *config.Test) {
-	increasingLoad(test, config.Http{
-		TestType:  httpbench.RequestsForTimeGraph.String(),
-		HitsGraph: gradualHitGraph(maxConcurrent, Lvl3),
-		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
-	})
-}
-
-func increasingLargeRequestLoadLvl2(test *config.Test) {
-	increasingLoad(test, config.Http{
-		TestType:  httpbench.RequestsForTimeGraph.String(),
-		HitsGraph: gradualHitGraph(maxConcurrent, Lvl2),
-		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
-	})
-}
-
-func increasingLargeRequestLoadLvl1(test *config.Test) {
-	increasingLoad(test, config.Http{
-		TestType:  httpbench.RequestsForTimeGraph.String(),
-		HitsGraph: gradualHitGraph(maxConcurrent, Lvl1),
-		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
-	})
+	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "largerequest", Description: generateDescription(Lvl3, "functions with a large (4mb) request body")})
+	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "largerequest", Description: generateDescription(Lvl2, "functions with a large (4mb) request body")})
+	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "largerequest", Description: generateDescription(Lvl1, "functions with a large (4mb) request body")})
 }
 
 func increasingLoadLvl3LongRuntime(test *config.Test) {
@@ -122,6 +102,7 @@ func increasingLoadLvl1ShortRuntime(test *config.Test) {
 
 func increasingLoadLvl3(test *config.Test) {
 	increasingLoad(test, config.Http{
+		QueryParams: levelQueryParam(3),
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Lvl3),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -130,6 +111,7 @@ func increasingLoadLvl3(test *config.Test) {
 
 func increasingLoadLvl2(test *config.Test) {
 	increasingLoad(test, config.Http{
+		QueryParams: levelQueryParam(2),
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Lvl2),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -138,6 +120,7 @@ func increasingLoadLvl2(test *config.Test) {
 
 func increasingLoadLvl1(test *config.Test) {
 	increasingLoad(test, config.Http{
+		QueryParams: levelQueryParam(1),
 		TestType:  httpbench.RequestsForTimeGraph.String(),
 		HitsGraph: gradualHitGraph(maxConcurrent, Lvl1),
 		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
@@ -151,7 +134,6 @@ func increasingLoad(test *config.Test, httpConfig config.Http) {
 	if httpConfig.QueryParams == nil {
 		httpConfig.QueryParams = &queryParams
 	}
-	httpConfig.QueryParams.Add("level", "1")
 	httpConfig.Headers = &headers
 	httpConfig.Body = &body
 	for _, function := range test.Stack.ListFunctions() {

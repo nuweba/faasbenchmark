@@ -1,8 +1,4 @@
-function getDuration() {
-    var startTime = process.hrtime();
-    var end = process.hrtime(startTime);
-    return end[1] + (end[0] * 1e9);
-}
+var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 
 function isWarm() {
     var is_warm = process.env.warm ? true : false;
@@ -10,9 +6,46 @@ function isWarm() {
     return is_warm;
 }
 
-exports.handler = async () => {
+function getDuration(startTime) {
+    var end = process.hrtime(startTime);
+    return end[1] + (end[0] * 1e9);
+}
+
+function getSleep(event) {
+    let sleep_time = event.sleep ? parseInt(event.sleep) : null;
+    if (!sleep_time || sleep_time === 0) {
+        return {"error": "invalid sleep parameter"};
+    }
+    return sleep_time;
+}
+
+function getParameters(event) {
+    return getSleep(event);
+}
+
+async function runTest(sleep_time){
+    await wait(sleep_time);
+}
+
+exports.handler = async (event) => {
+    var startTime = process.hrtime();
+    let params = getParameters(event);
+    if (params.error) {
+        return {"error": params.error}
+    }
+
+    await runTest(params);
+
+    var reused = isWarm();
+    var duration = getDuration(startTime);
+
     return {
-        "reused": isWarm(),
-        "duration": getDuration(),
+        "reused": reused,
+        "duration": duration,
     };
 };
+
+
+
+
+

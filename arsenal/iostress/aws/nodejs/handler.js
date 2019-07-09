@@ -1,14 +1,11 @@
-const fs = require('fs');
 const PATH = '/tmp/faastest';
-const proc = require( 'child_process' );
+const proc = require('child_process');
 
-function ioIntensiveCalculation(baseNumber) {
-    var startTime = process.hrtime();
+function ioIntensive(baseNumber) {
     var amountInMB = 10 ** baseNumber;
-    proc.spawnSync('dd', ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct']);
-    fs.unlinkSync(PATH);
-    var end = process.hrtime(startTime);
-    return end[1] + (end[0] * 1e9);
+    var out = proc.spawnSync('dd', ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct']);
+    if (out.status !== 0)
+        return out.stderr.toString();
 }
 
 function isWarm() {
@@ -17,15 +14,47 @@ function isWarm() {
     return is_warm;
 }
 
-exports.handler = async (event) => {
+function getDuration(startTime) {
+    var end = process.hrtime(startTime);
+    return end[1] + (end[0] * 1e9);
+}
+
+function getLevel(event) {
     let intensityLevel = event.level ? parseInt(event.level) : null;
-    if(!intensityLevel || intensityLevel < 1) {
-        return {"error": "invalid level parameter"}
+    if (!intensityLevel || intensityLevel < 1) {
+        return {"error": "invalid level parameter"};
+    }
+    return intensityLevel;
+}
+
+function getParameters(event) {
+    return getLevel(event);
+}
+
+function runTest(intensityLevel) {
+    return ioIntensive(intensityLevel)
+}
+
+exports.handler = async (event) => {
+    var startTime = process.hrtime();
+    let params = getParameters(event);
+    if (params.error) {
+        return {"error": params.error}
     }
 
+    var error = runTest(params);
+    if (error) {
+        return {"error": error}
+    }
+
+    var reused = isWarm();
+    var duration = getDuration(startTime);
+
     return {
-        "reused": isWarm(),
-        "duration": ioIntensiveCalculation(intensityLevel)
+        "reused": reused,
+        "duration": duration
     };
 };
+
+
 

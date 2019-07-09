@@ -1,1 +1,0 @@
-This stack contains a function that sends an internal service request

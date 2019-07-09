@@ -1,0 +1,1 @@
+This stack contains a function that uploads a file to a provider storage service

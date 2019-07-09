@@ -19,6 +19,14 @@ func sleepQueryParam(sleep time.Duration) *url.Values {
 	return &qParams
 }
 
+func levelQueryParam(level int) *url.Values {
+	qParams := url.Values{}
+	sleepTimeMillisecond := strconv.Itoa(level)
+	qParams.Add("level", sleepTimeMillisecond)
+
+	return &qParams
+}
+
 func gradualHitGraph(maxConcurrent int, durationIntensity time.Duration) *httpbench.HitsGraph {
 	var graph httpbench.HitsGraph
 	for concurrent := 1; concurrent <= maxConcurrent; concurrent++ {
