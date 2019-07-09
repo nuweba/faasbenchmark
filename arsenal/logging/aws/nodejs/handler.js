@@ -1,5 +1,5 @@
 function logging(baseNumber) {
-    var iterationCount = 30000 * Math.pow(baseNumber, 3);
+    var iterationCount = 3000 * Math.pow(baseNumber, 3);
     for (var i = iterationCount; i >= 0; i--) {
         console.log('this is a log message');
     }

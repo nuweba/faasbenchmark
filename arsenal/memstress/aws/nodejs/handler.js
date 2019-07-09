@@ -1,8 +1,10 @@
 const MEGABYTE = 1024 * 1024;
 
 function memIntensive(level) {
-    let amountInMB = level * 64 - 1;
-    Buffer.alloc(amountInMB * MEGABYTE);
+    var available_memory = process.env.AWS_LAMBDA_FUNCTION_MEMORY_SIZE;
+    let amountInMB = available_memory - (available_memory / 10) * (4 - level);
+    console.log(amountInMB);
+    Buffer.alloc(amountInMB * MEGABYTE, 'a');
 }
 
 function isWarm() {

@@ -1,11 +1,11 @@
-const fs = require('fs');
 const PATH = '/tmp/faastest';
-const proc = require( 'child_process' );
+const proc = require('child_process');
 
 function ioIntensive(baseNumber) {
     var amountInMB = 10 ** baseNumber;
-    proc.spawnSync('dd', ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct']);
-    fs.unlinkSync(PATH);
+    var out = proc.spawnSync('dd', ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct']);
+    if (out.status !== 0)
+        return out.stderr.toString();
 }
 
 function isWarm() {
@@ -27,8 +27,8 @@ function getParameters(event) {
     return intensityLevel;
 }
 
-function runTest(intensityLevel){
-    ioIntensive(intensityLevel)
+function runTest(intensityLevel) {
+    return ioIntensive(intensityLevel)
 }
 
 exports.handler = async (event) => {
@@ -38,7 +38,10 @@ exports.handler = async (event) => {
         return {"error": params.error}
     }
 
-    runTest(params);
+    var error = runTest(params);
+    if (error) {
+        return {"error": error}
+    }
 
     var reused = isWarm();
     var duration = getDuration(startTime);
