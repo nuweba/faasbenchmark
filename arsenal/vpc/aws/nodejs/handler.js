@@ -38,7 +38,6 @@ exports.handler = async (event) => {
     return {
         "reused": reused,
         "duration": duration,
-        "response": data
     };
 };
 
