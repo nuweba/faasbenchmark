@@ -16,16 +16,38 @@ function isWarm() {
     return is_warm;
 }
 
-exports.handler = async () => {
-    var startTime = process.hrtime();
-
-    await upload();
-    let retval = {
-        "reused": isWarm(),
-    };
-
+function getDuration(startTime) {
     var end = process.hrtime(startTime);
-    retval.duration = end[1] + (end[0] * 1e9);
-    return retval;
+    return end[1] + (end[0] * 1e9);
+}
+
+function getParameters(event) {
+    let intensityLevel = event.level ? parseInt(event.level) : null;
+    if (!intensityLevel || intensityLevel < 1) {
+        return {"error": "invalid level parameter"};
+    }
+    return intensityLevel;
+}
+
+function runTest(intensityLevel){
+    upload(intensityLevel)
+}
+
+exports.handler = async (event) => {
+    var startTime = process.hrtime();
+    let params = getParameters(event);
+    if (params.error) {
+        return {"error": params.error}
+    }
+
+    runTest(params);
+
+    var reused = isWarm();
+    var duration = getDuration(startTime);
+
+    return {
+        "reused": reused,
+        "duration": duration
+    };
 };
 

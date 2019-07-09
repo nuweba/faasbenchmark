@@ -12,21 +12,42 @@ function isWarm() {
     return is_warm;
 }
 
+function getDuration(startTime) {
+    var end = process.hrtime(startTime);
+    return end[1] + (end[0] * 1e9);
+}
+
+function getParameters(event) {
+    let intensityLevel = event.level ? parseInt(event.level) : null;
+    if (!intensityLevel || intensityLevel < 1) {
+        return {"error": "invalid level parameter"};
+    }
+    return intensityLevel;
+}
+
+function runTest(intensityLevel){
+    cpuIntensiveCalculation(intensityLevel);
+}
+
 exports.handler = async (event) => {
     var startTime = process.hrtime();
-    let intensityLevel = event.level ? parseInt(event.level) : null;
-    if(!intensityLevel || intensityLevel < 1) {
-        return {"error": "invalid level parameter"}
+    let params = getParameters(event);
+    if (params.error) {
+        return {"error": params.error}
     }
 
-    cpuIntensiveCalculation(intensityLevel);
+    runTest(params);
 
-    let retval = {
-        "reused": isWarm(),
+    var reused = isWarm();
+    var duration = getDuration(startTime);
+
+    return {
+        "reused": reused,
+        "duration": duration,
+        "response": data
     };
-
-    var end = process.hrtime(startTime);
-    retval.duration = end[1] + (end[0] * 1e9);
-    return retval;
 };
+
+
+
 

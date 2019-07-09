@@ -1,5 +1,22 @@
 var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 
+function getDuration(startTime) {
+    var end = process.hrtime(startTime);
+    return end[1] + (end[0] * 1e9);
+}
+
+function getParameters(event) {
+    let sleep_time = event.sleep ? parseInt(event.sleep) : null;
+    if (!sleep_time || sleep_time === 0) {
+        return {"error": "invalid sleep parameter"};
+    }
+    return sleep_time;
+}
+
+async function runTest(sleep_time){
+    await wait(sleep_time);
+}
+
 function isWarm() {
     var is_warm = process.env.warm ? true : false;
     process.env.warm = true;
@@ -7,21 +24,21 @@ function isWarm() {
 }
 
 exports.hello = async (event) => {
-    let startTime = process.hrtime();
-
-    const sleep_time = event.sleep ? parseInt(event.sleep) : null;
-    if (!sleep_time && sleep_time !== 0) {
-        return {"error": "invalid sleep parameter"}
+    var startTime = process.hrtime();
+    let params = getParameters(event);
+    if (params.error) {
+        return {"error": params.error}
     }
 
-    await wait(sleep_time);
+    await runTest(params);
 
-    let retval = {
-        "reused": isWarm(),
+    var reused = isWarm();
+    var duration = getDuration(startTime);
+
+    return {
+        "reused": reused,
+        "duration": duration
     };
-
-    let end = process.hrtime(startTime);
-    retval.duration = end[1] + (end[0] * 1e9);
-    return retval;
 };
+
 
