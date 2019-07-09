@@ -21,10 +21,10 @@ function isWarm() {
     return is_warm;
 }
 
-function getIntensityLevel(event) {
+function getParameters(event) {
     let intensityLevel = event.level ? parseInt(event.level) : null;
     if (!intensityLevel || intensityLevel < 1) {
-        throw "invalid level parameter";
+        return {"error": "invalid level parameter"};
     }
     return intensityLevel;
 }
@@ -34,11 +34,18 @@ function getDuration(startTime) {
     return end[1] + (end[0] * 1e9);
 }
 
+async function runTest(intensityLevel){
+    await networkIntensive(intensityLevel)
+}
+
 exports.handler = async (event) => {
     var startTime = process.hrtime();
-    let intensityLevel = getIntensityLevel(event);
+    let params = getParameters(event);
+    if (params.error) {
+        return {"error": params.error}
+    }
 
-    await networkIntensive(intensityLevel);
+    await runTest(params);
 
     var reused = isWarm();
     var duration = getDuration(startTime);
