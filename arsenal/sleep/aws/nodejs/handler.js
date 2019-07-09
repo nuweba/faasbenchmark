@@ -5,12 +5,16 @@ function getDuration(startTime) {
     return end[1] + (end[0] * 1e9);
 }
 
-function getParameters(event) {
+function getSleep(event) {
     let sleep_time = event.sleep ? parseInt(event.sleep) : null;
     if (!sleep_time || sleep_time === 0) {
         return {"error": "invalid sleep parameter"};
     }
     return sleep_time;
+}
+
+function getParameters(event) {
+    return getSleep(event);
 }
 
 async function runTest(sleep_time){

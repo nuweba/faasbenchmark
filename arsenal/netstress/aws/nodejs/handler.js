@@ -21,12 +21,16 @@ function isWarm() {
     return is_warm;
 }
 
-function getParameters(event) {
+function getLevel(event) {
     let intensityLevel = event.level ? parseInt(event.level) : null;
     if (!intensityLevel || intensityLevel < 1) {
         return {"error": "invalid level parameter"};
     }
     return intensityLevel;
+}
+
+function getParameters(event) {
+    return getLevel(event);
 }
 
 function getDuration(startTime) {

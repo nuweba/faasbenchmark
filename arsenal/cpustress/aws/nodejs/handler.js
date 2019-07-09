@@ -17,12 +17,16 @@ function getDuration(startTime) {
     return end[1] + (end[0] * 1e9);
 }
 
-function getParameters(event) {
+function getLevel(event) {
     let intensityLevel = event.level ? parseInt(event.level) : null;
     if (!intensityLevel || intensityLevel < 1) {
         return {"error": "invalid level parameter"};
     }
     return intensityLevel;
+}
+
+function getParameters(event) {
+    return getLevel(event);
 }
 
 function runTest(intensityLevel){
