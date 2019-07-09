@@ -2,11 +2,9 @@ const http = require('http');
 const fs = require('fs');
 
 async function networkIntensive(level) {
-    var startTime = process.hrtime();
-
     var fileSizeInMB = Math.pow(10, level - 1);
     const writable = fs.createWriteStream('/dev/null');
-    var res = await new Promise((resolve, reject) => http.get({
+    await new Promise((resolve) => http.get({
         host: `www.ovh.net`,
         port: 80,
         path: `/files/${fileSizeInMB}Mb.dat`
@@ -14,8 +12,6 @@ async function networkIntensive(level) {
         var download = res.pipe(writable);
         download.on('close', () => resolve(res));
     }));
-    var end = process.hrtime(startTime);
-    return end[1] + (end[0] * 1e9);
 }
 
 function isWarm() {
@@ -25,13 +21,19 @@ function isWarm() {
 }
 
 exports.handler = async (event) => {
+    var startTime = process.hrtime();
     let intensityLevel = event.level ? parseInt(event.level) : null;
     if (!intensityLevel || intensityLevel < 1) {
         return {"error": "invalid level parameter"}
     }
 
-    return {
+    await networkIntensive(intensityLevel);
+
+    let retval = {
         "reused": isWarm(),
-        "duration": await networkIntensive(intensityLevel)
     };
+
+    var end = process.hrtime(startTime);
+    retval.duration = end[1] + (end[0] * 1e9);
+    return retval;
 };

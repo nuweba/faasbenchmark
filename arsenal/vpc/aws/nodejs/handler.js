@@ -1,9 +1,3 @@
-function getDuration() {
-    var startTime = process.hrtime();
-    var end = process.hrtime(startTime);
-    return end[1] + (end[0] * 1e9);
-}
-
 function isWarm() {
     var is_warm = process.env.warm ? true : false;
     process.env.warm = true;
@@ -11,8 +5,13 @@ function isWarm() {
 }
 
 exports.handler = async () => {
-    return {
+    var startTime = process.hrtime();
+
+    let retval = {
         "reused": isWarm(),
-        "duration": getDuration(),
     };
+
+    var end = process.hrtime(startTime);
+    retval.duration = end[1] + (end[0] * 1e9);
+    return retval;
 };

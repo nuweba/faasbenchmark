@@ -1,12 +1,5 @@
 var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 
-async function sleep(sleep_time) {
-    let startTime = process.hrtime();
-    await wait(sleep_time);
-    let end = process.hrtime(startTime);
-    return end[1] + (end[0] * 1e9);
-}
-
 function isWarm() {
     var is_warm = process.env.warm ? true : false;
     process.env.warm = true;
@@ -14,13 +7,20 @@ function isWarm() {
 }
 
 exports.hello = async (event) => {
+    let startTime = process.hrtime();
+
     const sleep_time = event.sleep ? parseInt(event.sleep) : null;
 	if (!sleep_time && sleep_time !== 0) {
 		return {"error": "invalid sleep parameter"}
 	}
 
-    return {
+    await wait(sleep_time);
+
+    let retval = {
         "reused": isWarm(),
-        "duration": await sleep(sleep_time)
     };
+
+    let end = process.hrtime(startTime);
+    retval.duration = end[1] + (end[0] * 1e9);
+    return retval;
 };
