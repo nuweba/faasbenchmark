@@ -8,7 +8,7 @@ function getDuration(startTime) {
 function getSleep(event) {
     let sleep_input = event.req.query["sleep"];
     let sleep_time = sleep_input ? parseInt(sleep_input) : null;
-    if (!sleep_time || sleep_time === 0) {
+    if (!sleep_time && sleep_time !== 0) {
         return {"error": "invalid sleep parameter"};
     }
     return sleep_time;
