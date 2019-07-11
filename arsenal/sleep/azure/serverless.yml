@@ -19,7 +19,7 @@ service: sleep
 
 provider:
   name: azure
-  location: West US
+  location: East US
 
 plugins:
   - serverless-azure-functions

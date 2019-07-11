@@ -1,0 +1,22 @@
+service: cpustress
+
+provider:
+  name: azure
+  location: East US
+
+plugins:
+  - serverless-azure-functions
+
+functions:
+  cpustress:
+    handler: nodejs/handler.handler
+    name: cpustress
+    description: "cpu intensive function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel : anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return

@@ -28,7 +28,7 @@ function isWarm() {
     return is_warm;
 }
 
-module.exports.hello = async function (event) {
+module.exports.hello = async (event) => {
     var startTime = process.hrtime();
     let params = getParameters(event);
     if (params.error) {
@@ -45,8 +45,3 @@ module.exports.hello = async function (event) {
         "duration": duration
     };
 };
-
-
-
-
-
