@@ -19,3 +19,4 @@ functions:
       - http: true
         x-azure-settings:
           direction: out
+          name: $return
