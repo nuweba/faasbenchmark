@@ -1,0 +1,21 @@
+service: netsress
+
+provider:
+  name: azure
+  location: East US
+
+plugins:
+  - serverless-azure-functions
+
+functions:
+  netsress:
+    handler: nodejs/handler.handler
+    name: netsress
+    description: "a network intensive function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out

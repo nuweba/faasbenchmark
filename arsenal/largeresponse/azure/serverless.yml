@@ -1,0 +1,21 @@
+service: largeresponse
+
+provider:
+  name: azure
+  location: East US
+
+plugins:
+  - serverless-azure-functions
+
+functions:
+  largeresponse:
+    handler: nodejs/handler.handler
+    name: largeresponse
+    description: "a function that returns a large response"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out

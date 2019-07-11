@@ -1,0 +1,23 @@
+service: logging
+
+provider:
+  name: azure
+  location: East US
+
+plugins:
+  - serverless-azure-functions
+
+functions:
+  logging:
+    handler: nodejs/handler.handler
+    name: logging
+    description: "a logging intensive function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+

@@ -1,0 +1,140 @@
+service: identicalfunctions
+
+provider:
+  name: azure
+  location: East US
+
+plugins:
+  - serverless-azure-functions
+
+functions:
+
+  sleep-1:
+    handler: handler.hello
+    name: sleep-1
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+
+  sleep-2:
+    handler: handler.hello
+    name: sleep-2
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+
+  sleep-3:
+    handler: handler.hello
+    name: sleep-3
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+
+  sleep-4:
+    handler: handler.hello
+    name: sleep-4
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+
+  sleep-5:
+    handler: handler.hello
+    name: sleep-5
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+
+  sleep-6:
+    handler: handler.hello
+    name: sleep-6
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+
+  sleep-7:
+    handler: handler.hello
+    name: sleep-7
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+
+  sleep-8:
+    handler: handler.hello
+    name: sleep-8
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+
+  sleep-9:
+    handler: handler.hello
+    name: sleep-9
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return
+
+  sleep-10:
+    handler: handler.hello
+    name: sleep-10
+    description: "sleep function"
+    events:
+      - http: true
+        x-azure-settings:
+          authLevel: anonymous
+      - http: true
+        x-azure-settings:
+          direction: out
+          name: $return

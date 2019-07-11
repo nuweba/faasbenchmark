@@ -15,7 +15,7 @@ functions:
     events:
       - http: true
         x-azure-settings:
-          authLevel : anonymous
+          authLevel: anonymous
       - http: true
         x-azure-settings:
           direction: out
