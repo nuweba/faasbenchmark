@@ -1,14 +1,25 @@
-'use strict';
-
-/* eslint-disable no-param-reassign */
-
 var wait = ms => new Promise((r, j) => setTimeout(r, ms));
 
-async function sleep(sleep_time) {
-    let startTime = process.hrtime();
-    await wait(sleep_time);
-    let end = process.hrtime(startTime);
+function getDuration(startTime) {
+    var end = process.hrtime(startTime);
     return end[1] + (end[0] * 1e9);
+}
+
+function getSleep(event) {
+    let sleep_input = event.req.query["sleep"];
+    let sleep_time = sleep_input ? parseInt(sleep_input) : null;
+    if (!sleep_time || sleep_time === 0) {
+        return {"error": "invalid sleep parameter"};
+    }
+    return sleep_time;
+}
+
+function getParameters(event) {
+    return getSleep(event);
+}
+
+async function runTest(sleep_time){
+    await wait(sleep_time);
 }
 
 function isWarm() {
@@ -17,13 +28,25 @@ function isWarm() {
     return is_warm;
 }
 
+module.exports.hello = async function (event) {
+    var startTime = process.hrtime();
+    let params = getParameters(event);
+    if (params.error) {
+        return {"error": params.error}
+    }
 
-module.exports.hello = async function (context) {
+    await runTest(params);
 
-    const sleep_time = context.req.query["sleep"] ? parseInt(context.req.query["sleep"]) : 200;
+    var reused = isWarm();
+    var duration = getDuration(startTime);
 
     return {
-        "reused": isWarm(),
-        "duration": await sleep(sleep_time)
-    }
+        "reused": reused,
+        "duration": duration
+    };
 };
+
+
+
+
+
