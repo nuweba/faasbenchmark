@@ -45,6 +45,10 @@ github.com/nuweba/httpbench v0.0.0-20190709144652-f1031e5f81df h1:4UIzqSnMGnSRbs
 github.com/nuweba/httpbench v0.0.0-20190709144652-f1031e5f81df/go.mod h1:RfsPIwMQqT15Sgg3Dbt5jr0WtZFLtccZItBnqcEPu5g=
 github.com/nuweba/httpbench v0.0.0-20190709151308-58b4f64a9869 h1:ImRGyEKV7rWEDXyXH/XQFJEGiu8EVIkqxfneJuA1k7w=
 github.com/nuweba/httpbench v0.0.0-20190709151308-58b4f64a9869/go.mod h1:RfsPIwMQqT15Sgg3Dbt5jr0WtZFLtccZItBnqcEPu5g=
+github.com/nuweba/httpbench v0.0.0-20190709152425-80ca3d6f0512 h1:BWVQZgMJVRgdu6noOzs/TmXaL1FC0/uwD2ss81o7q/Q=
+github.com/nuweba/httpbench v0.0.0-20190709152425-80ca3d6f0512/go.mod h1:RfsPIwMQqT15Sgg3Dbt5jr0WtZFLtccZItBnqcEPu5g=
+github.com/nuweba/httpbench v0.0.0-20190717083923-b4da1bc28170 h1:KjUVEZAK7ZN38W+ImJvAXevHDWlGz1E4c2vZm0BPRgk=
+github.com/nuweba/httpbench v0.0.0-20190717083923-b4da1bc28170/go.mod h1:RfsPIwMQqT15Sgg3Dbt5jr0WtZFLtccZItBnqcEPu5g=
 github.com/nuweba/semaphore v0.0.0-20190319094739-5f91e06f5ad3 h1:I8pyWqpjthlU9AdzBO0VHxaikYwJVyEWtA4rbFYOwhM=
 github.com/nuweba/semaphore v0.0.0-20190319094739-5f91e06f5ad3/go.mod h1:WopuZYv2JgV+ZVmeawUwYAw7rnkji/DHqwYj0PXQ/uE=
 github.com/nuweba/sls v0.0.0-20190422092932-d0d1e1dc18b8 h1:SdfA0Jpjl4EiWkK/0a+JwChrQB+MKYcfiTX50SwQiiI=
