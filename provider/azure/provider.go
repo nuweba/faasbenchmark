@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws/ec2metadata"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/golang/gddo/httputil/header"
 	"github.com/nuweba/faasbenchmark/stack"
 	"github.com/nuweba/httpbench/syncedtrace"
 	"io/ioutil"
@@ -65,9 +66,11 @@ func (azure *Azure) buildFuncInvokeReq(funcName string, appName string, qParams 
 	return req, nil
 }
 
-func (azure *Azure) NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) func() (*http.Request, error) {
-	return func() (*http.Request, error) {
-		return azure.buildFuncInvokeReq(function.Name(), stack.StackId(), qParams, headers, body)
+func (azure *Azure) NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) func(uniqueId string) (*http.Request, error) {
+	return func(uniqueId string) (*http.Request, error) {
+		localHeaders := header.Copy(*headers)
+		localHeaders.Add("Faastest-id", uniqueId)
+		return azure.buildFuncInvokeReq(function.Name(), stack.StackId(), qParams, &localHeaders, body)
 	}
 }
 

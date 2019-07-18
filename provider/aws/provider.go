@@ -15,6 +15,7 @@ import (
 	"net/url"
 	"path"
 	"time"
+	"github.com/golang/gddo/httputil/header"
 )
 
 type Aws struct {
@@ -111,9 +112,11 @@ func (aws *Aws) buildLambdaInvokeReq(funcName string, qParams *url.Values, heade
 	return req, nil
 }
 
-func (aws *Aws) NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) (func() (*http.Request, error)) {
-	return func() (*http.Request, error) {
-		return aws.buildLambdaInvokeReq(function.Name(), qParams, headers, body)
+func (aws *Aws) NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) (func(uniqueId string) (*http.Request, error)) {
+	return func(uniqueId string) (*http.Request, error) {
+		localHeaders := header.Copy(*headers)
+		localHeaders.Add("Faastest-id", uniqueId)
+		return aws.buildLambdaInvokeReq(function.Name(), qParams, &localHeaders, body)
 	}
 }
 

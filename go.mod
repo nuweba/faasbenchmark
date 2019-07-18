@@ -7,14 +7,16 @@ require (
 	github.com/cjbassi/drawille-go v0.1.0 // indirect
 	github.com/disintegration/gift v1.2.0
 	github.com/gizak/termui/v3 v3.0.0
+	github.com/golang/gddo v0.0.0-20190419222130-af0f2af80721
+	github.com/google/go-cmp v0.3.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-runewidth v0.0.4 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
 	github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e // indirect
-	github.com/nuweba/httpbench v0.0.0-20190717083923-b4da1bc28170
-	github.com/nuweba/sls v0.0.0-20190624081147-7f92a4aa3050
+	github.com/nuweba/httpbench v0.0.0-20190718103227-2828b8fba45a
+	github.com/nuweba/sls v0.0.0-20190718105021-d4c0dfddcab6
 	github.com/pkg/errors v0.8.1
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3 // indirect

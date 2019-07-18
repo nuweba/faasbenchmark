@@ -27,7 +27,7 @@ type FaasProvider interface {
 	Name() string
 	HttpInvocationTriggerStage() syncedtrace.TraceHookType
 	NewStack(stackPath string) (stack.Stack, error)
-	NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) func() (*http.Request, error)
+	NewFunctionRequest(stack stack.Stack, function stack.Function, qParams *url.Values, headers *http.Header, body *[]byte) func(uniqueId string) (*http.Request, error)
 }
 
 type Providers int
