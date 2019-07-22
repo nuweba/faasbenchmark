@@ -1,22 +1,19 @@
 package azure
 
 import (
+	azurestack "github.com/nuweba/azure-stack"
 	"github.com/nuweba/faasbenchmark/stack"
-	"github.com/nuweba/faasbenchmark/stack/sls"
+	az "github.com/nuweba/faasbenchmark/stack/azure"
 	"path/filepath"
 )
 
-type Stack struct {
-	*sls.Stack
-}
-
 func (azure *Azure) NewStack(stackPath string) (stack.Stack, error) {
-	slsYamlDirPath := filepath.Join(stackPath, azure.Name())
-	stack, err := sls.New(azure.Name(), slsYamlDirPath)
+	stackPath = filepath.Join(stackPath, azure.Name())
+	stack, err := azurestack.New(stackPath)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return &Stack{stack}, nil
+	return &az.Stack{AzureStack: stack}, nil
 }
