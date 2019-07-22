@@ -6,7 +6,7 @@ import (
 )
 
 type Stack struct {
-	azurestack.AzureStack
+	*azurestack.AzureStack
 }
 
 func New(path string) (*Stack, error) {
@@ -20,18 +20,9 @@ func New(path string) (*Stack, error) {
 }
 
 func (s *Stack) ListFunctions() []stack.Function {
-
 	var functions []stack.Function
-
 	for _, f := range s.Functions {
-		nf := &Function{
-			name:        f.Name,
-			handler:     f.Handler,
-			description: f.Description,
-			runtime:     f.Runtime,
-			memorySize:  f.MemorySize,
-		}
-		functions = append(functions, nf)
+		functions = append(functions, stack.Function(f))
 	}
 
 	return functions
