@@ -43,7 +43,7 @@ module.exports.handler = async (event) => {
         return {"error": params.error}
     }
 
-    testOut = runTest(params);
+    let testOut = runTest(params);
     if (testOut.error) {
         return testOut.error
     }
