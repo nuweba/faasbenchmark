@@ -1,11 +1,11 @@
-const PATH = '%TEMP%\\faastest';
+const PATH = 'D:\\local\\temp\\faastest';
+const ddPath = 'D:\\Program Files\\Git\\usr\\bin\\dd.exe'
 const proc = require('child_process');
 
 function ioIntensive(baseNumber) {
     var amountInMB = 10 ** baseNumber;
-    var out = proc.spawnSync('dd', ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct'], {"cwd":"D:\\Program Files\\Git"});
-    if (out.status !== 0)
-        return out.stderr.toString();
+    var out = proc.spawnSync(ddPath, ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct']);
+    return out
 }
 
 function isWarm() {
@@ -43,9 +43,9 @@ module.exports.handler = async (event) => {
         return {"error": params.error}
     }
 
-    var error = runTest(params);
-    if (error) {
-        return {"error": error}
+    testOut = runTest(params);
+    if (testOut.error) {
+        return testOut.error
     }
 
     var reused = isWarm();
@@ -53,9 +53,9 @@ module.exports.handler = async (event) => {
 
     return {
         "reused": reused,
-        "duration": duration
+        "duration": duration,
+        "ddoutput": testOut.stderr.toString()
     };
 };
-
 
 
