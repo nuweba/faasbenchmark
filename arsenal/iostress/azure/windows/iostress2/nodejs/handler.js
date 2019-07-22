@@ -1,9 +1,9 @@
-const PATH = '/tmp/faastest';
+const PATH = '%TEMP%\\faastest';
 const proc = require('child_process');
 
 function ioIntensive(baseNumber) {
     var amountInMB = 10 ** baseNumber;
-    var out = proc.spawnSync('dd', ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct']);
+    var out = proc.spawnSync('dd', ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct'], {"cwd":"D:\\Program Files\\Git"});
     if (out.status !== 0)
         return out.stderr.toString();
 }
