@@ -54,7 +54,6 @@ module.exports.handler = async (event) => {
     return {
         "reused": reused,
         "duration": duration,
-        "ddoutput": testOut.stderr.toString()
     };
 };
 
