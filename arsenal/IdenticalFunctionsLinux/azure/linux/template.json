@@ -30,7 +30,6 @@
     },
     "variables": {
         "functionAppName": "[parameters('functionAppName')]",
-        "hostingPlanName": "[parameters('functionAppName')]",
         "insightsName": "[concat(parameters('functionAppName'), '-insights')]",
         "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'azfunctions')]",
         "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
@@ -56,32 +55,25 @@
             }
         },
         {
-            "type": "Microsoft.Web/serverfarms",
-            "apiVersion": "2015-04-01",
-            "name": "[variables('hostingPlanName')]",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "name": "[variables('hostingPlanName')]",
-                "computeMode": "Dynamic",
-                "sku": "Dynamic"
-            }
-        },
-        {
-            "apiVersion": "2015-08-01",
+	    "apiVersion": "2016-03-01",
             "type": "Microsoft.Web/sites",
             "name": "[variables('functionAppName')]",
             "location": "[resourceGroup().location]",
-            "kind": "functionapp",
+            "kind": "functionapp,linux",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
                 "[resourceId('Microsoft.insights/components', variables('insightsName'))]"
             ],
             "properties": {
+                "name": "[variables('functionAppName')]",
                 "clientAffinityEnabled": false,
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+	        "reserved": "true",
                 "siteConfig": {
                     "appSettings": [
+                        {
+                            "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+                            "value": "true"
+                        },
                         {
                             "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
                             "value": "[reference(variables('insightsName')).InstrumentationKey]"
@@ -97,18 +89,6 @@
                         {
                             "name": "FUNCTIONS_EXTENSION_VERSION",
                             "value": "~2"
-                        },
-                        {
-                            "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
-                        },
-                        {
-                            "name": "WEBSITE_CONTENTSHARE",
-                            "value": "[toLower(variables('functionAppName'))]"
-			},
-                        {
-                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
-                            "value": "8.11.1"
                         }
                     ]
                 }
