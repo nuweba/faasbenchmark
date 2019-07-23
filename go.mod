@@ -16,7 +16,6 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
 	github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e // indirect
 	github.com/nuweba/azure-stack v0.0.0-20190722122832-25a4b1a7dd40
-	github.com/nuweba/httpbench v0.0.0-20190709151308-58b4f64a9869
 	github.com/nuweba/httpbench v0.0.0-20190718103227-2828b8fba45a
 	github.com/nuweba/sls v0.0.0-20190718105021-d4c0dfddcab6
 	github.com/pkg/errors v0.8.1
