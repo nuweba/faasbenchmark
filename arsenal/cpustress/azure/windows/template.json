@@ -109,6 +109,10 @@
                         {
                             "name": "WEBSITE_CONTENTSHARE",
                             "value": "[toLower(variables('functionAppName'))]"
+                        },
+                        {
+                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                            "value": "[parameters('nodeVersion')]"
                         }
                     ]
                 }
