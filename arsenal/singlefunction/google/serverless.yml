@@ -1,0 +1,20 @@
+service: singlefunction
+
+provider:
+  name: google
+  project: faastest
+  credentials: /tmp/.gcloud/faasbenchmark.json
+  stage: dev
+
+plugins:
+  - serverless-google-cloudfunctions
+  
+functions:
+  sleep-node810-128mb:
+    name: --sleep-node810-128mb
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test128
+    memorySize: 128
+    events:
+      - http: path
