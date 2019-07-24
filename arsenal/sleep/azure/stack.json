@@ -1,0 +1,6 @@
+{
+  "name": "sleep",
+  "location": "eastus",
+  "project": "faastest",
+  "stage": "dev"
+}

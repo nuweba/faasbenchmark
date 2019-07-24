@@ -1,0 +1,6 @@
+{
+  "name": "largeresponse",
+  "location": "eastus",
+  "project": "faastest",
+  "stage": "dev"
+}
