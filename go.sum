@@ -20,6 +20,7 @@ github.com/golang/gddo v0.0.0-20190419222130-af0f2af80721/go.mod h1:xEhNfoBDX1hz
 github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEWrmP2Q=
 github.com/google/go-cmp v0.3.0 h1:crn/baboCvb5fXaQ0IJ1SGTsTVrWpDsCWC8EGETZijY=
 github.com/google/go-cmp v0.3.0/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
+github.com/iancoleman/strcase v0.0.0-20190422225806-e506e3ef7365/go.mod h1:SK73tn/9oHe+/Y0h39VT4UCxmurVJkR5NA7kMEAOgSE=
 github.com/inconshreveable/mousetrap v1.0.0 h1:Z8tu5sraLXCXIcARxBp/8cbvlwVa7Z1NHg9XEKhtSvM=
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af h1:pmfjZENx5imkbgOkpRUYLnmbU7UEFbjtDA2hxJ1ichM=
@@ -48,6 +49,7 @@ github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e h1:Vbib8wJAaMEF9jus
 github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e/go.mod h1:IuKpRQcYE1Tfu+oAQqaLisqDeXgjyyltCfsaoYN18NQ=
 github.com/nuweba/azure-stack v0.0.0-20190722122832-25a4b1a7dd40 h1:Rwx0gzt0E3GEdvh6taf8lGRn/fzgX/WvSRI6uyMj6mA=
 github.com/nuweba/azure-stack v0.0.0-20190722122832-25a4b1a7dd40/go.mod h1:fetc2taJNjGFTfJj6DjlGrHpq/cV+N02t4uhiqneTd4=
+github.com/nuweba/azure-stack v0.0.0-20190724075925-e194464efbd8/go.mod h1:EMHT2G6S+PkxYU7nuZ/IR8zr4XtolfCWOxhy51h8ziQ=
 github.com/nuweba/counter v0.0.0-20190411141351-b62517205c5e h1:/Pv7ndf/89pOgskFQUGBGRdv0qjQtTOvRPxayDEb5Rs=
 github.com/nuweba/counter v0.0.0-20190411141351-b62517205c5e/go.mod h1:UNYYJjH1CDokWN/m+WYy40uM1UfPTfeV3h/Xuq1MfTc=
 github.com/nuweba/httpbench v0.0.0-20190709151308-58b4f64a9869/go.mod h1:RfsPIwMQqT15Sgg3Dbt5jr0WtZFLtccZItBnqcEPu5g=
