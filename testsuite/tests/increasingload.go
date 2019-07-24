@@ -29,9 +29,9 @@ func generateDescription(duration time.Duration, resourceType string) string {
 }
 
 func init() {
-	Tests.Register(Test{Id: "IncreasingLoadLvl3", Fn: increasingLoadLvl3LongRuntime, RequiredStack: "sleep", Description: generateDescription(Lvl3, "long runtime functions")})
-	Tests.Register(Test{Id: "IncreasingLoadLvl2", Fn: increasingLoadLvl2MedRuntime, RequiredStack: "sleep", Description: generateDescription(Lvl2, "medium runtime functions")})
-	Tests.Register(Test{Id: "IncreasingLoadLvl1", Fn: increasingLoadLvl1ShortRuntime, RequiredStack: "sleep", Description: generateDescription(Lvl1, "short runtime functions")})
+	Tests.Register(Test{Id: "IncreasingLoadLvl3", Fn: increasingLoadLvl3LongRuntime, RequiredStack: "sleepfunc", Description: generateDescription(Lvl3, "long runtime functions")})
+	Tests.Register(Test{Id: "IncreasingLoadLvl2", Fn: increasingLoadLvl2MedRuntime, RequiredStack: "sleepfunc", Description: generateDescription(Lvl2, "medium runtime functions")})
+	Tests.Register(Test{Id: "IncreasingLoadLvl1", Fn: increasingLoadLvl1ShortRuntime, RequiredStack: "sleepfunc", Description: generateDescription(Lvl1, "short runtime functions")})
 
 	Tests.Register(Test{Id: "IncreasingCPULoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "cpustress", Description: generateDescription(Lvl3, "CPU intensive functions")})
 	Tests.Register(Test{Id: "IncreasingCPULoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "cpustress", Description: generateDescription(Lvl2, "CPU intensive functions")})

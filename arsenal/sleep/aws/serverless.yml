@@ -1,4 +1,4 @@
-service: sleep
+service: sleepfunc
 
 provider:
   name: aws

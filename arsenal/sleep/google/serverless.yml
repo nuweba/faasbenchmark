@@ -1,9 +1,9 @@
-service: coldstart
+service: sleepfunc
 
 provider:
   name: google
   project: faastest
-  credentials: C:\Users\Yan\.google\faastest-cb0c85a68638.json
+  credentials: /tmp/.gcloud/faasbenchmark.json
   stage: dev
 
 plugins:
