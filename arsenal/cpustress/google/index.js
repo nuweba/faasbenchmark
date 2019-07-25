@@ -6,31 +6,31 @@ function cpuIntensiveCalculation(baseNumber) {
     }
 }
 
+function isWarm() {
+    var is_warm = process.env.warm ? true : false;
+    process.env.warm = true;
+    return is_warm;
+}
+
 function getDuration(startTime) {
     var end = process.hrtime(startTime);
     return end[1] + (end[0] * 1e9);
 }
 
-function getSleep(event) {
-    let sleep_time = event.query.level ? parseInt(event.query.level) : null;
-    if (!sleep_time || sleep_time < 1) {
+function getLevel(event) {
+    let intensityLevel = event.query.level ? parseInt(event.query.level) : null;
+    if (!intensityLevel || intensityLevel < 1) {
         return {"error": "invalid level parameter"};
     }
-    return sleep_time;
+    return intensityLevel;
 }
 
 function getParameters(event) {
-    return getSleep(event);
+    return getLevel(event);
 }
 
-function runTest(intensityLevel) {
+function runTest(intensityLevel){
     cpuIntensiveCalculation(intensityLevel);
-}
-
-function isWarm() {
-    var is_warm = process.env.warm ? true : false;
-    process.env.warm = true;
-    return is_warm;
 }
 
 async function main(req, res) {

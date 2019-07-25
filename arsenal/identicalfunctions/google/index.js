@@ -17,7 +17,7 @@ function getParameters(event) {
     return getSleep(event);
 }
 
-async function runTest(sleep_time) {
+async function runTest(sleep_time){
     await wait(sleep_time);
 }
 
