@@ -50,6 +50,7 @@ github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e/go.mod h1:IuKpRQcYE
 github.com/nuweba/azure-stack v0.0.0-20190722122832-25a4b1a7dd40 h1:Rwx0gzt0E3GEdvh6taf8lGRn/fzgX/WvSRI6uyMj6mA=
 github.com/nuweba/azure-stack v0.0.0-20190722122832-25a4b1a7dd40/go.mod h1:fetc2taJNjGFTfJj6DjlGrHpq/cV+N02t4uhiqneTd4=
 github.com/nuweba/azure-stack v0.0.0-20190724075925-e194464efbd8/go.mod h1:EMHT2G6S+PkxYU7nuZ/IR8zr4XtolfCWOxhy51h8ziQ=
+github.com/nuweba/azure-stack v0.0.0-20190725103409-f3e4851044ad/go.mod h1:EMHT2G6S+PkxYU7nuZ/IR8zr4XtolfCWOxhy51h8ziQ=
 github.com/nuweba/counter v0.0.0-20190411141351-b62517205c5e h1:/Pv7ndf/89pOgskFQUGBGRdv0qjQtTOvRPxayDEb5Rs=
 github.com/nuweba/counter v0.0.0-20190411141351-b62517205c5e/go.mod h1:UNYYJjH1CDokWN/m+WYy40uM1UfPTfeV3h/Xuq1MfTc=
 github.com/nuweba/httpbench v0.0.0-20190709151308-58b4f64a9869/go.mod h1:RfsPIwMQqT15Sgg3Dbt5jr0WtZFLtccZItBnqcEPu5g=
