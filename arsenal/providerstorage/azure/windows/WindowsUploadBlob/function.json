@@ -1,0 +1,25 @@
+{
+    "disabled": false,
+    "bindings": [
+        {
+            "type": "httpTrigger",
+            "direction": "in",
+            "name": "req",
+            "authLevel": "anonymous"
+        },
+        {
+            "type": "http",
+            "direction": "out",
+            "name": "$return"
+        },
+        {
+            "type": "blob",
+            "name": "blob",
+            "path": "outcontainer/faastest",
+            "direction": "out",
+            "connection":"AzureWebJobsStorage"
+        }
+    ],
+    "entryPoint": "handler",
+    "scriptFile": "nodejs/handler.js"
+}
