@@ -22,19 +22,15 @@ function getDuration(startTime) {
 }
 
 function getLevel(event) {
-    let intensityLevel = event.level ? parseInt(event.level) : null;
-    if (!intensityLevel || intensityLevel < 1) {
-        return {"error": "invalid level parameter"};
-    }
-    return intensityLevel;
+    return {}
 }
 
 function getParameters(event) {
     return getLevel(event);
 }
 
-function runTest(intensityLevel){
-    upload(intensityLevel)
+async function runTest(){
+    await upload()
 }
 
 exports.handler = async (event) => {
@@ -44,7 +40,7 @@ exports.handler = async (event) => {
         return {"error": params.error}
     }
 
-    runTest(params);
+    await runTest(params);
 
     var reused = isWarm();
     var duration = getDuration(startTime);
