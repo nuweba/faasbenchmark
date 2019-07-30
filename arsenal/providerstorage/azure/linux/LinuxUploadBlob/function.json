@@ -15,7 +15,7 @@
         {
             "type": "blob",
             "name": "blob",
-            "path": "outcontainer/faastest",
+            "path": "outcontainer/{rand-guid}",
             "direction": "out",
             "connection":"AzureWebJobsStorage"
         }
