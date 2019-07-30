@@ -3,7 +3,7 @@ const Storage = require('@google-cloud/storage');
 const storage = Storage();
 
 async function upload() {
-    let bucket = storage.bucket(process.env.TEST_BUCKET);
+    let bucket = storage.bucket('nwbfaastest1337');
     let file = bucket.file('faastest' + (new Date).getTime());
     await new Promise((resolve) => file.save(buf.toString('binary'), () => resolve()));
 }

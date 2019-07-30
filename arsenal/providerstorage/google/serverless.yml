@@ -5,8 +5,6 @@ provider:
   project: faastest
   credentials: /tmp/.gcloud/faasbenchmark.json
   stage: dev
-  environment:
-    TEST_BUCKET: nwbfaastest1337
 
 plugins:
   - serverless-google-cloudfunctions
@@ -58,23 +56,10 @@ functions:
       - http: path
 
 resources:
-  Resources:
-    BucketNwbfaastest:
-      Type: 'storage.v1.bucket'
-      Properties:
-        AccessControl: PublicRead
-        BucketName: ${self:provider.environment.TEST_BUCKET}
-        CorsConfiguration:
-          CorsRules:
-            - AllowedOrigins:
-                - '*'
-              AllowedHeaders:
-                - '*'
-              AllowedMethods:
-                - GET
-                - PUT
-                - POST
-                - DELETE
-                - HEAD
-              MaxAge: 3000
+  resources:
+  - type: storage.v1.bucket
+    name: nwbfaastest1337
+    properties:
+      project: faastest
+      name: nwbfaastest1337
 
