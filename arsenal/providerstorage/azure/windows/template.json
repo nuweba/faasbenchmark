@@ -52,11 +52,33 @@
         },
         {
             "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-04-01",
             "name": "[variables('storageAccountName')]",
-            "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "[parameters('storageAccountType')]",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
             "properties": {
-                "accountType": "[parameters('storageAccountType')]"
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": false,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
             }
         },
         {
