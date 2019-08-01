@@ -8,6 +8,7 @@ provider:
 
 plugins:
   - serverless-google-cloudfunctions
+  - serverless-gbucket-remover
   
 functions:
   provider-storage-node810-128mb:
@@ -63,3 +64,7 @@ resources:
       project: faastest
       name: nwbfaastest1337
 
+custom:
+  remover:
+    buckets:
+    - nwbfaastest1337
