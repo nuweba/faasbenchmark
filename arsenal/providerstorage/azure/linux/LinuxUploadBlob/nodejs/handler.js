@@ -1,14 +1,4 @@
 var buf = Buffer.allocUnsafe(10 * 1024 * 1024);
-const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
-
-async function upload() {
-    await s3.putObject({
-        Bucket: process.env.TEST_BUCKET,
-        Key: "faastest.dat",
-        Body: buf,
-    }).promise();
-}
 
 function isWarm() {
     var is_warm = process.env.warm ? true : false;
@@ -29,25 +19,29 @@ function getParameters(event) {
     return getLevel(event);
 }
 
-async function runTest(){
-    await upload()
+function runTest(intensityLevel){
 }
 
-exports.handler = async (event) => {
+module.exports.handler = async (event) => {
     var startTime = process.hrtime();
     let params = getParameters(event);
     if (params.error) {
         return {"error": params.error}
     }
 
-    await runTest(params);
+    runTest(params);
+    event.bindings.blob = buf.toString('binary');
 
     var reused = isWarm();
     var duration = getDuration(startTime);
 
     return {
         "reused": reused,
-        "duration": duration
+        "duration": duration,
     };
 };
+
+
+
+
 

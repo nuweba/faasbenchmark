@@ -13,6 +13,9 @@ provider:
         - s3:*
       Resource: "*"
 
+plugins:
+  - serverless-s3-remover
+
 functions:
   node810-memory-128:
     name: providerstorage-node810-128mb
@@ -69,4 +72,9 @@ resources:
                 - DELETE
                 - HEAD
               MaxAge: 3000
+
+custom:
+  remover:
+    buckets:
+      - ${self:provider.environment.TEST_BUCKET}
 
