@@ -20,7 +20,11 @@ function getDuration(startTime) {
 }
 
 function getID(req) {
-    return req.get('Faastest-id')
+    let requestID = req.get('Faastest-id');
+    if (!requestID) {
+        return {"error": "invalid request ID header"}
+    }
+    return requestID
 }
 
 function getParameters(req) {
