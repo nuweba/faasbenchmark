@@ -11,7 +11,16 @@ plugins:
   
 functions:
   sleep-node810-128mb-1:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-1
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test128
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-2:
+    name: --sleep-node810-128mb-2
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
@@ -20,7 +29,7 @@ functions:
       - http: path
 
   sleep-node810-128mb-3:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-3
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
@@ -29,7 +38,7 @@ functions:
       - http: path
 
   sleep-node810-128mb-4:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-4
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
@@ -38,7 +47,7 @@ functions:
       - http: path
 
   sleep-node810-128mb-5:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-5
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
@@ -47,7 +56,7 @@ functions:
       - http: path
 
   sleep-node810-128mb-6:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-6
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
@@ -56,7 +65,7 @@ functions:
       - http: path
 
   sleep-node810-128mb-7:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-7
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
@@ -65,7 +74,7 @@ functions:
       - http: path
 
   sleep-node810-128mb-8:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-8
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
@@ -74,7 +83,7 @@ functions:
       - http: path
 
   sleep-node810-128mb-9:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-9
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
@@ -83,7 +92,7 @@ functions:
       - http: path
 
   sleep-node810-128mb-10:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-10
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
