@@ -58,6 +58,7 @@ github.com/nuweba/httpbench v0.0.0-20190718085242-8cd31a59fafd h1:ej7C58xwF7+ene
 github.com/nuweba/httpbench v0.0.0-20190718085242-8cd31a59fafd/go.mod h1:BWC4zLHLVcmS2zMJZOGhtNOw+dpIUFlEx/Wr7ajKS00=
 github.com/nuweba/httpbench v0.0.0-20190718103227-2828b8fba45a h1:78sCrg7X9xcfJrsV5XTnclCCNiauvx0UXcbsfu1jibk=
 github.com/nuweba/httpbench v0.0.0-20190718103227-2828b8fba45a/go.mod h1:BWC4zLHLVcmS2zMJZOGhtNOw+dpIUFlEx/Wr7ajKS00=
+github.com/nuweba/httpbench v0.0.0-20190804090320-fc14d50a0e53/go.mod h1:BWC4zLHLVcmS2zMJZOGhtNOw+dpIUFlEx/Wr7ajKS00=
 github.com/nuweba/semaphore v0.0.0-20190319094739-5f91e06f5ad3 h1:I8pyWqpjthlU9AdzBO0VHxaikYwJVyEWtA4rbFYOwhM=
 github.com/nuweba/semaphore v0.0.0-20190319094739-5f91e06f5ad3/go.mod h1:WopuZYv2JgV+ZVmeawUwYAw7rnkji/DHqwYj0PXQ/uE=
 github.com/nuweba/sls v0.0.0-20190624081147-7f92a4aa3050 h1:KdwwAQTnU0FbVpJKkbokguqHiJP5Bi1jzpTexoOmxBU=
