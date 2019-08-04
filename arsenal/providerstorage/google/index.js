@@ -2,9 +2,9 @@ const buf = Buffer.allocUnsafe(10 * 1024 * 1024);
 const Storage = require('@google-cloud/storage');
 const storage = Storage();
 
-async function upload() {
+async function upload(requestID) {
     let bucket = storage.bucket('nwbfaastest1337');
-    let file = bucket.file('faastest' + (new Date).getTime());
+    let file = bucket.file(requestID);
     await new Promise((resolve) => file.save(buf.toString('binary'), () => resolve()));
 }
 
@@ -19,16 +19,20 @@ function getDuration(startTime) {
     return end[1] + (end[0] * 1e9);
 }
 
-function getLevel(event) {
-    return {}
+function getID(req) {
+    let requestID = req.get('Faastest-id');
+    if (!requestID) {
+        return {"error": "invalid request ID header"}
+    }
+    return requestID
 }
 
-function getParameters(event) {
-    return getLevel(event);
+function getParameters(req) {
+    return getID(req);
 }
 
-async function runTest(intensityLevel) {
-    await upload()
+async function runTest(requestID) {
+    await upload(requestID)
 }
 
 async function main(req, res) {

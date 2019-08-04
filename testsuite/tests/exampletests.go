@@ -10,8 +10,8 @@ import (
 )
 
 func init() {
-	Tests.Register(Test{Id: "RequestsFor1Min", Fn: RequestsFor1Minute, RequiredStack: "sleep", Description: "1 minute test of a new request every 500ms with no sleep"})
-	Tests.Register(Test{Id: "ColdStart", Fn: coldStart, RequiredStack: "sleep", Description: "Test cold start"})
+	Tests.Register(Test{Id: "RequestsFor1Min", Fn: RequestsFor1Minute, RequiredStack: "sleepfunc", Description: "1 minute test of a new request every 500ms with no sleep"})
+	Tests.Register(Test{Id: "ColdStart", Fn: coldStart, RequiredStack: "sleepfunc", Description: "Test cold start"})
 }
 
 func coldStart(test *config.Test) {
