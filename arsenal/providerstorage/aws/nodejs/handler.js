@@ -2,10 +2,10 @@ var buf = Buffer.allocUnsafe(10 * 1024 * 1024);
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
-async function upload() {
+async function upload(requestID) {
     await s3.putObject({
         Bucket: process.env.TEST_BUCKET,
-        Key: "faastest.dat",
+        Key: requestID,
         Body: buf,
     }).promise();
 }
@@ -21,21 +21,25 @@ function getDuration(startTime) {
     return end[1] + (end[0] * 1e9);
 }
 
-function getLevel(event) {
-    return {}
+function getID(context) {
+    let requestID = context.awsRequestId;
+    if (!requestID) {
+        return {"error": "invalid request ID header"}
+    }
+    return requestID
 }
 
-function getParameters(event) {
-    return getLevel(event);
+function getParameters(context) {
+    return getID(context);
 }
 
-async function runTest(){
-    await upload()
+async function runTest(requestID) {
+    await upload(requestID)
 }
 
-exports.handler = async (event) => {
-    var startTime = process.hrtime();
-    let params = getParameters(event);
+exports.handler = async (event, context) => {
+    let startTime = process.hrtime();
+    let params = getParameters(context);
     if (params.error) {
         return {"error": params.error}
     }
