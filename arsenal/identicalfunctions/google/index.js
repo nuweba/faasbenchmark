@@ -17,7 +17,7 @@ function getParameters(event) {
     return getSleep(event);
 }
 
-async function runTest(sleep_time){
+async function runTest(sleep_time) {
     await wait(sleep_time);
 }
 
@@ -46,8 +46,13 @@ async function main(req, res) {
 
 }
 
-exports.test128 = main;
-exports.test256 = main;
-exports.test512 = main;
-exports.test1024 = main;
-exports.test2048 = main;
+exports.test1281 = main;
+exports.test1282 = main;
+exports.test1283 = main;
+exports.test1284 = main;
+exports.test1285 = main;
+exports.test1286 = main;
+exports.test1287 = main;
+exports.test1288 = main;
+exports.test1289 = main;
+exports.test12810 = main;
