@@ -195,7 +195,7 @@ func executeTest(hfConf *config.HttpFunction) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpResult, hfConf.Test.Config.Debug)
+		httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpResult)
 	}()
 	requestsResult := trace.RequestsForTimeGraph(*hfConf.HttpConfig.HitsGraph)
 	wg.Wait()

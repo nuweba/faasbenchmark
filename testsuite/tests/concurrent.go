@@ -62,7 +62,7 @@ func C10FunctionsConcurrently1Each(test *config.Test) {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
-				httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpResult, test.Config.Debug)
+				httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpResult)
 			}()
 
 			c.L.Lock()
@@ -115,7 +115,7 @@ func C1Function10Concurrent(test *config.Test) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpResult, test.Config.Debug)
+			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpResult)
 		}()
 
 		requestsResult := trace.ConcurrentRequestsSyncedOnce(hfConf.HttpConfig.ConcurrencyLimit, hfConf.HttpConfig.RequestDelay)

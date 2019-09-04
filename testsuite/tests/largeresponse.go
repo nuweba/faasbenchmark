@@ -45,7 +45,7 @@ func largeResponse(test *config.Test) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, test.Config.Provider.HttpResult, test.Config.Debug)
+			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, test.Config.Provider.HttpResult)
 		}()
 		requestsResult := trace.ConcurrentRequestsSynced(httpConfig.ConcurrencyLimit, httpConfig.RequestDelay, httpConfig.Duration)
 		wg.Wait()

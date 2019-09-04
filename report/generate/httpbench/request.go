@@ -126,7 +126,7 @@ func (e *errorReport) errorReporter(id uint64, err error, errStr string, data st
 	}
 }
 
-func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine.TraceResult, outputFn provider.RequestFilter, debug bool) {
+func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine.TraceResult, outputFn provider.RequestFilter) {
 	reqReport, err := funcConfig.Report.Request()
 	if err != nil {
 		funcConfig.Logger.Fatal("request report", zap.Error(err))
@@ -192,7 +192,7 @@ func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine
 		}
 
 		summaryOutput := fmt.Sprintf("%d: InvocationOverHead: %f, duration: %f\n", result.Id, filteredResult.InvocationOverHead(), filteredResult.Duration())
-		if debug {
+		if funcConfig.Test.Config.Debug {
 			summaryOutput += summary.String() + "\n"
 		}
 		err = reqReport.Summary(summaryOutput)
