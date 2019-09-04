@@ -47,10 +47,12 @@ func RequestBodyUnmarshal(body []byte) (*FunctionOutput, error) {
 }
 
 func TraceResultString(tr engine.TraceResult) (string, error) {
-	bLen := len(tr.Body)
 	//truncating body if too large to save log space
-	if bLen > MaxBodySize {
-		tr.Body = fmt.Sprintf("%s...truncated...%s", tr.Body[0:MaxBodySize/2], tr.Body[bLen-(MaxBodySize/2):bLen-1])
+	if len(tr.Body) > MaxBodySize {
+		tr.Body = truncate(tr.Body)
+	}
+	if tr.Err != nil && len(tr.Err.Message) > MaxBodySize {
+		tr.Err.Message = truncate(tr.Err.Message)
 	}
 
 	b, err := yaml.Marshal(tr)
@@ -59,6 +61,12 @@ func TraceResultString(tr engine.TraceResult) (string, error) {
 	}
 
 	return string(b), nil
+}
+
+func truncate(s string) string {
+	resultStart := s[0 : MaxBodySize/2]
+	resultEnd := s[len(s)-(MaxBodySize/2) : len(s)-1]
+	return fmt.Sprintf("%s...truncated...%s", resultStart, resultEnd)
 }
 
 func TraceResultSummaryError(httpConf *config.Http, tr *engine.TraceResult, funcOutput *FunctionOutput) *Summary {
@@ -118,7 +126,7 @@ func (e *errorReport) errorReporter(id uint64, err error, errStr string, data st
 	}
 }
 
-func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine.TraceResult, outputFn provider.RequestFilter) {
+func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine.TraceResult, outputFn provider.RequestFilter, debug bool) {
 	reqReport, err := funcConfig.Report.Request()
 	if err != nil {
 		funcConfig.Logger.Fatal("request report", zap.Error(err))
@@ -183,7 +191,11 @@ func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine
 			funcConfig.Logger.Error("result writer", zap.Error(err))
 		}
 
-		err = reqReport.Summary(fmt.Sprintf("%d: InvocationOverHead: %f, duration: %f\n%s\n", result.Id, filteredResult.InvocationOverHead(), filteredResult.Duration(), summary))
+		summaryOutput := fmt.Sprintf("%d: InvocationOverHead: %f, duration: %f\n", result.Id, filteredResult.InvocationOverHead(), filteredResult.Duration())
+		if debug {
+			summaryOutput += summary.String() + "\n"
+		}
+		err = reqReport.Summary(summaryOutput)
 		if err != nil {
 			funcConfig.Logger.Error("summary writer", zap.Error(err))
 		}

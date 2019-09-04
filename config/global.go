@@ -1,12 +1,12 @@
 package config
 
 import (
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-	"io"
 	"github.com/nuweba/faasbenchmark/provider"
 	"github.com/nuweba/faasbenchmark/report"
 	"github.com/nuweba/httpbench/engine"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"io"
 )
 
 type Global struct {
@@ -16,6 +16,7 @@ type Global struct {
 	resultDir string
 	Logger    *zap.Logger
 	logCh     chan *engine.TraceResult
+	Debug     bool
 }
 
 func newLogger(writer io.Writer) *zap.Logger {
@@ -29,7 +30,7 @@ func newLogger(writer io.Writer) *zap.Logger {
 
 }
 
-func NewGlobalConfig(provider provider.FaasProvider, arsenalPath string, report report.Top) (*Global, error) {
+func NewGlobalConfig(provider provider.FaasProvider, arsenalPath string, report report.Top, debug bool) (*Global, error) {
 
 	loggerW, err := report.LogWriter()
 	if err != nil {
@@ -48,5 +49,5 @@ func NewGlobalConfig(provider provider.FaasProvider, arsenalPath string, report 
 	}
 
 	l.Debug("stacks loaded", zap.String("arsenal", arsenalPath))
-	return &Global{report: report, Logger: l, Provider: provider, Stacks: stacks}, nil
+	return &Global{report: report, Logger: l, Provider: provider, Stacks: stacks, Debug: debug}, nil
 }

@@ -4,3 +4,4 @@ results_*
 
 # Serverless directories
 .serverless
+*.swp

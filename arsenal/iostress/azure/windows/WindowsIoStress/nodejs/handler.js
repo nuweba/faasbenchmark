@@ -1,9 +1,9 @@
 const PATH = 'D:\\local\\temp\\faastest';
-const ddPath = 'D:\\Program Files\\Git\\usr\\bin\\dd.exe'
+const ddPath = 'D:\\Program Files\\Git\\usr\\bin\\dd.exe';
 const proc = require('child_process');
 
 function ioIntensive(baseNumber) {
-    var amountInMB = 10 ** baseNumber;
+    var amountInMB = 10 ** (baseNumber - 1);
     var out = proc.spawnSync(ddPath, ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct']);
     return out
 }

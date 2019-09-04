@@ -2,7 +2,7 @@ const PATH = '/tmp/faastest';
 const proc = require('child_process');
 
 function ioIntensive(baseNumber) {
-    var amountInMB = 10 ** baseNumber;
+    var amountInMB = 20 ** (baseNumber - 1);
     var out = proc.spawnSync('dd', ['if=/dev/zero', `of=${PATH}`, `bs=${amountInMB}M`, 'count=1', 'oflag=direct']);
     if (out.status !== 0)
         return out.stderr.toString();

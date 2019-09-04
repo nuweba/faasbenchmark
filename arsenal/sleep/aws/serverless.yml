@@ -1,5 +1,14 @@
 service: sleepfunc
 
+package:
+  individually: true
+  exclude:
+  - csharp/**
+  - java8/**
+  - python/**
+  - nodejs/**
+  - golang/**
+
 provider:
   name: aws
   project: faastest
@@ -8,6 +17,9 @@ provider:
 
 functions:
   node810-memory-128:
+    package:
+      include:
+      - nodejs/**
     name: sleep-node810-128mb
     description: sleep function 128mb
     runtime: nodejs8.10
@@ -15,6 +27,9 @@ functions:
     memorySize: 128
 
   node810-memory-256:
+    package:
+      include:
+        - nodejs/**
     name: sleep-node810-256mb
     description: sleep function 256mb
     runtime: nodejs8.10
@@ -22,6 +37,9 @@ functions:
     memorySize: 256
 
   node810-memory-512:
+    package:
+      include:
+        - nodejs/**
     name: sleep-node810-512mb
     description: sleep function 512mb
     runtime: nodejs8.10
@@ -29,6 +47,9 @@ functions:
     memorySize: 512
 
   node810-memory-1024:
+    package:
+      include:
+        - nodejs/**
     name: sleep-node810-1024mb
     description: sleep function 1024mb
     runtime: nodejs8.10
@@ -36,8 +57,201 @@ functions:
     memorySize: 1024
 
   node810-memory-1536:
+    package:
+      include:
+        - nodejs/**
     name: sleep-node810-1536mb
     description: sleep function 1536mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
+    memorySize: 1536
+
+  java8-memory-128:
+    package:
+      artifact: java8/target/hello-dev.jar
+    name: sleep-java8-128mb
+    description: sleep function 128mb
+    runtime: java8
+    handler: com.serverless.Handler
+    memorySize: 128
+
+  java8-memory-256:
+    package:
+      artifact: java8/target/hello-dev.jar
+    name: sleep-java8-256mb
+    description: sleep function 256mb
+    runtime: java8
+    handler: com.serverless.Handler
+    memorySize: 256
+
+  java8-memory-512:
+    package:
+      artifact: java8/target/hello-dev.jar
+    name: sleep-java8-512mb
+    description: sleep function 512mb
+    runtime: java8
+    handler: com.serverless.Handler
+    memorySize: 512
+
+  java8-memory-1024:
+    package:
+      artifact: java8/target/hello-dev.jar
+    name: sleep-java8-1024mb
+    description: sleep function 1024mb
+    runtime: java8
+    handler: com.serverless.Handler
+    memorySize: 1024
+
+  java8-memory-1536:
+    package:
+      artifact: java8/target/hello-dev.jar
+    name: sleep-java8-1536mb
+    description: sleep function 1536mb
+    runtime: java8
+    handler: com.serverless.Handler
+    memorySize: 1536
+
+  dotnetcore21-memory-128:
+    package:
+      artifact: csharp/deploy.zip
+    name: sleep-dotnetcore21-128mb
+    description: sleep function 128mb
+    runtime: dotnetcore2.1
+    handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
+    memorySize: 128
+
+  dotnetcore21-memory-256:
+    package:
+      artifact: csharp/deploy.zip
+    name: sleep-dotnetcore21-256mb
+    description: sleep function 256mb
+    runtime: dotnetcore2.1
+    handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
+    memorySize: 256
+
+  dotnetcore21-memory-512:
+    package:
+      artifact: csharp/deploy.zip
+    name: sleep-dotnetcore21-512mb
+    description: sleep function 512mb
+    runtime: dotnetcore2.1
+    handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
+    memorySize: 512
+
+  dotnetcore21-memory-1024:
+    package:
+      artifact: csharp/deploy.zip
+    name: sleep-dotnetcore21-1024mb
+    description: sleep function 1024mb
+    runtime: dotnetcore2.1
+    handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
+    memorySize: 1024
+
+  dotnetcore21-memory-1536:
+    package:
+      artifact: csharp/deploy.zip
+    name: sleep-dotnetcore21-1536mb
+    description: sleep function 1536mb
+    runtime: dotnetcore2.1
+    handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
+    memorySize: 1536
+
+  python27-memory-128:
+    package:
+      include:
+        - python/**
+    name: sleep-python27-128mb
+    description: sleep function 128mb
+    runtime: python2.7
+    handler: python/handler.hello
+    memorySize: 128
+
+  python27-memory-256:
+    package:
+      include:
+        - python/**
+    name: sleep-python27-256mb
+    description: sleep function 256mb
+    runtime: python2.7
+    handler: python/handler.hello
+    memorySize: 256
+
+  python27-memory-512:
+    package:
+      include:
+        - python/**
+    name: sleep-python27-512mb
+    description: sleep function 512mb
+    runtime: python2.7
+    handler: python/handler.hello
+    memorySize: 512
+
+  python27-memory-1024:
+    package:
+      include:
+        - python/**
+    name: sleep-python27-1024mb
+    description: sleep function 1024mb
+    runtime: python2.7
+    handler: python/handler.hello
+    memorySize: 1024
+
+  python27-memory-1536:
+    package:
+      include:
+        - python/**
+    name: sleep-python27-1536mb
+    description: sleep function 1536mb
+    runtime: python2.7
+    handler: python/handler.hello
+    memorySize: 1536
+
+  golang-memory-128:
+    package:
+      include:
+        - golang/**
+    name: sleep-golang-128mb
+    description: sleep function 128mb
+    runtime: go1.x
+    handler: golang/bin/hello
+    memorySize: 128
+
+  golang-memory-256:
+    package:
+      include:
+        - golang/**
+    name: sleep-golang-256mb
+    description: sleep function 256mb
+    runtime: go1.x
+    handler: golang/bin/hello
+    memorySize: 256
+
+  golang-memory-512:
+    package:
+      include:
+        - golang/**
+    name: sleep-golang-512mb
+    description: sleep function 512mb
+    runtime: go1.x
+    handler: golang/bin/hello
+    memorySize: 512
+
+  golang-memory-1024:
+    package:
+      include:
+        - golang/**
+    name: sleep-golang-1024mb
+    description: sleep function 1024mb
+    runtime: go1.x
+    handler: golang/bin/hello
+    memorySize: 1024
+
+  golang-memory-1536:
+    package:
+      include:
+        - golang/**
+    name: sleep-golang-1536mb
+    description: sleep function 1536mb
+    runtime: go1.x
+    handler: golang/bin/hello
     memorySize: 1536

@@ -1,0 +1,25 @@
+{
+  "name": "faasbenchmark",
+  "version": "1.0.0",
+  "description": "faastest benchmark utility",
+  "main": "none",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/Nuweba/faasbenchmark.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Nuweba/faasbenchmark/issues"
+  },
+  "homepage": "https://gitlab.com/Nuweba/faasbenchmark#readme",
+  "dependencies": {
+    "serverless-azure-functions": "^0.7.0",
+    "serverless-gbucket-remover": "git+https://gitlab.com/Nuweba/serverless-gbucket-remover.git",
+    "serverless-google-cloudfunctions": "^2.3.2",
+    "serverless-s3-remover": "^0.6.0"
+  }
+}

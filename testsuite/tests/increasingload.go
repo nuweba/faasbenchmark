@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/nuweba/faasbenchmark/config"
 	httpbenchReport "github.com/nuweba/faasbenchmark/report/generate/httpbench"
@@ -20,8 +21,12 @@ const (
 	mediumRuntime = 500 * time.Millisecond
 	longRuntime   = 5000 * time.Millisecond
 
-	maxConcurrent    = 40
+	maxConcurrent = 40
+
+	MegaByte = 1024 * 1024
 )
+
+var largeBody = bytes.Repeat([]byte("a"), 4*MegaByte)
 
 func generateDescription(duration time.Duration, resourceType string) string {
 	result := "Gradually invoke more concurrent %s over time with a %s delay between hits and benchmark their invocation overhead."
@@ -65,9 +70,45 @@ func init() {
 	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl2", Fn: increasingLoadLvl2MedRuntime, RequiredStack: "vpc", Description: generateDescription(Lvl2, "functions on a vpc")})
 	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl1", Fn: increasingLoadLvl1ShortRuntime, RequiredStack: "vpc", Description: generateDescription(Lvl1, "functions on a vpc")})
 
-	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "largerequest", Description: generateDescription(Lvl3, "functions with a large (4mb) request body")})
-	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "largerequest", Description: generateDescription(Lvl2, "functions with a large (4mb) request body")})
-	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "largerequest", Description: generateDescription(Lvl1, "functions with a large (4mb) request body")})
+	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl3", Fn: increasingLargeRequestLoadLvl3, RequiredStack: "sleepfunc", Description: generateDescription(Lvl3, "functions with a large (4mb) request body")})
+	Tests.Register(Test{Id: "IncreasingLargeRequestLoadLvl2", Fn: increasingLargeRequestLoadLvl2, RequiredStack: "sleepfunc", Description: generateDescription(Lvl2, "functions with a large (4mb) request body")})
+	Tests.Register(Test{"IncreasingLargeRequestLoadLvl1", increasingLargeRequestLoadLvl1, "sleepfunc", generateDescription(Lvl1, "functions with a large (4mb) request body")})
+}
+
+func increasingLargeRequestLoadLvl1(test *config.Test) {
+	params := sleepQueryParam(shortRuntime)
+	// Lambda invocation payload size limit is 6 MB, making large request 4 MB just in case
+	increasingLoad(test, config.Http{
+		QueryParams: params,
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl1),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
+		Body:        &largeBody,
+	})
+}
+
+func increasingLargeRequestLoadLvl2(test *config.Test) {
+	params := sleepQueryParam(mediumRuntime)
+	// Lambda invocation payload size limit is 6 MB, making large request 4 MB just in case
+	increasingLoad(test, config.Http{
+		QueryParams: params,
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl1),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
+		Body:        &largeBody,
+	})
+}
+
+func increasingLargeRequestLoadLvl3(test *config.Test) {
+	params := sleepQueryParam(longRuntime)
+	// Lambda invocation payload size limit is 6 MB, making large request 4 MB just in case
+	increasingLoad(test, config.Http{
+		QueryParams: params,
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl1),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
+		Body:        &largeBody,
+	})
 }
 
 func increasingLoadLvl3LongRuntime(test *config.Test) {
@@ -103,27 +144,27 @@ func increasingLoadLvl1ShortRuntime(test *config.Test) {
 func increasingLoadLvl3(test *config.Test) {
 	increasingLoad(test, config.Http{
 		QueryParams: levelQueryParam(3),
-		TestType:  httpbench.RequestsForTimeGraph.String(),
-		HitsGraph: gradualHitGraph(maxConcurrent, Lvl3),
-		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl3),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
 	})
 }
 
 func increasingLoadLvl2(test *config.Test) {
 	increasingLoad(test, config.Http{
 		QueryParams: levelQueryParam(2),
-		TestType:  httpbench.RequestsForTimeGraph.String(),
-		HitsGraph: gradualHitGraph(maxConcurrent, Lvl2),
-		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl2),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
 	})
 }
 
 func increasingLoadLvl1(test *config.Test) {
 	increasingLoad(test, config.Http{
 		QueryParams: levelQueryParam(1),
-		TestType:  httpbench.RequestsForTimeGraph.String(),
-		HitsGraph: gradualHitGraph(maxConcurrent, Lvl1),
-		Hook:      test.Config.Provider.HttpInvocationTriggerStage(),
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl1),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
 	})
 }
 
@@ -154,7 +195,7 @@ func executeTest(hfConf *config.HttpFunction) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpResult)
+		httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpResult, hfConf.Test.Config.Debug)
 	}()
 	requestsResult := trace.RequestsForTimeGraph(*hfConf.HttpConfig.HitsGraph)
 	wg.Wait()

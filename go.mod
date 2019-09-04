@@ -15,15 +15,14 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
 	github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e // indirect
-	github.com/nuweba/azure-stack v0.0.0-20190725103409-f3e4851044ad
-	github.com/nuweba/httpbench v0.0.0-20190804123123-986517afb216
-	github.com/nuweba/sls v0.0.0-20190718105021-d4c0dfddcab6
+	github.com/nuweba/azure-stack v0.0.0-20190826114231-16d2ef62952b
+	github.com/nuweba/httpbench v0.0.0-20190825084750-5b2c81ea85db
+	github.com/nuweba/sls v0.0.0-20190828113945-c2aa1092ce97
 	github.com/pkg/errors v0.8.1
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3 // indirect
 	github.com/stretchr/testify v1.3.0 // indirect
 	go.uber.org/atomic v1.4.0 // indirect
-	go.uber.org/multierr v1.1.0 // indirect
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20190502183928-7f726cade0ab // indirect
 	golang.org/x/text v0.3.2 // indirect
