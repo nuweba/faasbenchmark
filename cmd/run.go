@@ -23,6 +23,7 @@ const (
 )
 
 var resultPath string
+var debug bool
 
 func init() {
 
@@ -42,6 +43,7 @@ func init() {
 	}
 
 	cmdRun.Flags().StringVarP(&resultPath, "resultPath", "r", dir, "directory to write the results, default is cwd")
+	cmdRun.Flags().BoolVarP(&debug, "debug", "d", false, "whether to show debug output, default is false")
 	rootCmd.AddCommand(cmdRun)
 
 	for providerId := provider.Providers(0); providerId < provider.ProvidersCount; providerId++ {
@@ -110,7 +112,7 @@ func runTests(providerName string, testIds ...string) error {
 	}
 
 	arsenalPath := filepath.Join(pgkPath, TestsDir)
-	gConfig, err := config.NewGlobalConfig(faasProvider, arsenalPath, report)
+	gConfig, err := config.NewGlobalConfig(faasProvider, arsenalPath, report, debug)
 	if err != nil {
 		return err
 	}

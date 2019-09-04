@@ -12,12 +12,10 @@ import (
 )
 
 func init() {
-	Tests.Register(Test{Id: "10_Functions_Concurrently_1_Each", Fn: C10FunctionsConcurrently1Each, RequiredStack: "identicalfunctions", Description: "Test concurrent load"})
-	Tests.Register(Test{Id: "10_Functions_Concurrently_1_Each_Linux", Fn: C10FunctionsConcurrently1Each, RequiredStack: "identicalfunctionslinux", Description: "Test concurrent load - azure functions on linux"})
-	Tests.Register(Test{Id: "10_Functions_Concurrently_1_Each_Windows", Fn: C10FunctionsConcurrently1Each, RequiredStack: "identicalfunctionswindows", Description: "Test concurrent load - azure functions on windows"})
-	Tests.Register(Test{Id: "1_Function_10_Concurrent", Fn: C1Function10Concurrent, RequiredStack: "singlefunction", Description: "Test concurrent load"})
-	Tests.Register(Test{Id: "1_Function_10_Concurrent_Linux", Fn: C1Function10Concurrent, RequiredStack: "singlefunctionlinux", Description: "Test concurrent load - azure functions on linux"})
-	Tests.Register(Test{Id: "1_Function_10_Concurrent_Windows", Fn: C1Function10Concurrent, RequiredStack: "singlefunctionwindows", Description: "Test concurrent load - azure functions on windows"})
+	Tests.Register(Test{Id: "10FunctionsConcurrently1Each", Fn: C10FunctionsConcurrently1Each, RequiredStack: "identicalfunctions", Description: "Test concurrent load"})
+	Tests.Register(Test{Id: "10FunctionsConcurrently1EachWindows", Fn: C10FunctionsConcurrently1Each, RequiredStack: "identicalfunctionswindows", Description: "Test concurrent load - azure functions on windows"})
+	Tests.Register(Test{Id: "1Function10Concurrent", Fn: C1Function10Concurrent, RequiredStack: "singlefunction", Description: "Test concurrent load"})
+	Tests.Register(Test{Id: "1Function10ConcurrentWindows", Fn: C1Function10Concurrent, RequiredStack: "singlefunctionwindows", Description: "Test concurrent load - azure functions on windows"})
 }
 
 func C10FunctionsConcurrently1Each(test *config.Test) {
