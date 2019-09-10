@@ -17,7 +17,7 @@ require (
 	github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e // indirect
 	github.com/nuweba/azure-stack v0.0.0-20190826114231-16d2ef62952b
 	github.com/nuweba/httpbench v0.0.0-20190903135608-72518d7b15a4
-	github.com/nuweba/sls v0.0.0-20190718105021-d4c0dfddcab6
+	github.com/nuweba/sls v0.0.0-20190908105746-02e126425d42
 	github.com/pkg/errors v0.8.1
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3 // indirect
