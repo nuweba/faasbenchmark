@@ -154,18 +154,23 @@ func ReportRequestResults(funcConfig *config.HttpFunction, resultCh chan *engine
 			continue
 		}
 
+		errData := ""
+		if funcConfig.Test.Config.Debug {
+			errData = TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String()
+		}
+
 		if result.Err != nil {
-			errorReporter.errorReporter(result.Id, result.Err, "trace error", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
+			errorReporter.errorReporter(result.Id, result.Err, "trace error", errData)
 			continue
 		}
 
 		if result.Error {
-			errorReporter.errorReporter(result.Id, errors.New("result error without error msg"), "trace error", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
+			errorReporter.errorReporter(result.Id, errors.New("result error without error msg"), "trace error", errData)
 			continue
 		}
 
 		if result.Response.StatusCode != http.StatusOK {
-			errorReporter.errorReporter(result.Id, result.Err, "function did not return 200 ok", TraceResultSummaryError(funcConfig.HttpConfig, result, funcOutput).String())
+			errorReporter.errorReporter(result.Id, result.Err, "function did not return 200 ok", errData)
 			continue
 		}
 

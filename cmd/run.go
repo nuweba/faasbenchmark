@@ -43,7 +43,6 @@ func init() {
 	}
 
 	cmdRun.Flags().StringVarP(&resultPath, "resultPath", "r", dir, "directory to write the results, default is cwd")
-	cmdRun.Flags().BoolVarP(&debug, "debug", "d", false, "whether to show debug output, default is false")
 	rootCmd.AddCommand(cmdRun)
 
 	for providerId := provider.Providers(0); providerId < provider.ProvidersCount; providerId++ {
@@ -62,6 +61,7 @@ func init() {
 
 			},
 		}
+		cmdProvider.Flags().BoolVarP(&debug, "debug", "d", false, "whether to show debug output, default is false")
 		cmdRun.AddCommand(cmdProvider)
 	}
 }

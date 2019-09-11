@@ -18,10 +18,15 @@ type HttpFunction struct {
 }
 
 func (hf *HttpFunction) newLogger(writer io.Writer) *zap.Logger {
+	lvl := zap.DebugLevel
+	if !hf.Test.Config.Debug {
+		lvl = zap.InfoLevel
+	}
+
 	output := zapcore.Lock(zapcore.AddSync(writer))
 
 	cfg := zap.NewDevelopmentEncoderConfig()
-	core := zapcore.NewCore(zapcore.NewConsoleEncoder(cfg), output, zap.DebugLevel)
+	core := zapcore.NewCore(zapcore.NewConsoleEncoder(cfg), output, lvl)
 	//l := zap.New(core, zap.Option(zap.Development()), zap.Option(zap.AddCaller()))
 
 	globalLogger := hf.Test.Config.Logger.With(zap.Namespace(hf.Function.Name()))

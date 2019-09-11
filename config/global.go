@@ -19,11 +19,15 @@ type Global struct {
 	Debug     bool
 }
 
-func newLogger(writer io.Writer) *zap.Logger {
+func newLogger(writer io.Writer, debug bool) *zap.Logger {
+	lvl := zap.DebugLevel
+	if !debug {
+		lvl = zap.InfoLevel
+	}
 	output := zapcore.Lock(zapcore.AddSync(writer))
 
 	cfg := zap.NewDevelopmentEncoderConfig()
-	core := zapcore.NewCore(zapcore.NewConsoleEncoder(cfg), output, zap.DebugLevel)
+	core := zapcore.NewCore(zapcore.NewConsoleEncoder(cfg), output, lvl)
 	l := zap.New(core, zap.Option(zap.Development()), zap.Option(zap.AddCaller()))
 
 	return l.Named("main")
@@ -37,7 +41,7 @@ func NewGlobalConfig(provider provider.FaasProvider, arsenalPath string, report 
 		return nil, err
 	}
 
-	l := newLogger(loggerW)
+	l := newLogger(loggerW, debug)
 
 	l.Info("starting tests")
 
