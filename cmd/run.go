@@ -20,6 +20,7 @@ import (
 
 const (
 	TestsDir = "arsenal"
+	exampleTestsPrefix = "example"
 )
 
 var resultPath string
@@ -135,6 +136,9 @@ func runTests(providerName string, testIds ...string) error {
 
 func RunAllTests(gConfig *config.Global) error {
 	for id := range testsuite.Tests.TestFunctions {
+		if strings.HasPrefix(strings.ToLower(id), exampleTestsPrefix) {
+			continue
+		}
 		err := runOneTest(gConfig, id)
 		if err != nil {
 			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))

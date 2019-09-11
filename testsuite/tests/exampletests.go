@@ -10,11 +10,11 @@ import (
 )
 
 func init() {
-	Tests.Register(Test{Id: "RequestsFor1Min", Fn: RequestsFor1Minute, RequiredStack: "sleepfunc", Description: "1 minute test of a new request every 500ms with no sleep"})
-	Tests.Register(Test{Id: "ColdStart", Fn: coldStart, RequiredStack: "sleepfunc", Description: "Test cold start"})
+	Tests.Register(Test{Id: "Example2", Fn: example2, RequiredStack: "sleepfunc", Description: "1 minute test of a new request every 500ms with no sleep"})
+	Tests.Register(Test{Id: "Example1", Fn: example1, RequiredStack: "sleepfunc", Description: "Test cold start"})
 }
 
-func coldStart(test *config.Test) {
+func example1(test *config.Test) {
 	sleep := 2000 * time.Millisecond
 	headers := http.Header{}
 	body := []byte("")
@@ -52,7 +52,7 @@ func coldStart(test *config.Test) {
 	}
 }
 
-func RequestsFor1Minute(test *config.Test) {
+func example2(test *config.Test) {
 	sleep := 0 * time.Millisecond
 	headers := http.Header{}
 	body := []byte("")
