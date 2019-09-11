@@ -12,20 +12,11 @@ plugins:
 functions:
   sleep-node810-128mb:
     name: --sleep-node810-128mb
-    # name = because of bug in serverless-google-cloudfunctions, name have to be {service}-{stage}-identifier.
-    # serverless-google-cloudfunctions/info/lib/displayServiceInfo.js
-    # const getFunctionNameInService = (funcName, service, stage) => {
-    #   let funcNameInService = funcName;
-    #   funcNameInService = funcNameInService.replace(service, '');
-    #   funcNameInService = funcNameInService.replace(stage, '');
-    #   funcNameInService = funcNameInService.slice(2, funcNameInService.length);
-    #   return funcNameInService;
-    # };
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
     memorySize: 128
-    events: # All events associated with this function
+    events:
       - http: path
 
   sleep-node810-256mb:
@@ -34,7 +25,7 @@ functions:
     runtime: nodejs8
     handler: test256
     memorySize: 256
-    events: # All events associated with this function
+    events:
       - http: path
 
   sleep-node810-512mb:
@@ -43,7 +34,7 @@ functions:
     runtime: nodejs8
     handler: test512
     memorySize: 512
-    events: # All events associated with this function
+    events:
       - http: path
 
   sleep-node810-1024mb:
@@ -52,7 +43,7 @@ functions:
     runtime: nodejs8
     handler: test1024
     memorySize: 1024
-    events: # All events associated with this function
+    events:
       - http: path
 
   sleep-node810-2048mb:
@@ -61,5 +52,95 @@ functions:
     runtime: nodejs8
     handler: test2048
     memorySize: 2048
-    events: # All events associated with this function
+    events:
+      - http: path
+
+  sleep-go111-128mb:
+    name: --sleep-go111-128mb
+    description: sleep function 128mb
+    runtime: go111
+    handler: Hello
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-go111-256mb:
+    name: --sleep-go111-256mb
+    description: sleep function 256mb
+    runtime: go111
+    handler: Hello
+    memorySize: 256
+    events:
+      - http: path
+
+  sleep-go111-512mb:
+    name: --sleep-go111-512mb
+    description: sleep function 512mb
+    runtime: go111
+    handler: Hello
+    memorySize: 512
+    events:
+      - http: path
+
+  sleep-go111-1024mb:
+    name: --sleep-go111-1024mb
+    description: sleep function 1024mb
+    runtime: go111
+    handler: Hello
+    memorySize: 1024
+    events:
+      - http: path
+
+  sleep-go111-2048mb:
+    name: --sleep-go111-2048mb
+    description: sleep function 2048mb
+    runtime: go111
+    handler: Hello
+    memorySize: 2048
+    events:
+      - http: path
+
+  sleep-python37-128mb:
+    name: --sleep-python37-128mb
+    description: sleep function 128mb
+    runtime: python37
+    handler: http
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-python37-256mb:
+    name: --sleep-python37-256mb
+    description: sleep function 256mb
+    runtime: python37
+    handler: http
+    memorySize: 256
+    events:
+      - http: path
+
+  sleep-python37-512mb:
+    name: --sleep-python37-512mb
+    description: sleep function 512mb
+    runtime: python37
+    handler: http
+    memorySize: 512
+    events:
+      - http: path
+
+  sleep-python37-1024mb:
+    name: --sleep-python37-1024mb
+    description: sleep function 1024mb
+    runtime: python37
+    handler: http
+    memorySize: 1024
+    events:
+      - http: path
+
+  sleep-python37-2048mb:
+    name: --sleep-python37-2048mb
+    description: sleep function 2048mb
+    runtime: python37
+    handler: http
+    memorySize: 2048
+    events:
       - http: path
