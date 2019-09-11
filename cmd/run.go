@@ -135,6 +135,9 @@ func runTests(providerName string, testIds ...string) error {
 
 func RunAllTests(gConfig *config.Global) error {
 	for id := range testsuite.Tests.TestFunctions {
+		if strings.HasPrefix(id, "example") {
+			continue
+		}
 		err := runOneTest(gConfig, id)
 		if err != nil {
 			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))
