@@ -99,3 +99,48 @@ functions:
     memorySize: 2048
     events:
       - http: path
+
+  sleep-python37-128mb:
+    name: --sleep-python37-128mb
+    description: sleep function 128mb
+    runtime: python37
+    handler: http
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-python37-256mb:
+    name: --sleep-python37-256mb
+    description: sleep function 256mb
+    runtime: python37
+    handler: http
+    memorySize: 256
+    events:
+      - http: path
+
+  sleep-python37-512mb:
+    name: --sleep-python37-512mb
+    description: sleep function 512mb
+    runtime: python37
+    handler: http
+    memorySize: 512
+    events:
+      - http: path
+
+  sleep-python37-1024mb:
+    name: --sleep-python37-1024mb
+    description: sleep function 1024mb
+    runtime: python37
+    handler: http
+    memorySize: 1024
+    events:
+      - http: path
+
+  sleep-python37-2048mb:
+    name: --sleep-python37-2048mb
+    description: sleep function 2048mb
+    runtime: python37
+    handler: http
+    memorySize: 2048
+    events:
+      - http: path
