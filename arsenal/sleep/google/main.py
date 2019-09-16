@@ -37,3 +37,9 @@ def http(request):
         "duration": duration,
         "reused": reused
     })
+
+main128  = http
+main256  = http
+main512  = http
+main1024 = http
+main2048 = http

@@ -1,7 +1,6 @@
 package file
 
 import (
-	"fmt"
 	"github.com/nuweba/faasbenchmark/report"
 	"github.com/pkg/errors"
 	"os"
@@ -16,7 +15,7 @@ const (
 
 type Request struct {
 	upperLevel            *Function
-	functionReqResultFile *os.File
+	//functionReqResultFile *os.File
 	rawResultDir          string
 	rawResultFile         *os.File
 	SummaryFile           *os.File
@@ -27,12 +26,12 @@ func (f *Function) Request() (report.Request, error) {
 	r := &Request{upperLevel: f}
 
 	//result, just x,y
-	functionReqResultFilePath := filepath.Join(r.upperLevel.functionResultPath, r.upperLevel.functionName)
-	functionReqResultFile, err := os.OpenFile(functionReqResultFilePath, os.O_APPEND|os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0666)
-	if err != nil {
-		return nil, errors.Wrap(err, "function result file should be unique")
-	}
-	r.functionReqResultFile = functionReqResultFile
+	//functionReqResultFilePath := filepath.Join(r.upperLevel.functionResultPath, r.upperLevel.functionName)
+	//functionReqResultFile, err := os.OpenFile(functionReqResultFilePath, os.O_APPEND|os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0666)
+	//if err != nil {
+	//	return nil, errors.Wrap(err, "function result file should be unique")
+	//}
+	//r.functionReqResultFile = functionReqResultFile
 
 	//full summery
 	functionSummaryFilePath := filepath.Join(r.upperLevel.functionResultPath, r.upperLevel.functionName+"_"+SummaryPath)
@@ -69,9 +68,10 @@ func (f *Function) Request() (report.Request, error) {
 }
 
 func (r *Request) Result(result report.Result) error {
-	t := fmt.Sprintf("id: %s, invocationOverHead: %s, duration: %s, responseTime: %s, reused: %s\n", result.Id(), result.InvocationOverHead(), result.Duration(), result.ContentTransfer(), result.Reused())
-	_, err := r.functionReqResultFile.WriteString(t)
-	return err
+	//t := fmt.Sprintf("id: %s, invocationOverHead: %s, duration: %s, responseTime: %s, reused: %s\n", result.Id(), result.InvocationOverHead(), result.Duration(), result.ContentTransfer(), result.Reused())
+	//_, err := r.functionReqResultFile.WriteString(t)
+	//return err
+	return nil
 }
 
 func (r *Request) Summary(summary string) error {

@@ -1,2 +1,9 @@
 {
+  "version":  "2.0",
+  "http": {
+    "maxOutstandingRequests": -1,
+    "maxConcurrentRequests": -1,
+    "dynamicThrottlesEnabled": false
+  }
 }
+

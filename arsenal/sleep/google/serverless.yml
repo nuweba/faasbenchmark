@@ -59,7 +59,7 @@ functions:
     name: --sleep-go111-128mb
     description: sleep function 128mb
     runtime: go111
-    handler: Hello
+    handler: F128
     memorySize: 128
     events:
       - http: path
@@ -68,7 +68,7 @@ functions:
     name: --sleep-go111-256mb
     description: sleep function 256mb
     runtime: go111
-    handler: Hello
+    handler: F256
     memorySize: 256
     events:
       - http: path
@@ -77,7 +77,7 @@ functions:
     name: --sleep-go111-512mb
     description: sleep function 512mb
     runtime: go111
-    handler: Hello
+    handler: F512
     memorySize: 512
     events:
       - http: path
@@ -86,7 +86,7 @@ functions:
     name: --sleep-go111-1024mb
     description: sleep function 1024mb
     runtime: go111
-    handler: Hello
+    handler: F1024
     memorySize: 1024
     events:
       - http: path
@@ -95,7 +95,7 @@ functions:
     name: --sleep-go111-2048mb
     description: sleep function 2048mb
     runtime: go111
-    handler: Hello
+    handler: F2048
     memorySize: 2048
     events:
       - http: path
@@ -104,7 +104,7 @@ functions:
     name: --sleep-python37-128mb
     description: sleep function 128mb
     runtime: python37
-    handler: http
+    handler: main128
     memorySize: 128
     events:
       - http: path
@@ -113,7 +113,7 @@ functions:
     name: --sleep-python37-256mb
     description: sleep function 256mb
     runtime: python37
-    handler: http
+    handler: main256
     memorySize: 256
     events:
       - http: path
@@ -122,7 +122,7 @@ functions:
     name: --sleep-python37-512mb
     description: sleep function 512mb
     runtime: python37
-    handler: http
+    handler: main512
     memorySize: 512
     events:
       - http: path
@@ -131,7 +131,7 @@ functions:
     name: --sleep-python37-1024mb
     description: sleep function 1024mb
     runtime: python37
-    handler: http
+    handler: main1024
     memorySize: 1024
     events:
       - http: path
@@ -140,7 +140,7 @@ functions:
     name: --sleep-python37-2048mb
     description: sleep function 2048mb
     runtime: python37
-    handler: http
+    handler: main2048
     memorySize: 2048
     events:
       - http: path

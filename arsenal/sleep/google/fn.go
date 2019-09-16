@@ -44,3 +44,9 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 	duration := time.Since(start).Nanoseconds()
 	fmt.Fprintf(w, `{"reused": %t, "duration": %d}`, reused, duration)
 }
+
+var F128 = Hello
+var F256 = Hello
+var F512 = Hello
+var F1024 = Hello
+var F2048 = Hello
