@@ -4,6 +4,7 @@ import (
 	"github.com/nuweba/faasbenchmark/report"
 	"github.com/pkg/errors"
 	"io"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"time"
@@ -11,7 +12,6 @@ import (
 
 const (
 	GlobalResultDir = "results"
-	LogName         = "faastests.log"
 )
 
 type Top struct {
@@ -25,20 +25,13 @@ func New(workingDir string) (report.Top, error) {
 
 	t := &Top{reportDir: resultDir}
 	err := os.MkdirAll(resultDir, os.ModePerm)
-	if err != nil {
-		return nil, errors.Wrap(err, "results dir should be unique")
+	if err != nil && !os.IsExist(err) {
+		return nil, errors.Wrap(err, "could not create results dir")
 	}
 
 	return t, nil
 }
 
 func (t *Top) LogWriter() (io.Writer, error) {
-	logPath := filepath.Join(t.reportDir, LogName)
-	f, err := os.Create(logPath)
-	if err != nil {
-		return nil, err
-	}
-
-	t.logFile = f
-	return t.logFile, nil
+	return ioutil.Discard, nil
 }

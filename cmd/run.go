@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"github.com/nuweba/faasbenchmark/config"
 	"github.com/nuweba/faasbenchmark/provider"
+	"github.com/nuweba/faasbenchmark/report"
 	"github.com/nuweba/faasbenchmark/report/multi"
+	"github.com/nuweba/faasbenchmark/report/output/file"
 	"github.com/nuweba/faasbenchmark/report/output/json"
 	"github.com/nuweba/faasbenchmark/report/output/stdio"
 	"github.com/nuweba/faasbenchmark/testsuite"
@@ -84,6 +86,7 @@ func validateTestName(cmd *cobra.Command, args []string) error {
 }
 
 func runTests(providerName string, testIds ...string) error {
+	var report report.Top
 	_, filename, _, ok := runtime.Caller(1)
 
 	if !ok {
@@ -92,20 +95,26 @@ func runTests(providerName string, testIds ...string) error {
 
 	pgkPath := filepath.Join(path.Dir(filename), "/../") // ./pkg/cmd/.../
 
-	//todo: changeme
-	//fileReport, err := file.New(resultPath)
-	fileReport, err := json.New(resultPath)
+	jsonReport, err := json.New(resultPath)
 	if err != nil {
 		return err
 	}
 
 	stdioReport, err := stdio.New(os.Stdout)
-
 	if err != nil {
 		return err
 	}
 
-	report := multi.Report(fileReport, stdioReport)
+	if debug {
+		fileReport, err := file.New(resultPath)
+		if err != nil {
+			return err
+		}
+		report = multi.Report(fileReport, jsonReport, stdioReport)
+	} else {
+		report = multi.Report(jsonReport, stdioReport)
+	}
+
 
 	faasProvider, err := provider.NewProvider(providerName)
 	if err != nil {

@@ -8,17 +8,12 @@ import (
 	"path/filepath"
 )
 
-const (
-	TestDescription = "description.txt"
-)
-
 type Test struct {
-	upperLevel        *Top
-	testResultPath    string
-	testId            string
-	ProviderName      string
-	descriptionWriter *os.File
-	json              *testJson
+	upperLevel     *Top
+	testResultPath string
+	testId         string
+	ProviderName   string
+	json           *testJson
 }
 
 type testJson struct {
@@ -39,19 +34,11 @@ func (t *Top) Test(testId string, providerName string) (report.Test, error) {
 
 	testResultDir := filepath.Join(test.upperLevel.reportDir, test.testId)
 	err := os.MkdirAll(testResultDir, os.ModePerm)
-	if err != nil {
-		return nil, errors.Wrap(err, "test dir should be unique")
+	if err != nil && !os.IsExist(err) {
+		return nil, errors.Wrap(err, "could not create test log dir")
 	}
 
 	test.testResultPath = testResultDir
-
-	//test description
-	functionDescriptionFilePath := filepath.Join(test.testResultPath, TestDescription)
-	functionDescriptionFile, err := os.Create(functionDescriptionFilePath)
-	if err != nil {
-		return nil, errors.Wrap(err, "test description file")
-	}
-	test.descriptionWriter = functionDescriptionFile
 
 	//json
 	test.json = &testJson{
@@ -64,6 +51,5 @@ func (t *Top) Test(testId string, providerName string) (report.Test, error) {
 
 func (test *Test) Description(desc string) error {
 	test.json.TestDescription = desc
-	_, err := test.descriptionWriter.WriteString(desc)
-	return err
+	return nil
 }
