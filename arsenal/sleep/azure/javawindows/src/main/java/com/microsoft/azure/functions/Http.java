@@ -32,7 +32,7 @@ public class Http {
     }
 
     @FunctionName("JavaWindowsSleep")
-    public String hello(@HttpTrigger(name = "req", methods = {"post"}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<String> req,
+    public String hello(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<String> req,
                         ExecutionContext context) {
         long start = System.currentTimeMillis();
 	int sleepTime = getParameters(req);
