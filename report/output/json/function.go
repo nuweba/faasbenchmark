@@ -77,9 +77,6 @@ func (f *Function) BenchResult(bresult string) error {
 	}
 
 	_, err = f.jsonFile.Write(b)
-	if err != nil {
-		return err
-	}
 	return err
 }
 
