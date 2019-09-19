@@ -10,45 +10,45 @@ plugins:
   - serverless-google-cloudfunctions
   
 functions:
-  logging-node810-128mb:
-    name: --logging-node810-128mb
-    description: logging stress function 128mb
+  log-node810-128mb:
+    name: --log-node810-128mb
+    description: log stress function 128mb
     runtime: nodejs8
     handler: test128
     memorySize: 128
     events:
       - http: path
 
-  logging-node810-256mb:
-    name: --logging-node810-256mb
-    description: logging stress function 256mb
+  log-node810-256mb:
+    name: --log-node810-256mb
+    description: log stress function 256mb
     runtime: nodejs8
     handler: test256
     memorySize: 256
     events:
       - http: path
 
-  logging-node810-512mb:
-    name: --logging-node810-512mb
-    description: logging stress function 512mb
+  log-node810-512mb:
+    name: --log-node810-512mb
+    description: log stress function 512mb
     runtime: nodejs8
     handler: test512
     memorySize: 512
     events:
       - http: path
 
-  logging-node810-1024mb:
-    name: --logging-node810-1024mb
-    description: logging stress function 1024mb
+  log-node810-1024mb:
+    name: --log-node810-1024mb
+    description: log stress function 1024mb
     runtime: nodejs8
     handler: test1024
     memorySize: 1024
     events:
       - http: path
 
-  logging-node810-2048mb:
-    name: --logging-node810-2048mb
-    description: logging stress function 2048mb
+  log-node810-2048mb:
+    name: --log-node810-2048mb
+    description: log stress function 2048mb
     runtime: nodejs8
     handler: test2048
     memorySize: 2048
