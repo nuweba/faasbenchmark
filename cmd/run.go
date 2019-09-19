@@ -215,7 +215,8 @@ func runOneTest(gConfig *config.Global, testId string) error {
 
 func handleSignals(gConfig *config.Global, stack *config.Stack, stackRemoved chan struct{}) {
 	signals := make(chan os.Signal, 1)
-	signal.Notify(signals, os.Interrupt, syscall.SIGTERM)
+	signal.Notify(signals, os.Interrupt, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
+
 	select {
 	case <-signals:
 		err := stack.RemoveStack()
