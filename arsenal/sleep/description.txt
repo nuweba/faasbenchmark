@@ -1,0 +1,2 @@
+A simple stack containing sleep functions with diffrent configs.
+The functions sleep for a user specified amount of time and return their execution duration and whether they were warm started or not.

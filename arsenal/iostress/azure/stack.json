@@ -1,0 +1,6 @@
+{
+  "name": "iostress",
+  "location": "eastus",
+  "project": "faastest",
+  "stage": "dev"
+}

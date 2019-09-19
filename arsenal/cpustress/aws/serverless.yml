@@ -1,0 +1,43 @@
+service: cpustress
+
+provider:
+  name: aws
+  project: faastest
+  stage: dev
+  versionFunctions: false
+
+functions:
+  node810-memory-128:
+    name: cpustress-node810-128mb
+    description: cpu intensive function 128mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 128
+
+  node810-memory-256:
+    name: cpustress-node810-256mb
+    description: cpu intensive function 256mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 256
+
+  node810-memory-512:
+    name: cpustress-node810-512mb
+    description: cpu intensive function 512mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 512
+
+  node810-memory-1024:
+    name: cpustress-node810-1024mb
+    description: cpu intensive function 1024mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 1024
+
+  node810-memory-1536:
+    name: cpustress-node810-1536mb
+    description: cpu intensive function 1536mb
+    runtime: nodejs8.10
+    handler: nodejs/handler.handler
+    memorySize: 1536

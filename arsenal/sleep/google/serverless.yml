@@ -1,0 +1,146 @@
+service: sleepfunc
+
+provider:
+  name: google
+  project: faastest
+  credentials: /tmp/.gcloud/faasbenchmark.json
+  stage: dev
+
+plugins:
+  - serverless-google-cloudfunctions
+  
+functions:
+  sleep-node810-128mb:
+    name: --sleep-node810-128mb
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test128
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-256mb:
+    name: --sleep-node810-256mb
+    description: sleep function 256mb
+    runtime: nodejs8
+    handler: test256
+    memorySize: 256
+    events:
+      - http: path
+
+  sleep-node810-512mb:
+    name: --sleep-node810-512mb
+    description: sleep function 512mb
+    runtime: nodejs8
+    handler: test512
+    memorySize: 512
+    events:
+      - http: path
+
+  sleep-node810-1024mb:
+    name: --sleep-node810-1024mb
+    description: sleep function 1024mb
+    runtime: nodejs8
+    handler: test1024
+    memorySize: 1024
+    events:
+      - http: path
+
+  sleep-node810-2048mb:
+    name: --sleep-node810-2048mb
+    description: sleep function 2048mb
+    runtime: nodejs8
+    handler: test2048
+    memorySize: 2048
+    events:
+      - http: path
+
+  sleep-go111-128mb:
+    name: --sleep-go111-128mb
+    description: sleep function 128mb
+    runtime: go111
+    handler: F128
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-go111-256mb:
+    name: --sleep-go111-256mb
+    description: sleep function 256mb
+    runtime: go111
+    handler: F256
+    memorySize: 256
+    events:
+      - http: path
+
+  sleep-go111-512mb:
+    name: --sleep-go111-512mb
+    description: sleep function 512mb
+    runtime: go111
+    handler: F512
+    memorySize: 512
+    events:
+      - http: path
+
+  sleep-go111-1024mb:
+    name: --sleep-go111-1024mb
+    description: sleep function 1024mb
+    runtime: go111
+    handler: F1024
+    memorySize: 1024
+    events:
+      - http: path
+
+  sleep-go111-2048mb:
+    name: --sleep-go111-2048mb
+    description: sleep function 2048mb
+    runtime: go111
+    handler: F2048
+    memorySize: 2048
+    events:
+      - http: path
+
+  sleep-python37-128mb:
+    name: --sleep-python37-128mb
+    description: sleep function 128mb
+    runtime: python37
+    handler: main128
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-python37-256mb:
+    name: --sleep-python37-256mb
+    description: sleep function 256mb
+    runtime: python37
+    handler: main256
+    memorySize: 256
+    events:
+      - http: path
+
+  sleep-python37-512mb:
+    name: --sleep-python37-512mb
+    description: sleep function 512mb
+    runtime: python37
+    handler: main512
+    memorySize: 512
+    events:
+      - http: path
+
+  sleep-python37-1024mb:
+    name: --sleep-python37-1024mb
+    description: sleep function 1024mb
+    runtime: python37
+    handler: main1024
+    memorySize: 1024
+    events:
+      - http: path
+
+  sleep-python37-2048mb:
+    name: --sleep-python37-2048mb
+    description: sleep function 2048mb
+    runtime: python37
+    handler: main2048
+    memorySize: 2048
+    events:
+      - http: path

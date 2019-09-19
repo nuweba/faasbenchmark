@@ -1,0 +1,1 @@
+This stack contains a function that logs a user specified amount of times.

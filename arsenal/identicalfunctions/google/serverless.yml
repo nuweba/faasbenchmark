@@ -1,0 +1,101 @@
+service: identicalfunctions
+
+provider:
+  name: google
+  project: faastest
+  credentials: /tmp/.gcloud/faasbenchmark.json
+  stage: dev
+
+plugins:
+  - serverless-google-cloudfunctions
+  
+functions:
+  sleep-node810-128mb-1:
+    name: --sleep-node810-128mb-1
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test1281
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-2:
+    name: --sleep-node810-128mb-2
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test1282
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-3:
+    name: --sleep-node810-128mb-3
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test1283
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-4:
+    name: --sleep-node810-128mb-4
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test1284
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-5:
+    name: --sleep-node810-128mb-5
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test1285
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-6:
+    name: --sleep-node810-128mb-6
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test1286
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-7:
+    name: --sleep-node810-128mb-7
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test1287
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-8:
+    name: --sleep-node810-128mb-8
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test1288
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-9:
+    name: --sleep-node810-128mb-9
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test1289
+    memorySize: 128
+    events:
+      - http: path
+
+  sleep-node810-128mb-10:
+    name: --sleep-node810-128mb-10
+    description: sleep function 128mb
+    runtime: nodejs8
+    handler: test12810
+    memorySize: 128
+    events:
+      - http: path

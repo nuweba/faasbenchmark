@@ -1,0 +1,6 @@
+{
+  "name": "singlefunctionwindows",
+  "location": "eastus",
+  "project": "faastest",
+  "stage": "dev"
+}

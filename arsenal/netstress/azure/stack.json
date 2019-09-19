@@ -1,0 +1,6 @@
+{
+  "name": "netstress",
+  "location": "eastus",
+  "project": "faastest",
+  "stage": "dev"
+}

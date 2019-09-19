@@ -1,0 +1,7 @@
+# Distribution / packaging
+results_*
+.idea
+
+# Serverless directories
+.serverless
+*.swp

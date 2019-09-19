@@ -1,0 +1,1 @@
+This stack contains a function that allocates a user specified amount of memory.

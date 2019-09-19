@@ -1,0 +1,6 @@
+{
+  "name": "singlefunction",
+  "location": "eastus",
+  "project": "faastest",
+  "stage": "dev"
+}
