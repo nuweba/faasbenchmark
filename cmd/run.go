@@ -14,10 +14,12 @@ import (
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 	"os"
+	"os/signal"
 	"path"
 	"path/filepath"
 	"runtime"
 	"strings"
+	"syscall"
 )
 
 const (
@@ -190,6 +192,8 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	if err != nil {
 		return err
 	}
+	stackRemoved := make(chan struct{})
+	go handleSignals(gConfig, stack, stackRemoved)
 	gConfig.Logger.Debug("stack deployed", zap.String("name", stack.StackId()))
 
 	gConfig.Logger.Info("running test", zap.String("name", test.Id))
@@ -203,7 +207,23 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	if err != nil {
 		return err
 	}
+	stackRemoved <- struct{}{}
 	gConfig.Logger.Debug("stack removed", zap.String("name", stack.StackId()))
 
 	return nil
+}
+
+func handleSignals(gConfig *config.Global, stack *config.Stack, stackRemoved chan struct{}) {
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, os.Interrupt, syscall.SIGTERM)
+	select {
+	case <-signals:
+		err := stack.RemoveStack()
+		if err != nil {
+			gConfig.Logger.Error("removing stack failed", zap.String("err", err.Error()))
+		}
+		os.Exit(1)
+	case <-stackRemoved:
+		return
+	}
 }
