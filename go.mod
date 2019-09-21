@@ -15,9 +15,9 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
 	github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e // indirect
-	github.com/nuweba/azure-stack v0.0.0-20190915092258-34cfcf105b46
-	github.com/nuweba/httpbench v0.0.0-20190903135608-72518d7b15a4
-	github.com/nuweba/sls v0.0.0-20190915114854-b24266030f43
+	github.com/nuweba/azure-stack v1.0.0
+	github.com/nuweba/httpbench v1.0.0
+	github.com/nuweba/sls v1.0.0
 	github.com/pkg/errors v0.8.1
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3 // indirect
