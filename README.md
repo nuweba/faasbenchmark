@@ -19,7 +19,7 @@
 - [Add a new provider](#add-a-new-provider)
 
 #### Purpose
-This is the framework behind FaaStest.com.
+This is the framework behind https://faastest.com/.
 FaaSbenchmark is a framework to run and add generic tests to accurately benchmark FaaS providers.
 #### Motivation
 In order to reliably test our own FaaS platform (Nuweba) and compare it to other managed FaaS solutions, we created this framework.
