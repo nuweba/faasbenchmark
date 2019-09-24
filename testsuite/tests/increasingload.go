@@ -79,6 +79,7 @@ func increasingLargeRequestLoadLvl1(test *config.Test) {
 	params := sleepQueryParam(shortRuntime)
 	// Lambda invocation payload size limit is 6 MB, making large request 4 MB just in case
 	increasingLoad(test, config.Http{
+		SleepTime:   shortRuntime,
 		QueryParams: params,
 		TestType:    httpbench.RequestsForTimeGraph.String(),
 		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl1),
@@ -91,6 +92,7 @@ func increasingLargeRequestLoadLvl2(test *config.Test) {
 	params := sleepQueryParam(mediumRuntime)
 	// Lambda invocation payload size limit is 6 MB, making large request 4 MB just in case
 	increasingLoad(test, config.Http{
+		SleepTime:   mediumRuntime,
 		QueryParams: params,
 		TestType:    httpbench.RequestsForTimeGraph.String(),
 		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl1),
@@ -103,6 +105,7 @@ func increasingLargeRequestLoadLvl3(test *config.Test) {
 	params := sleepQueryParam(longRuntime)
 	// Lambda invocation payload size limit is 6 MB, making large request 4 MB just in case
 	increasingLoad(test, config.Http{
+		SleepTime:   longRuntime,
 		QueryParams: params,
 		TestType:    httpbench.RequestsForTimeGraph.String(),
 		HitsGraph:   gradualHitGraph(maxConcurrent, Lvl1),

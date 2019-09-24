@@ -42,37 +42,3 @@ functions:
     handler: nodejs/handler.hello
     memorySize: 128
 
-  node810-memory-128-6:
-    name: sleep-node810-128mb-6
-    description: sleep function 128mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 128
-
-  node810-memory-128-7:
-    name: sleep-node810-128mb-7
-    description: sleep function 128mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 128
-
-  node810-memory-128-8:
-    name: sleep-node810-128mb-8
-    description: sleep function 128mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 128
-
-  node810-memory-128-9:
-    name: sleep-node810-128mb-9
-    description: sleep function 128mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 128
-
-  node810-memory-128-10:
-    name: sleep-node810-128mb-10
-    description: sleep function 128mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 128

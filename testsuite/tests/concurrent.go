@@ -8,32 +8,27 @@ import (
 	"github.com/nuweba/httpbench"
 	"net/http"
 	"sync"
-	"time"
 )
 
 func init() {
-	Tests.Register(Test{Id: "10FunctionsConcurrently1Each", Fn: C10FunctionsConcurrently1Each, RequiredStack: "identicalfunctions", Description: "Test concurrent load"})
-	Tests.Register(Test{Id: "10FunctionsConcurrently1EachWindows", Fn: C10FunctionsConcurrently1Each, RequiredStack: "identicalfunctionswindows", Description: "Test concurrent load - azure functions on windows"})
-	Tests.Register(Test{Id: "1Function10Concurrent", Fn: C1Function10Concurrent, RequiredStack: "singlefunction", Description: "Test concurrent load"})
-	Tests.Register(Test{Id: "1Function10ConcurrentWindows", Fn: C1Function10Concurrent, RequiredStack: "singlefunctionwindows", Description: "Test concurrent load - azure functions on windows"})
+	Tests.Register(Test{Id: "ConcurrentIncreasingLoad", Fn: C10FunctionsConcurrently1Each, RequiredStack: "identicalfunctions", Description: "Test concurrent load"})
+	Tests.Register(Test{Id: "ConcurrentIncreasingLoadWindows", Fn: C10FunctionsConcurrently1Each, RequiredStack: "identicalfunctionswindows", Description: "Test concurrent load - azure functions on windows"})
 }
 
 func C10FunctionsConcurrently1Each(test *config.Test) {
-	sleep := 2000 * time.Millisecond
+	graphConcurrencyLimit := 34
 	headers := http.Header{}
 	body := []byte("")
-	params := sleepQueryParam(sleep)
+	params := sleepQueryParam(mediumRuntime)
 
 	httpConfig := &config.Http{
-		SleepTime:        sleep,
-		Hook:             test.Config.Provider.HttpInvocationTriggerStage(),
-		QueryParams:      params,
-		Headers:          &headers,
-		Duration:         0,
-		RequestDelay:     20 * time.Millisecond,
-		ConcurrencyLimit: 1,
-		Body:             &body,
-		TestType:         httpbench.ConcurrentRequestsSyncedOnce.String(),
+		SleepTime:   mediumRuntime,
+		QueryParams: params,
+		TestType:    httpbench.RequestsForTimeGraph.String(),
+		HitsGraph:   gradualHitGraph(graphConcurrencyLimit, Lvl2),
+		Hook:        test.Config.Provider.HttpInvocationTriggerStage(),
+		Body:        &body,
+		Headers:     &headers,
 	}
 
 	var m sync.Mutex
@@ -72,7 +67,7 @@ func C10FunctionsConcurrently1Each(test *config.Test) {
 
 			c.L.Unlock()
 
-			requestsResult := trace.ConcurrentRequestsSyncedOnce(hfConf.HttpConfig.ConcurrencyLimit, hfConf.HttpConfig.RequestDelay)
+			requestsResult := trace.RequestsForTimeGraph(*hfConf.HttpConfig.HitsGraph)
 			wg.Wait()
 			httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
 		}(function)
@@ -85,41 +80,3 @@ func C10FunctionsConcurrently1Each(test *config.Test) {
 	end.Wait()
 }
 
-func C1Function10Concurrent(test *config.Test) {
-	sleep := 2000 * time.Millisecond
-	qParams := sleepQueryParam(sleep)
-	headers := http.Header{}
-	body := []byte("")
-
-	httpConfig := &config.Http{
-		SleepTime:        sleep,
-		Hook:             test.Config.Provider.HttpInvocationTriggerStage(),
-		QueryParams:      qParams,
-		Headers:          &headers,
-		Duration:         0,
-		RequestDelay:     20 * time.Millisecond,
-		ConcurrencyLimit: 10,
-		Body:             &body,
-		TestType:         httpbench.ConcurrentRequestsSyncedOnce.String(),
-	}
-	wg := &sync.WaitGroup{}
-	for _, function := range test.Stack.ListFunctions() {
-		hfConf, err := test.NewFunction(httpConfig, function)
-		if err != nil {
-			continue
-		}
-
-		newReq := test.Config.Provider.NewFunctionRequest(hfConf.Test.Stack, hfConf.Function, hfConf.HttpConfig.QueryParams, hfConf.HttpConfig.Headers, hfConf.HttpConfig.Body)
-		trace := httpbench.New(newReq, hfConf.HttpConfig.Hook)
-
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			httpbenchReport.ReportRequestResults(hfConf, trace.ResultCh, hfConf.Test.Config.Provider.HttpResult)
-		}()
-
-		requestsResult := trace.ConcurrentRequestsSyncedOnce(hfConf.HttpConfig.ConcurrencyLimit, hfConf.HttpConfig.RequestDelay)
-		wg.Wait()
-		httpbenchReport.ReportFunctionResults(hfConf, requestsResult)
-	}
-}
