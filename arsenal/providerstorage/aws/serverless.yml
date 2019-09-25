@@ -5,6 +5,7 @@ provider:
   project: faastest
   stage: dev
   versionFunctions: false
+  timeout: 20
   environment:
     TEST_BUCKET: nwbfaastest
   iamRoleStatements:

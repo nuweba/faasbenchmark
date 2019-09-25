@@ -5,6 +5,7 @@ provider:
   project: faastest
   stage: dev
   versionFunctions: false
+  timeout: 20
 
 functions:
   node810-memory-128:

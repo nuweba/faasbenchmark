@@ -2,6 +2,7 @@ service: vpc
 
 provider:
   name: aws
+  timeout: 20
   vpc:
     securityGroupIds:
       - Ref: ServerlessSecurityGroup
