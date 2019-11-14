@@ -1,0 +1,41 @@
+service: tensorflowfunc
+
+package:
+  exclude:
+    - node_modules/**
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+    zip: true
+    slim: true
+    noDeploy:
+      - boto3
+      - botocore
+      - docutils
+      - jmespath
+      - pip
+      - python-dateutil
+      - s3transfer
+      - setuptools
+      - six
+      - tensorboard
+
+provider:
+  name: aws
+  project: faastest
+  stage: dev
+  versionFunctions: false
+  runtime: python2.7
+  timeout: 180
+
+functions:
+  python27-memory-1536:
+    name: tensorflow-python27-1536mb
+    description: tensorflow function 1536mb
+    runtime: python2.7
+    handler: lambda.lambda_handler
+    memorySize: 1536

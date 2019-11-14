@@ -66,6 +66,10 @@ func init() {
 	Tests.Register(Test{Id: "IncreasingLoggingLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "logging", Description: generateDescription(Lvl2, "logging functions")})
 	Tests.Register(Test{Id: "IncreasingLoggingLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "logging", Description: generateDescription(Lvl1, "logging functions")})
 
+	Tests.Register(Test{Id: "IncreasingMLLoadLvl3", Fn: increasingLoadLvl3, RequiredStack: "tensorflowfunc", Description: generateDescription(Lvl3, "ML model load and predict")})
+	Tests.Register(Test{Id: "IncreasingMLLoadLvl2", Fn: increasingLoadLvl2, RequiredStack: "tensorflowfunc", Description: generateDescription(Lvl2, "ML model load and predict")})
+	Tests.Register(Test{Id: "IncreasingMLLoadLvl1", Fn: increasingLoadLvl1, RequiredStack: "tensorflowfunc", Description: generateDescription(Lvl1, "ML model load and predict")})
+
 	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl3", Fn: increasingLoadLvl3LongRuntime, RequiredStack: "vpc", Description: generateDescription(Lvl3, "functions on a vpc")})
 	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl2", Fn: increasingLoadLvl2MedRuntime, RequiredStack: "vpc", Description: generateDescription(Lvl2, "functions on a vpc")})
 	Tests.Register(Test{Id: "IncreasingLoadOnVPCLvl1", Fn: increasingLoadLvl1ShortRuntime, RequiredStack: "vpc", Description: generateDescription(Lvl1, "functions on a vpc")})
