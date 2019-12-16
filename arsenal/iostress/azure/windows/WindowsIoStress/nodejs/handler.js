@@ -40,21 +40,18 @@ module.exports.handler = async (event) => {
     var startTime = process.hrtime();
     let params = getParameters(event);
     if (params.error) {
-        return {"error": params.error}
+        return {"body": `{"error": ${params.error}}`}
     }
 
     let testOut = runTest(params);
     if (testOut.error) {
-        return testOut.error
+        return {"body": `{"error": ${testOut.error}}`}
     }
 
     var reused = isWarm();
     var duration = getDuration(startTime);
 
     return {
-        "reused": reused,
-        "duration": duration,
+        body: `{"reused": ${reused}, "duration": ${duration}}`
     };
 };
-
-
