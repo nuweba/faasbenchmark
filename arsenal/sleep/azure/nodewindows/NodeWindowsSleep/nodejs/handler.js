@@ -32,7 +32,7 @@ module.exports.handler = async (event) => {
     var startTime = process.hrtime();
     let params = getParameters(event);
     if (params.error) {
-        return {"error": params.error}
+        return {"body": `{"error": ${params.error}}`}
     }
 
     await runTest(params);
@@ -41,9 +41,9 @@ module.exports.handler = async (event) => {
     var duration = getDuration(startTime);
 
     return {
-        "reused": reused,
-        "duration": duration
+        body: `{"reused": ${reused}, "duration": ${duration}}`
     };
 };
+
 
 
