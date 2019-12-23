@@ -1,4 +1,4 @@
-service: tensorflowfunc
+service: tensorflowfunc-${opt:timestamp}
 
 package:
   exclude:
@@ -27,6 +27,7 @@ custom:
 provider:
   name: aws
   project: faastest
+  stackName: tensorflowfunc-${opt:timestamp}
   stage: dev
   versionFunctions: false
   runtime: python2.7
@@ -34,7 +35,7 @@ provider:
 
 functions:
   python27-memory-1536:
-    name: tensorflow-python27-1536mb
+    name: tensorflow-python27-1536mb-${opt:timestamp}
     description: tensorflow function 1536mb
     runtime: python2.7
     handler: lambda.lambda_handler

@@ -1,7 +1,8 @@
-service: logging
+service: logging-${opt:timestamp}
 
 provider:
   name: aws
+  stackName: logging-${opt:timestamp}
   project: faastest
   stage: dev
   versionFunctions: false
@@ -9,35 +10,35 @@ provider:
 
 functions:
   node810-memory-128:
-    name: logging-node810-128mb
+    name: logging-node810-128mb-${opt:timestamp}
     description: io intensive function 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 128
 
   node810-memory-256:
-    name: logging-node810-256mb
+    name: logging-node810-256mb-${opt:timestamp}
     description: io intensive function 256mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 256
 
   node810-memory-512:
-    name: logging-node810-512mb
+    name: logging-node810-512mb-${opt:timestamp}
     description: io intensive function 512mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 512
 
   node810-memory-1024:
-    name: logging-node810-1024mb
+    name: logging-node810-1024mb-${opt:timestamp}
     description: io intensive function 1024mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 1024
 
   node810-memory-1536:
-    name: logging-node810-1536mb
+    name: logging-node810-1536mb-${opt:timestamp}
     description: io intensive function 1536mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler

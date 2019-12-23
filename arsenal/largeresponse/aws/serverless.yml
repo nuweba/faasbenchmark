@@ -1,43 +1,44 @@
-service: largeresponse
+service: largeresponse-${opt:timestamp}
 
 provider:
   name: aws
   project: faastest
+  stackName: largeresponse-${opt:timestamp}
   stage: dev
   versionFunctions: false
   timeout: 20
 
 functions:
   node810-memory-128:
-    name: largeresponse-node810-128mb
+    name: largeresponse-node810-128mb-${opt:timestamp}
     description: function returning a large response 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 128
 
   node810-memory-256:
-    name: largeresponse-node810-256mb
+    name: largeresponse-node810-256mb-${opt:timestamp}
     description: function returning a large response 256mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 256
 
   node810-memory-512:
-    name: largeresponse-node810-512mb
+    name: largeresponse-node810-512mb-${opt:timestamp}
     description: function returning a large response 512mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 512
 
   node810-memory-1024:
-    name: largeresponse-node810-1024mb
+    name: largeresponse-node810-1024mb-${opt:timestamp}
     description: function returning a large response 1024mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 1024
 
   node810-memory-1536:
-    name: largeresponse-node810-1536mb
+    name: largeresponse-node810-1536mb-${opt:timestamp}
     description: function returning a large response 1536mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler

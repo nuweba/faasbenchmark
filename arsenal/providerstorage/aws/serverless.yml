@@ -1,7 +1,8 @@
-service: providerstorage
+service: providerstorage-${opt:timestamp}
 
 provider:
   name: aws
+  stackName: providerstorage-${opt:timestamp}
   project: faastest
   stage: dev
   versionFunctions: false
@@ -19,28 +20,28 @@ plugins:
 
 functions:
   node810-memory-128:
-    name: providerstorage-node810-128mb
+    name: providerstorage-node810-128mb-${opt:timestamp}
     description: upload a file to s3 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 128
 
   node810-memory-256:
-    name: providerstorage-node810-256mb
+    name: providerstorage-node810-256mb-${opt:timestamp}
     description: upload a file to s3 256mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 256
 
   node810-memory-512:
-    name: providerstorage-node810-512mb
+    name: providerstorage-node810-512mb-${opt:timestamp}
     description: upload a file to s3 512mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 512
 
   node810-memory-1024:
-    name: providerstorage-node810-1024mb
+    name: providerstorage-node810-1024mb-${opt:timestamp}
     description: upload a file to s3 1024mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler

@@ -1,8 +1,9 @@
-service: singlefunction
+service: singlefunction-${opt:timestamp}
 
 provider:
   name: google
   project: faastest
+  stackName: singlefunction-${opt:timestamp}
   credentials: /tmp/.gcloud/faasbenchmark.json
   stage: dev
 
@@ -11,7 +12,7 @@ plugins:
   
 functions:
   sleep-node810-128mb:
-    name: --sleep-node810-128mb
+    name: --sleep-node810-128mb-${opt:timestamp}
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128

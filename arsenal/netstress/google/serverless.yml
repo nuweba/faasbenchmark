@@ -1,8 +1,9 @@
-service: netstress
+service: netstress-${opt:timestamp}
 
 provider:
   name: google
   project: faastest
+  stackName: netstress-${opt:timestamp}
   credentials: /tmp/.gcloud/faasbenchmark.json
   stage: dev
 
@@ -11,7 +12,7 @@ plugins:
   
 functions:
   network-node810-128mb:
-    name: --network-node810-128mb
+    name: --network-node810-128mb-${opt:timestamp}
     description: network stress function 128mb
     runtime: nodejs8
     handler: test128
@@ -20,7 +21,7 @@ functions:
       - http: path
 
   network-node810-256mb:
-    name: --network-node810-256mb
+    name: --network-node810-256mb-${opt:timestamp}
     description: network stress function 256mb
     runtime: nodejs8
     handler: test256
@@ -29,7 +30,7 @@ functions:
       - http: path
 
   network-node810-512mb:
-    name: --network-node810-512mb
+    name: --network-node810-512mb-${opt:timestamp}
     description: network stress function 512mb
     runtime: nodejs8
     handler: test512
@@ -38,7 +39,7 @@ functions:
       - http: path
 
   network-node810-1024mb:
-    name: --network-node810-1024mb
+    name: --network-node810-1024mb-${opt:timestamp}
     description: network stress function 1024mb
     runtime: nodejs8
     handler: test1024
@@ -47,7 +48,7 @@ functions:
       - http: path
 
   network-node810-2048mb:
-    name: --network-node810-2048mb
+    name: --network-node810-2048mb-${opt:timestamp}
     description: network stress function 2048mb
     runtime: nodejs8
     handler: test2048

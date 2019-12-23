@@ -31,6 +31,7 @@ github.com/nuweba/counter v1.0.0 h1:vGibN8BQF+ajA2TmLcWLqPATUr0GUMyuDrqz1rchumk=
 github.com/nuweba/counter v1.0.0/go.mod h1:UNYYJjH1CDokWN/m+WYy40uM1UfPTfeV3h/Xuq1MfTc=
 github.com/nuweba/httpbench v1.0.0 h1:fh1/ZLF6Uz3cn8uLSsbyZa3bIubTEy30YVUUSAZ4Mxo=
 github.com/nuweba/httpbench v1.0.0/go.mod h1:MC88ZWzjJOUiQ/ZEtHMXacC1iTircETgN+9MsKo7Zhc=
+github.com/nuweba/httpbench v1.0.1/go.mod h1:MC88ZWzjJOUiQ/ZEtHMXacC1iTircETgN+9MsKo7Zhc=
 github.com/nuweba/semaphore v1.0.0 h1:T1ma4WYKZDX4Dn9HRMkqkx+NiURmQb5lRmKihptS+VI=
 github.com/nuweba/semaphore v1.0.0/go.mod h1:WopuZYv2JgV+ZVmeawUwYAw7rnkji/DHqwYj0PXQ/uE=
 github.com/nuweba/sls v1.0.0 h1:zTATTuxkD23cGzXplO8T9XebfPXV6EnXuQBW6dfwe3I=

@@ -1,7 +1,8 @@
-service: memstress
+service: memstress-${opt:timestamp}
 
 provider:
   name: google
+  stackName: memstress-${opt:timestamp}
   project: faastest
   credentials: /tmp/.gcloud/faasbenchmark.json
   stage: dev
@@ -11,7 +12,7 @@ plugins:
   
 functions:
   memory-node810-128mb:
-    name: --memory-node810-128mb
+    name: --memory-node810-128mb-${opt:timestamp}
     description: memory stress function 128mb
     runtime: nodejs8
     handler: test128
@@ -20,7 +21,7 @@ functions:
       - http: path
 
   memory-node810-256mb:
-    name: --memory-node810-256mb
+    name: --memory-node810-256mb-${opt:timestamp}
     description: memory stress function 256mb
     runtime: nodejs8
     handler: test256
@@ -29,7 +30,7 @@ functions:
       - http: path
 
   memory-node810-512mb:
-    name: --memory-node810-512mb
+    name: --memory-node810-512mb-${opt:timestamp}
     description: memory stress function 512mb
     runtime: nodejs8
     handler: test512
@@ -38,7 +39,7 @@ functions:
       - http: path
 
   memory-node810-1024mb:
-    name: --memory-node810-1024mb
+    name: --memory-node810-1024mb-${opt:timestamp}
     description: memory stress function 1024mb
     runtime: nodejs8
     handler: test1024
@@ -47,7 +48,7 @@ functions:
       - http: path
 
   memory-node810-2048mb:
-    name: --memory-node810-2048mb
+    name: --memory-node810-2048mb-${opt:timestamp}
     description: memory stress function 2048mb
     runtime: nodejs8
     handler: test2048
