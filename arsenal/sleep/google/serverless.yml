@@ -1,8 +1,8 @@
-service: sleepfunc-${opt:timestamp}
+service: sleepfunc-${opt:suffix}
 
 provider:
   name: google
-  stackName: sleepfunc-${opt:timestamp}
+  stackName: sleepfunc-${opt:suffix}
   project: faastest
   credentials: /tmp/.gcloud/faasbenchmark.json
   stage: dev
@@ -12,7 +12,7 @@ plugins:
   
 functions:
   sleep-node810-128mb:
-    name: --sleep-node810-128mb-${opt:timestamp}
+    name: --sleep-node810-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs8
     handler: test128
@@ -21,7 +21,7 @@ functions:
       - http: path
 
   sleep-node810-256mb:
-    name: --sleep-node810-256mb-${opt:timestamp}
+    name: --sleep-node810-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: nodejs8
     handler: test256
@@ -30,7 +30,7 @@ functions:
       - http: path
 
   sleep-node810-512mb:
-    name: --sleep-node810-512mb-${opt:timestamp}
+    name: --sleep-node810-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: nodejs8
     handler: test512
@@ -39,7 +39,7 @@ functions:
       - http: path
 
   sleep-node810-1024mb:
-    name: --sleep-node810-1024mb-${opt:timestamp}
+    name: --sleep-node810-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: nodejs8
     handler: test1024
@@ -48,7 +48,7 @@ functions:
       - http: path
 
   sleep-node810-2048mb:
-    name: --sleep-node810-2048mb-${opt:timestamp}
+    name: --sleep-node810-2048mb-${opt:suffix}
     description: sleep function 2048mb
     runtime: nodejs8
     handler: test2048
@@ -57,7 +57,7 @@ functions:
       - http: path
 
   sleep-go111-128mb:
-    name: --sleep-go111-128mb-${opt:timestamp}
+    name: --sleep-go111-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: go111
     handler: F128
@@ -66,7 +66,7 @@ functions:
       - http: path
 
   sleep-go111-256mb:
-    name: --sleep-go111-256mb-${opt:timestamp}
+    name: --sleep-go111-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: go111
     handler: F256
@@ -75,7 +75,7 @@ functions:
       - http: path
 
   sleep-go111-512mb:
-    name: --sleep-go111-512mb-${opt:timestamp}
+    name: --sleep-go111-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: go111
     handler: F512
@@ -84,7 +84,7 @@ functions:
       - http: path
 
   sleep-go111-1024mb:
-    name: --sleep-go111-1024mb-${opt:timestamp}
+    name: --sleep-go111-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: go111
     handler: F1024
@@ -93,7 +93,7 @@ functions:
       - http: path
 
   sleep-go111-2048mb:
-    name: --sleep-go111-2048mb-${opt:timestamp}
+    name: --sleep-go111-2048mb-${opt:suffix}
     description: sleep function 2048mb
     runtime: go111
     handler: F2048
@@ -102,7 +102,7 @@ functions:
       - http: path
 
   sleep-python37-128mb:
-    name: --sleep-python37-128mb-${opt:timestamp}
+    name: --sleep-python37-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: python37
     handler: main128
@@ -111,7 +111,7 @@ functions:
       - http: path
 
   sleep-python37-256mb:
-    name: --sleep-python37-256mb-${opt:timestamp}
+    name: --sleep-python37-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: python37
     handler: main256
@@ -120,7 +120,7 @@ functions:
       - http: path
 
   sleep-python37-512mb:
-    name: --sleep-python37-512mb-${opt:timestamp}
+    name: --sleep-python37-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: python37
     handler: main512
@@ -129,7 +129,7 @@ functions:
       - http: path
 
   sleep-python37-1024mb:
-    name: --sleep-python37-1024mb-${opt:timestamp}
+    name: --sleep-python37-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: python37
     handler: main1024
@@ -138,7 +138,7 @@ functions:
       - http: path
 
   sleep-python37-2048mb:
-    name: --sleep-python37-2048mb-${opt:timestamp}
+    name: --sleep-python37-2048mb-${opt:suffix}
     description: sleep function 2048mb
     runtime: python37
     handler: main2048

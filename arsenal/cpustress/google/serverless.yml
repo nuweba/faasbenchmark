@@ -1,9 +1,9 @@
-service: cpustress-${opt:timestamp}
+service: cpustress-${opt:suffix}
 
 provider:
   name: google
   project: faastest
-  stackName: cpustress-${opt:timestamp}
+  stackName: cpustress-${opt:suffix}
   credentials: /tmp/.gcloud/faasbenchmark.json
   stage: dev
 
@@ -12,7 +12,7 @@ plugins:
   
 functions:
   cpu-node810-128mb:
-    name: --cpu-node810-128mb-${opt:timestamp}
+    name: --cpu-node810-128mb-${opt:suffix}
     description: cpu stress function 128mb
     runtime: nodejs8
     handler: test128
@@ -21,7 +21,7 @@ functions:
       - http: path
 
   cpu-node810-256mb:
-    name: --cpu-node810-256mb-${opt:timestamp}
+    name: --cpu-node810-256mb-${opt:suffix}
     description: cpu stress function 256mb
     runtime: nodejs8
     handler: test256
@@ -30,7 +30,7 @@ functions:
       - http: path
 
   cpu-node810-512mb:
-    name: --cpu-node810-512mb-${opt:timestamp}
+    name: --cpu-node810-512mb-${opt:suffix}
     description: cpu stress function 512mb
     runtime: nodejs8
     handler: test512
@@ -39,7 +39,7 @@ functions:
       - http: path
 
   cpu-node810-1024mb:
-    name: --cpu-node810-1024mb-${opt:timestamp}
+    name: --cpu-node810-1024mb-${opt:suffix}
     description: cpu stress function 1024mb
     runtime: nodejs8
     handler: test1024
@@ -48,7 +48,7 @@ functions:
       - http: path
 
   cpu-node810-2048mb:
-    name: --cpu-node810-2048mb-${opt:timestamp}
+    name: --cpu-node810-2048mb-${opt:suffix}
     description: cpu stress function 2048mb
     runtime: nodejs8
     handler: test2048

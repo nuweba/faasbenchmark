@@ -1,8 +1,8 @@
-service: identicalfunctions-${opt:timestamp}
+service: identicalfunctions-${opt:suffix}
 
 provider:
   name: aws
-  stackName: identicalfunctions-${opt:timestamp}
+  stackName: identicalfunctions-${opt:suffix}
   project: faastest
   stage: dev
   versionFunctions: false
@@ -10,35 +10,35 @@ provider:
 
 functions:
   node810-memory-128-1:
-    name: sleep-node810-128mb-1-${opt:timestamp}
+    name: sleep-node810-128mb-1-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
     memorySize: 128
 
   node810-memory-128-2:
-    name: sleep-node810-128mb-2-${opt:timestamp}
+    name: sleep-node810-128mb-2-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
     memorySize: 128
 
   node810-memory-128-3:
-    name: sleep-node810-128mb-3-${opt:timestamp}
+    name: sleep-node810-128mb-3-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
     memorySize: 128
 
   node810-memory-128-4:
-    name: sleep-node810-128mb-4-${opt:timestamp}
+    name: sleep-node810-128mb-4-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
     memorySize: 128
 
   node810-memory-128-5:
-    name: sleep-node810-128mb-5-${opt:timestamp}
+    name: sleep-node810-128mb-5-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
