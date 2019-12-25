@@ -1,7 +1,8 @@
-service: singlefunction
+service: singlefunction-${opt:suffix}
 
 provider:
   name: aws
+  stackName: singlefunction-${opt:suffix}
   project: faastest
   stage: dev
   versionFunctions: false
@@ -9,7 +10,7 @@ provider:
 
 functions:
   node810-memory-128:
-    name: sleep-node810-128mb
+    name: sleep-node810-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello

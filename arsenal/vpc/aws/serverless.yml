@@ -1,8 +1,9 @@
-service: vpc
+service: vpc-${opt:suffix}
 
 provider:
   name: aws
   timeout: 20
+  stackName: vpc-${opt:suffix}
   vpc:
     securityGroupIds:
       - Ref: ServerlessSecurityGroup
@@ -15,35 +16,35 @@ provider:
 
 functions:
   node810-memory-128:
-    name: vpc-node810-128mb
+    name: vpc-node810-128mb-${opt:suffix}
     description: function on a vpc 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 128
 
   node810-memory-256:
-    name: vpc-node810-256mb
+    name: vpc-node810-256mb-${opt:suffix}
     description: function on a vpc 256mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 256
 
   node810-memory-512:
-    name: vpc-node810-512mb
+    name: vpc-node810-512mb-${opt:suffix}
     description: function on a vpc 512mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 512
 
   node810-memory-1024:
-    name: vpc-node810-1024mb
+    name: vpc-node810-1024mb-${opt:suffix}
     description: function on a vpc 1024mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 1024
 
   node810-memory-1536:
-    name: vpc-node810-1536mb
+    name: vpc-node810-1536mb-${opt:suffix}
     description: function on a vpc 1536mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
