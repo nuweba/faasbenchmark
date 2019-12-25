@@ -1,7 +1,8 @@
-service: netstress
+service: netstress-${opt:suffix}
 
 provider:
   name: aws
+  stackName: netstress-${opt:suffix}
   project: faastest
   stage: dev
   versionFunctions: false
@@ -9,35 +10,35 @@ provider:
 
 functions:
   node810-memory-128:
-    name: netstress-node810-128mb
+    name: netstress-node810-128mb-${opt:suffix}
     description: network intensive function 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 128
 
   node810-memory-256:
-    name: netstress-node810-256mb
+    name: netstress-node810-256mb-${opt:suffix}
     description: network intensive function 256mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 256
 
   node810-memory-512:
-    name: netstress-node810-512mb
+    name: netstress-node810-512mb-${opt:suffix}
     description: network intensive function 512mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 512
 
   node810-memory-1024:
-    name: netstress-node810-1024mb
+    name: netstress-node810-1024mb-${opt:suffix}
     description: network intensive function 1024mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler
     memorySize: 1024
 
   node810-memory-1536:
-    name: netstress-node810-1536mb
+    name: netstress-node810-1536mb-${opt:suffix}
     description: network intensive function 1536mb
     runtime: nodejs8.10
     handler: nodejs/handler.handler

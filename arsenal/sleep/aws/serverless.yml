@@ -1,4 +1,4 @@
-service: sleepfunc
+service: sleepfunc-${opt:suffix}
 
 package:
   individually: true
@@ -12,6 +12,7 @@ package:
 provider:
   name: aws
   project: faastest
+  stackName: sleepfunc-${opt:suffix}
   stage: dev
   versionFunctions: false
   timeout: 20
@@ -21,7 +22,7 @@ functions:
     package:
       include:
       - nodejs/**
-    name: sleep-node810-128mb
+    name: sleep-node810-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
@@ -31,7 +32,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node810-256mb
+    name: sleep-node810-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
@@ -41,7 +42,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node810-512mb
+    name: sleep-node810-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
@@ -51,7 +52,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node810-1024mb
+    name: sleep-node810-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
@@ -61,7 +62,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node810-1536mb
+    name: sleep-node810-1536mb-${opt:suffix}
     description: sleep function 1536mb
     runtime: nodejs8.10
     handler: nodejs/handler.hello
@@ -120,7 +121,7 @@ functions:
   java8-memory-128:
     package:
       artifact: java8/target/hello-dev.jar
-    name: sleep-java8-128mb
+    name: sleep-java8-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: java8
     handler: com.serverless.Handler
@@ -129,7 +130,7 @@ functions:
   java8-memory-256:
     package:
       artifact: java8/target/hello-dev.jar
-    name: sleep-java8-256mb
+    name: sleep-java8-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: java8
     handler: com.serverless.Handler
@@ -138,7 +139,7 @@ functions:
   java8-memory-512:
     package:
       artifact: java8/target/hello-dev.jar
-    name: sleep-java8-512mb
+    name: sleep-java8-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: java8
     handler: com.serverless.Handler
@@ -147,7 +148,7 @@ functions:
   java8-memory-1024:
     package:
       artifact: java8/target/hello-dev.jar
-    name: sleep-java8-1024mb
+    name: sleep-java8-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: java8
     handler: com.serverless.Handler
@@ -156,7 +157,7 @@ functions:
   java8-memory-1536:
     package:
       artifact: java8/target/hello-dev.jar
-    name: sleep-java8-1536mb
+    name: sleep-java8-1536mb-${opt:suffix}
     description: sleep function 1536mb
     runtime: java8
     handler: com.serverless.Handler
@@ -210,7 +211,7 @@ functions:
   dotnetcore21-memory-128:
     package:
       artifact: csharp/deploy.zip
-    name: sleep-dotnetcore21-128mb
+    name: sleep-dotnetcore21-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: dotnetcore2.1
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
@@ -219,7 +220,7 @@ functions:
   dotnetcore21-memory-256:
     package:
       artifact: csharp/deploy.zip
-    name: sleep-dotnetcore21-256mb
+    name: sleep-dotnetcore21-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: dotnetcore2.1
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
@@ -228,7 +229,7 @@ functions:
   dotnetcore21-memory-512:
     package:
       artifact: csharp/deploy.zip
-    name: sleep-dotnetcore21-512mb
+    name: sleep-dotnetcore21-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: dotnetcore2.1
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
@@ -237,7 +238,7 @@ functions:
   dotnetcore21-memory-1024:
     package:
       artifact: csharp/deploy.zip
-    name: sleep-dotnetcore21-1024mb
+    name: sleep-dotnetcore21-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: dotnetcore2.1
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
@@ -246,7 +247,7 @@ functions:
   dotnetcore21-memory-1536:
     package:
       artifact: csharp/deploy.zip
-    name: sleep-dotnetcore21-1536mb
+    name: sleep-dotnetcore21-1536mb-${opt:suffix}
     description: sleep function 1536mb
     runtime: dotnetcore2.1
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
@@ -306,7 +307,7 @@ functions:
     package:
       include:
         - python/**
-    name: sleep-python37-128mb
+    name: sleep-python37-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: python3.7
     handler: python/handler.hello
@@ -316,7 +317,7 @@ functions:
     package:
       include:
         - python/**
-    name: sleep-python37-256mb
+    name: sleep-python37-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: python3.7
     handler: python/handler.hello
@@ -326,7 +327,7 @@ functions:
     package:
       include:
         - python/**
-    name: sleep-python37-512mb
+    name: sleep-python37-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: python3.7
     handler: python/handler.hello
@@ -336,7 +337,7 @@ functions:
     package:
       include:
         - python/**
-    name: sleep-python37-1024mb
+    name: sleep-python37-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: python3.7
     handler: python/handler.hello
@@ -346,7 +347,7 @@ functions:
     package:
       include:
         - python/**
-    name: sleep-python37-1536mb
+    name: sleep-python37-1536mb-${opt:suffix}
     description: sleep function 1536mb
     runtime: python3.7
     handler: python/handler.hello
@@ -356,7 +357,7 @@ functions:
     package:
       include:
         - golang/**
-    name: sleep-golang-128mb
+    name: sleep-golang-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: go1.x
     handler: golang/bin/hello
@@ -366,7 +367,7 @@ functions:
     package:
       include:
         - golang/**
-    name: sleep-golang-256mb
+    name: sleep-golang-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: go1.x
     handler: golang/bin/hello
@@ -376,7 +377,7 @@ functions:
     package:
       include:
         - golang/**
-    name: sleep-golang-512mb
+    name: sleep-golang-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: go1.x
     handler: golang/bin/hello
@@ -386,7 +387,7 @@ functions:
     package:
       include:
         - golang/**
-    name: sleep-golang-1024mb
+    name: sleep-golang-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: go1.x
     handler: golang/bin/hello
@@ -396,7 +397,7 @@ functions:
     package:
       include:
         - golang/**
-    name: sleep-golang-1536mb
+    name: sleep-golang-1536mb-${opt:suffix}
     description: sleep function 1536mb
     runtime: go1.x
     handler: golang/bin/hello
