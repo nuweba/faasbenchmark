@@ -68,6 +68,56 @@ functions:
     handler: nodejs/handler.hello
     memorySize: 1536
 
+  node12-memory-128:
+    package:
+      include:
+      - nodejs/**
+    name: sleep-node12-128mb
+    description: sleep function 128mb
+    runtime: nodejs12.x
+    handler: nodejs/handler.hello
+    memorySize: 128
+
+  node12-memory-256:
+    package:
+      include:
+        - nodejs/**
+    name: sleep-node12-256mb
+    description: sleep function 256mb
+    runtime: nodejs12.x
+    handler: nodejs/handler.hello
+    memorySize: 256
+
+  node12-memory-512:
+    package:
+      include:
+        - nodejs/**
+    name: sleep-node12-512mb
+    description: sleep function 512mb
+    runtime: nodejs12.x
+    handler: nodejs/handler.hello
+    memorySize: 512
+
+  node12-memory-1024:
+    package:
+      include:
+        - nodejs/**
+    name: sleep-node12-1024mb
+    description: sleep function 1024mb
+    runtime: nodejs12.x
+    handler: nodejs/handler.hello
+    memorySize: 1024
+
+  node12-memory-1536:
+    package:
+      include:
+        - nodejs/**
+    name: sleep-node12-1536mb
+    description: sleep function 1536mb
+    runtime: nodejs12.x
+    handler: nodejs/handler.hello
+    memorySize: 1536
+
   java8-memory-128:
     package:
       artifact: java8/target/hello-dev.jar
@@ -110,6 +160,51 @@ functions:
     name: sleep-java8-1536mb-${opt:suffix}
     description: sleep function 1536mb
     runtime: java8
+    handler: com.serverless.Handler
+    memorySize: 1536
+
+  java11-memory-128:
+    package:
+      artifact: java11/target/hello-dev.jar
+    name: sleep-java11-128mb
+    description: sleep function 128mb
+    runtime: java11
+    handler: com.serverless.Handler
+    memorySize: 128
+
+  java11-memory-256:
+    package:
+      artifact: java11/target/hello-dev.jar
+    name: sleep-java11-256mb
+    description: sleep function 256mb
+    runtime: java11
+    handler: com.serverless.Handler
+    memorySize: 256
+
+  java11-memory-512:
+    package:
+      artifact: java11/target/hello-dev.jar
+    name: sleep-java11-512mb
+    description: sleep function 512mb
+    runtime: java11
+    handler: com.serverless.Handler
+    memorySize: 512
+
+  java11-memory-1024:
+    package:
+      artifact: java11/target/hello-dev.jar
+    name: sleep-java11-1024mb
+    description: sleep function 1024mb
+    runtime: java11
+    handler: com.serverless.Handler
+    memorySize: 1024
+
+  java11-memory-1536:
+    package:
+      artifact: java11/target/hello-dev.jar
+    name: sleep-java11-1536mb
+    description: sleep function 1536mb
+    runtime: java11
     handler: com.serverless.Handler
     memorySize: 1536
 
@@ -156,6 +251,56 @@ functions:
     description: sleep function 1536mb
     runtime: dotnetcore2.1
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
+    memorySize: 1536
+
+  python38-memory-128:
+    package:
+      include:
+        - python/**
+    name: sleep-python38-128mb
+    description: sleep function 128mb
+    runtime: python3.8
+    handler: python/handler.hello
+    memorySize: 128
+
+  python38-memory-256:
+    package:
+      include:
+        - python/**
+    name: sleep-python38-256mb
+    description: sleep function 256mb
+    runtime: python3.8
+    handler: python/handler.hello
+    memorySize: 256
+
+  python38-memory-512:
+    package:
+      include:
+        - python/**
+    name: sleep-python38-512mb
+    description: sleep function 512mb
+    runtime: python3.8
+    handler: python/handler.hello
+    memorySize: 512
+
+  python38-memory-1024:
+    package:
+      include:
+        - python/**
+    name: sleep-python38-1024mb
+    description: sleep function 1024mb
+    runtime: python3.8
+    handler: python/handler.hello
+    memorySize: 1024
+
+  python38-memory-1536:
+    package:
+      include:
+        - python/**
+    name: sleep-python38-1536mb
+    description: sleep function 1536mb
+    runtime: python3.8
+    handler: python/handler.hello
     memorySize: 1536
 
   python37-memory-128:
