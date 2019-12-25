@@ -1,9 +1,8 @@
-service: providerstorage-${opt:suffix}
+service: providerstorage
 
 provider:
   name: google
   project: faastest
-  stackName: providerstorage-${opt:suffix}
   credentials: /tmp/.gcloud/faasbenchmark.json
   stage: dev
 
@@ -13,7 +12,7 @@ plugins:
   
 functions:
   provider-storage-node810-128mb:
-    name: --provider-storage-node810-128mb-${opt:suffix}
+    name: --provider-storage-node810-128mb
     description: provider storage function 128mb
     runtime: nodejs8
     handler: test128
@@ -22,7 +21,7 @@ functions:
       - http: path
 
   provider-storage-node810-256mb:
-    name: --provider-storage-node810-256mb-${opt:suffix}
+    name: --provider-storage-node810-256mb
     description: provider storage function 256mb
     runtime: nodejs8
     handler: test256
@@ -31,7 +30,7 @@ functions:
       - http: path
 
   provider-storage-node810-512mb:
-    name: --provider-storage-node810-512mb-${opt:suffix}
+    name: --provider-storage-node810-512mb
     description: provider storage function 512mb
     runtime: nodejs8
     handler: test512
@@ -40,7 +39,7 @@ functions:
       - http: path
 
   provider-storage-node810-1024mb:
-    name: --provider-storage-node810-1024mb-${opt:suffix}
+    name: --provider-storage-node810-1024mb
     description: provider storage function 1024mb
     runtime: nodejs8
     handler: test1024
@@ -49,7 +48,7 @@ functions:
       - http: path
 
   provider-storage-node810-2048mb:
-    name: --provider-storage-node810-2048mb-${opt:suffix}
+    name: --provider-storage-node810-2048mb
     description: provider storage function 2048mb
     runtime: nodejs8
     handler: test2048
