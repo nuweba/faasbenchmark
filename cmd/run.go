@@ -23,7 +23,7 @@ import (
 )
 
 const (
-	TestsDir = "arsenal"
+	TestsDir           = "arsenal"
 	exampleTestsPrefix = "example"
 )
 
@@ -117,7 +117,6 @@ func runTests(providerName string, testIds ...string) error {
 		report = multi.Report(jsonReport, stdioReport)
 	}
 
-
 	faasProvider, err := provider.NewProvider(providerName)
 	if err != nil {
 		return err
@@ -188,11 +187,19 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	testConfig, err := gConfig.NewTest(stack, test.Id, test.Description)
 
 	gConfig.Logger.Info("deploying stack", zap.String("name", stack.StackId()))
+	stackRemoved := make(chan struct{})
+	defer func() {
+		gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
+		err = stack.RemoveStack()
+		if err == nil {
+			stackRemoved <- struct{}{}
+			gConfig.Logger.Debug("stack removed", zap.String("name", stack.StackId()))
+		}
+	}()
 	err = stack.DeployStack()
 	if err != nil {
 		return err
 	}
-	stackRemoved := make(chan struct{})
 	go handleSignals(gConfig, stack, stackRemoved)
 	gConfig.Logger.Debug("stack deployed", zap.String("name", stack.StackId()))
 
@@ -202,15 +209,14 @@ func runOneTest(gConfig *config.Global, testId string) error {
 
 	gConfig.Logger.Debug("test is done", zap.String("name", test.Id))
 
-	gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
-	err = stack.RemoveStack()
-	if err != nil {
-		return err
-	}
-	stackRemoved <- struct{}{}
-	gConfig.Logger.Debug("stack removed", zap.String("name", stack.StackId()))
+	//gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
+	//err = stack.RemoveStack()
+	//if err != nil {
+	//	return err
+	//}
+	//gConfig.Logger.Debug("stack removed", zap.String("name", stack.StackId()))
 
-	return nil
+	return err
 }
 
 func handleSignals(gConfig *config.Global, stack *config.Stack, stackRemoved chan struct{}) {
