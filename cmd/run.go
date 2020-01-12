@@ -190,6 +190,7 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	stackRemoved := make(chan struct{})
 	defer func() {
 		gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
+		// err will be returned by wrapping function's return statement
 		err = stack.RemoveStack()
 		if err == nil {
 			stackRemoved <- struct{}{}
@@ -208,13 +209,6 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	test.Fn(testConfig)
 
 	gConfig.Logger.Debug("test is done", zap.String("name", test.Id))
-
-	//gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
-	//err = stack.RemoveStack()
-	//if err != nil {
-	//	return err
-	//}
-	//gConfig.Logger.Debug("stack removed", zap.String("name", stack.StackId()))
 
 	return err
 }
