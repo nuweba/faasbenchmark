@@ -15,38 +15,38 @@ provider:
   versionFunctions: false
 
 functions:
-  node810-memory-128:
-    name: vpc-node810-128mb-${opt:suffix}
+  node12-memory-128:
+    name: vpc-node12-128mb-${opt:suffix}
     description: function on a vpc 128mb
-    runtime: nodejs8.10
+    runtime: nodejs12.x
     handler: nodejs/handler.handler
     memorySize: 128
 
-  node810-memory-256:
-    name: vpc-node810-256mb-${opt:suffix}
+  node12-memory-256:
+    name: vpc-node12-256mb-${opt:suffix}
     description: function on a vpc 256mb
-    runtime: nodejs8.10
+    runtime: nodejs12.x
     handler: nodejs/handler.handler
     memorySize: 256
 
-  node810-memory-512:
-    name: vpc-node810-512mb-${opt:suffix}
+  node12-memory-512:
+    name: vpc-node12-512mb-${opt:suffix}
     description: function on a vpc 512mb
-    runtime: nodejs8.10
+    runtime: nodejs12.x
     handler: nodejs/handler.handler
     memorySize: 512
 
-  node810-memory-1024:
-    name: vpc-node810-1024mb-${opt:suffix}
+  node12-memory-1024:
+    name: vpc-node12-1024mb-${opt:suffix}
     description: function on a vpc 1024mb
-    runtime: nodejs8.10
+    runtime: nodejs12.x
     handler: nodejs/handler.handler
     memorySize: 1024
 
-  node810-memory-1536:
-    name: vpc-node810-1536mb-${opt:suffix}
+  node12-memory-1536:
+    name: vpc-node12-1536mb-${opt:suffix}
     description: function on a vpc 1536mb
-    runtime: nodejs8.10
+    runtime: nodejs12.x
     handler: nodejs/handler.handler
     memorySize: 1536
 

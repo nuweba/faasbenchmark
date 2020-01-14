@@ -9,10 +9,10 @@ provider:
   timeout: 20
 
 functions:
-  node810-memory-128:
-    name: sleep-node810-128mb-${opt:suffix}
+  node12-memory-128:
+    name: sleep-node12-128mb-${opt:suffix}
     description: sleep function 128mb
-    runtime: nodejs8.10
+    runtime: nodejs12.x
     handler: nodejs/handler.hello
     memorySize: 128
 
