@@ -22,7 +22,7 @@ functions:
     package:
       include:
       - nodejs/**
-    name: sleep-node12-128mb
+    name: sleep-node12-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
@@ -32,7 +32,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node12-256mb
+    name: sleep-node12-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
@@ -42,7 +42,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node12-512mb
+    name: sleep-node12-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
@@ -52,7 +52,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node12-1024mb
+    name: sleep-node12-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
@@ -62,7 +62,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node12-1536mb
+    name: sleep-node12-1536mb-${opt:suffix}
     description: sleep function 1536mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
