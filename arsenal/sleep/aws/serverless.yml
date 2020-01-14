@@ -18,61 +18,11 @@ provider:
   timeout: 20
 
 functions:
-  node810-memory-128:
-    package:
-      include:
-      - nodejs/**
-    name: sleep-node810-128mb-${opt:suffix}
-    description: sleep function 128mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 128
-
-  node810-memory-256:
-    package:
-      include:
-        - nodejs/**
-    name: sleep-node810-256mb-${opt:suffix}
-    description: sleep function 256mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 256
-
-  node810-memory-512:
-    package:
-      include:
-        - nodejs/**
-    name: sleep-node810-512mb-${opt:suffix}
-    description: sleep function 512mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 512
-
-  node810-memory-1024:
-    package:
-      include:
-        - nodejs/**
-    name: sleep-node810-1024mb-${opt:suffix}
-    description: sleep function 1024mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 1024
-
-  node810-memory-1536:
-    package:
-      include:
-        - nodejs/**
-    name: sleep-node810-1536mb-${opt:suffix}
-    description: sleep function 1536mb
-    runtime: nodejs8.10
-    handler: nodejs/handler.hello
-    memorySize: 1536
-
   node12-memory-128:
     package:
       include:
       - nodejs/**
-    name: sleep-node12-128mb
+    name: sleep-node12-128mb-${opt:suffix}
     description: sleep function 128mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
@@ -82,7 +32,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node12-256mb
+    name: sleep-node12-256mb-${opt:suffix}
     description: sleep function 256mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
@@ -92,7 +42,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node12-512mb
+    name: sleep-node12-512mb-${opt:suffix}
     description: sleep function 512mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
@@ -102,7 +52,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node12-1024mb
+    name: sleep-node12-1024mb-${opt:suffix}
     description: sleep function 1024mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
@@ -112,7 +62,7 @@ functions:
     package:
       include:
         - nodejs/**
-    name: sleep-node12-1536mb
+    name: sleep-node12-1536mb-${opt:suffix}
     description: sleep function 1536mb
     runtime: nodejs12.x
     handler: nodejs/handler.hello
