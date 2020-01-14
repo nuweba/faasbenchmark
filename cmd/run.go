@@ -194,7 +194,7 @@ func runOneTest(gConfig *config.Global, testId string) error {
 		// err will be returned by wrapping function's return statement
 		err = stack.RemoveStack()
 		if err != nil {
-			gConfig.Logger.Warn("failed removing stack", zap.String("name", stack.StackId()))
+			gConfig.Logger.Warn("failed removing stack", zap.String("name", stack.StackId()), zap.String("err", err.Error()))
 		} else {
 			stackRemoved <- struct{}{}
 			gConfig.Logger.Debug("stack removed", zap.String("name", stack.StackId()))
