@@ -22,8 +22,8 @@ func burstDescription(size uint64) string {
 
 func init() {
 	Tests.Register(Test{Id: "BurstLvl1", Fn: burstLvl1, RequiredStack: "singlefunction", Description: burstDescription(burstSizeLvl1)})
-	Tests.Register(Test{Id: "BurstLvl1", Fn: burstLvl2, RequiredStack: "singlefunction", Description: burstDescription(burstSizeLvl2)})
-	Tests.Register(Test{Id: "BurstLvl1", Fn: burstLvl3, RequiredStack: "singlefunction", Description: burstDescription(burstSizeLvl3)})
+	Tests.Register(Test{Id: "BurstLvl2", Fn: burstLvl2, RequiredStack: "singlefunction", Description: burstDescription(burstSizeLvl2)})
+	Tests.Register(Test{Id: "BurstLvl3", Fn: burstLvl3, RequiredStack: "singlefunction", Description: burstDescription(burstSizeLvl3)})
 }
 
 func burstLvl1(test *config.Test) {
