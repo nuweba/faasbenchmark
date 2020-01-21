@@ -3,7 +3,7 @@ package stdio
 import (
 	"github.com/nuweba/faasbenchmark/report"
 	"io"
-	"io/ioutil"
+	"os"
 )
 
 type Top struct {
@@ -18,5 +18,5 @@ func New(stdoutWriter io.Writer) (report.Top, error) {
 }
 
 func (t *Top) LogWriter() (io.Writer, error) {
-	return ioutil.Discard, nil
+	return os.Stdout, nil
 }
