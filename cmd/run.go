@@ -27,14 +27,6 @@ const (
 	exampleTestsPrefix = "example"
 )
 
-type TestsError struct {
-	ErrStrings []string
-}
-
-func (te TestsError) Error() string {
-	return strings.Join(te.ErrStrings, "\n")
-}
-
 var resultPath string
 var debug bool
 
@@ -152,32 +144,29 @@ func runTests(providerName string, testIds ...string) error {
 	return nil
 }
 
-func RunAllTests(gConfig *config.Global) error {
-	var terr TestsError
+func RunAllTests(gConfig *config.Global) (err error) {
 	for id := range testsuite.Tests.TestFunctions {
 		if strings.HasPrefix(strings.ToLower(id), exampleTestsPrefix) {
 			continue
 		}
-		err := runOneTest(gConfig, id)
-		if err != nil {
+		testErr := runOneTest(gConfig, id)
+		if testErr != nil {
 			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))
-			terr.ErrStrings = append(terr.ErrStrings, err.Error())
+			err = testErr
 		}
 	}
-	return terr
+	return err
 }
 
-func RunSpecificTests(gConfig *config.Global, testIds ...string) error {
-	var terr TestsError
+func RunSpecificTests(gConfig *config.Global, testIds ...string) (err error) {
 	for _, id := range testIds {
-		err := runOneTest(gConfig, id)
-		if err != nil {
+		testErr := runOneTest(gConfig, id)
+		if testErr != nil {
 			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))
-			terr.ErrStrings = append(terr.ErrStrings, err.Error())
+			err = testErr
 		}
 	}
-
-	return terr
+	return err
 }
 
 func runOneTest(gConfig *config.Global, testId string) error {
