@@ -27,6 +27,14 @@ const (
 	exampleTestsPrefix = "example"
 )
 
+type TestsError struct {
+	ErrStrings []string
+}
+
+func (te TestsError) Error() string {
+	return strings.Join(te.ErrStrings, "\n")
+}
+
 var resultPath string
 var debug bool
 
@@ -145,6 +153,7 @@ func runTests(providerName string, testIds ...string) error {
 }
 
 func RunAllTests(gConfig *config.Global) error {
+	var terr TestsError
 	for id := range testsuite.Tests.TestFunctions {
 		if strings.HasPrefix(strings.ToLower(id), exampleTestsPrefix) {
 			continue
@@ -152,23 +161,23 @@ func RunAllTests(gConfig *config.Global) error {
 		err := runOneTest(gConfig, id)
 		if err != nil {
 			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))
-			continue
+			terr.ErrStrings = append(terr.ErrStrings, err.Error())
 		}
 	}
-
-	return nil
+	return terr
 }
 
 func RunSpecificTests(gConfig *config.Global, testIds ...string) error {
+	var terr TestsError
 	for _, id := range testIds {
 		err := runOneTest(gConfig, id)
 		if err != nil {
 			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))
-			continue
+			terr.ErrStrings = append(terr.ErrStrings, err.Error())
 		}
 	}
 
-	return nil
+	return terr
 }
 
 func runOneTest(gConfig *config.Global, testId string) error {
@@ -190,10 +199,14 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	stackRemoved := make(chan struct{})
 	go handleSignals(gConfig, stack, stackRemoved)
 	defer func() {
+		if err != nil {
+			gConfig.Logger.Error("error during test run, removing stack", zap.String("err", err.Error()))
+		}
 		gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
 		// err will be returned by wrapping function's return statement
-		err = stack.RemoveStack()
-		if err != nil {
+		removeErr := stack.RemoveStack()
+		if removeErr != nil {
+			err = removeErr
 			gConfig.Logger.Warn("failed removing stack", zap.String("name", stack.StackId()), zap.String("err", err.Error()))
 		} else {
 			stackRemoved <- struct{}{}
