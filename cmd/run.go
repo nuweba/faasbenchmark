@@ -144,31 +144,29 @@ func runTests(providerName string, testIds ...string) error {
 	return nil
 }
 
-func RunAllTests(gConfig *config.Global) error {
+func RunAllTests(gConfig *config.Global) (err error) {
 	for id := range testsuite.Tests.TestFunctions {
 		if strings.HasPrefix(strings.ToLower(id), exampleTestsPrefix) {
 			continue
 		}
-		err := runOneTest(gConfig, id)
-		if err != nil {
+		testErr := runOneTest(gConfig, id)
+		if testErr != nil {
 			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))
-			continue
+			err = testErr
 		}
 	}
-
-	return nil
+	return err
 }
 
-func RunSpecificTests(gConfig *config.Global, testIds ...string) error {
+func RunSpecificTests(gConfig *config.Global, testIds ...string) (err error) {
 	for _, id := range testIds {
-		err := runOneTest(gConfig, id)
-		if err != nil {
+		testErr := runOneTest(gConfig, id)
+		if testErr != nil {
 			gConfig.Logger.Error("error running test", zap.Error(err), zap.String("test", id))
-			continue
+			err = testErr
 		}
 	}
-
-	return nil
+	return err
 }
 
 func runOneTest(gConfig *config.Global, testId string) error {
@@ -190,10 +188,14 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	stackRemoved := make(chan struct{})
 	go handleSignals(gConfig, stack, stackRemoved)
 	defer func() {
+		if err != nil {
+			gConfig.Logger.Error("error during test run, removing stack", zap.String("err", err.Error()))
+		}
 		gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
 		// err will be returned by wrapping function's return statement
-		err = stack.RemoveStack()
-		if err != nil {
+		removeErr := stack.RemoveStack()
+		if removeErr != nil {
+			err = removeErr
 			gConfig.Logger.Warn("failed removing stack", zap.String("name", stack.StackId()), zap.String("err", err.Error()))
 		} else {
 			stackRemoved <- struct{}{}
