@@ -86,7 +86,7 @@ func faasTestConfig(providerName string, resultCh *graphStream) (*config.Global,
 	report := multi.Report(fileReport, graphReport)
 
 	arsenalPath := filepath.Join(dir, TestsDir)
-	gConfig, err := config.NewGlobalConfig(provider, arsenalPath, report)
+	gConfig, err := config.NewGlobalConfig(provider, arsenalPath, report, false)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ func Tui(provider string, pImage *widgets.Image) {
 
 	tabpane := widgets.NewTabPane(linePlot.Title, linePlot2.Title, linePlot3.Title, linePlot4.Title, linePlot5.Title)
 	tabpane.Border = false
-	plots := map[string]*widgets.Plot{linePlot.Title : linePlot.Plot, linePlot2.Title : linePlot2.Plot, linePlot3.Title : linePlot3.Plot, linePlot4.Title : linePlot4.Plot, linePlot5.Title : linePlot5.Plot}
+	plots := map[string]*widgets.Plot{linePlot.Title: linePlot.Plot, linePlot2.Title: linePlot2.Plot, linePlot3.Title: linePlot3.Plot, linePlot4.Title: linePlot4.Plot, linePlot5.Title: linePlot5.Plot}
 
 	localGrid := grid(tabpane, plots[tabpane.TabNames[tabpane.ActiveTabIndex]], leftTestsMenu, logView.List, pImage)
 
