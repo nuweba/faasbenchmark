@@ -18,6 +18,8 @@ func (google *Google) NewStack(stackPath string) (stack.Stack, error) {
 		return nil, err
 	}
 
+	stack.Opts["creds"] = google.credentials
+
 	return &Stack{stack}, nil
 }
 

@@ -3,7 +3,7 @@ service: iostress
 provider:
   name: google
   project: faastest
-  credentials: /tmp/.gcloud/faasbenchmark.json
+  credentials: ${opt:creds}
   stage: dev
 
 plugins:
