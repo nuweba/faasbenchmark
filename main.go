@@ -1,96 +1,39 @@
 package main
 
-import "github.com/nuweba/faasbenchmark/cmd"
+import (
+	"fmt"
+	"github.com/nuweba/faasbenchmark/cmd"
+	"os/exec"
+)
+
+func isInstalled(bin, name string) bool {
+	_, err := exec.LookPath(bin)
+	if err != nil {
+		fmt.Printf("%s is not installed\n", name)
+		return false
+	}
+	return true
+}
+
+func checkDeps() bool {
+	dependencies := map[string]string{
+		"sls":    "serverless framework",
+		"az":     "azure-cli",
+		"dotnet": "dotnet-sdk",
+		"mvn":    "maven",
+		"func":   "azure-functions-core-tools"}
+
+	depsInstalled := true
+	for binary, name := range dependencies {
+		depsInstalled = isInstalled(binary, name) && depsInstalled
+	}
+	return depsInstalled
+}
 
 func main() {
+	if !checkDeps() {
+		fmt.Println("please install all missing dependencies")
+		return
+	}
 	cmd.Execute()
-	//req, err := http.NewRequest("GET", "https://www.google.co.il", bytes.NewReader([]byte("")))
-	//if err != nil {
-	//	fmt.Println("Error in new request")
-	//}
-	//duration := 5 * time.Second
-	//reqDelay := 50 * time.Millisecond
-	//concurrencyLimit := uint64(10)
-	//httptrace.RequestPerDuration(req, reqDelay, duration)
-	//httptrace.ConcurrentRequestsSynced(req,concurrencyLimit, reqDelay, duration)
-	//httptrace.ConcurrentRequestsUnsynced(req,concurrencyLimit, reqDelay, duration)
-
-
-	//hitsGraph := httptrace.HitsGraph(
-	//	[]httptrace.RequestsPerTime{
-	//		{2, 1 * time.Second},
-	//		{3, 1 * time.Second},
-	//		{4, 1 * time.Second},
-	//	},
-	//	)
-	//
-	//httptrace.RequestsForTimeGraph(req, hitsGraph)
-
-
-	//concurrentGraph := httptrace.ConcurrentGraph(
-	//	[]httptrace.RequestsPerTime{
-	//		{2, 0 * time.Second},
-	//		{1, 1 * time.Second},
-	//		{8, 10 * time.Second},
-	//		{2, 13 * time.Second},
-	//		{1, 20 * time.Second},
-	//	},
-	//	)
-	//
-	//httptrace.ConcurrentForTimeGraph(req, concurrentGraph)
-	//cloudTests, err := provider.NewCloudTests("aws")
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return
-	//}
-	//
-	//for _, test := range cloudtests.Tests.TestFunctions {
-	//
-	//
-	//	stack, err := cloudTests.GetStack(test.RequiredStack)
-	//	if err != nil {
-	//		fmt.Println(err)
-	//		return
-	//	}
-	//
-	//	err = stack.DeployStack()
-	//	if err != nil {
-	//		fmt.Println(err)
-	//		return
-	//	}
-	//
-	//	test.Fn(cloudTests.Provider, stack)
-	//
-	//	err =stack.RemoveStack()
-	//	if err != nil {
-	//		fmt.Println(err)
-	//	}
-	//}
-	//
-	//for _, stack := range cloudTests.Stacks {
-	//	err := stack.DeployStack()
-	//	if err != nil {
-	//		fmt.Println(err)
-	//		return
-	//	}
-	//
-	//	for _, function := range stack.Functions {
-	//		req, err := cloudTests.Provider.NewFunctionRequest(function.Name(), []byte(""))
-	//
-	//		if err != nil {
-	//			fmt.Println(err)
-	//		}
-	//		fmt.Println(function.Name())
-	//		//duration := 1 * time.Second
-	//		reqDelay := 20 * time.Millisecond
-	//		concurrencyLimit := uint64(3)
-	//		httptrace.ConcurrentRequestsSyncedOnce(req, concurrencyLimit, reqDelay)
-	//	}
-	//
-	//	err =stack.RemoveStack()
-	//	if err != nil {
-	//		fmt.Println(err)
-	//	}
-	//
-	//}
 }
