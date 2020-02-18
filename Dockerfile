@@ -4,6 +4,7 @@ RUN mkdir /app
 ADD . /app/
 WORKDIR /app 
 RUN go build -o faasbenchmark main.go
+RUN go build -o faasbenchmark-tui tui.go
 
 FROM node:13.8.0-stretch
 
@@ -27,8 +28,9 @@ RUN apt-get update && apt-get install -y azure-cli dotnet-sdk-3.1 maven azure-fu
 RUN mkdir /app
 
 COPY --from=builder /app/ /app
+WORKDIR /app
 
-CMD /app/faasbenchmark
+CMD ./faasbenchmark
 
 
 

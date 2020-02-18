@@ -75,21 +75,25 @@ Optimizations often include partial/full container reuse, and in many scenarios 
 The tests should be run as close as possible to the FaaS provider.
 Each provider New() function will enforce you to use a VM inside the FaaS provider. (AWS EC2 for exemple)
 ##### Install Requirements
-- go > 1.10
-- serverless framework
-- configure FaaS provider credentials (to be used by sls)
+- docker
+
+##### Build
+from project root run:  
+```sh
+docker build -t faasbenchmark .
+```
 
 #### Run
 ##### Terminal UI
 ```sh
-go run tui.go
+docker run faasbenchmark ./faasbenchmark-tui
 ```
 <h1><p align="center"><img alt="first screen" src="_assets/screen-choose-provider.bmp"/></p></h1>
 <h1><p align="center"><img alt="main screen" src="_assets/main-screen.bmp"/></p></h1>
 
 ##### CLI
 ```sh
-go run main.go
+docker run faasbenchmark
 ```
 ```sh
 $ FaaSbenchmark
