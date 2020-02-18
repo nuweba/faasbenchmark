@@ -8,19 +8,37 @@ import (
 	"github.com/golang/gddo/httputil/header"
 	"github.com/nuweba/faasbenchmark/stack"
 	"github.com/nuweba/httpbench/syncedtrace"
+	"github.com/pkg/errors"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"path"
+	"path/filepath"
+	"runtime"
 )
 
 type Google struct {
-	region string
-	name   string
+	region      string
+	name        string
+	credentials string
+}
+
+func credsPath() (string, error) {
+	_, filename, _, ok := runtime.Caller(1)
+	if !ok {
+		return "", errors.New("getting absolute project path")
+	}
+	fileDir := filepath.Dir(filename)
+	return filepath.Join(fileDir, "..", "credentials", "gcp.json"), nil
 }
 
 func New() (*Google, error) {
 	name := "google"
+
+	credsFile, err := credsPath()
+	if err != nil {
+		return nil, errors.WithMessage(err, "getting gcp credentials path")
+	}
 
 	//todo: change
 	//region, err := getRegion(ses)
@@ -30,7 +48,7 @@ func New() (*Google, error) {
 	//}
 	region := "us-central1"
 
-	return &Google{region: region, name: name}, nil
+	return &Google{region: region, name: name, credentials: credsFile}, nil
 }
 
 func (google *Google) Name() string {
