@@ -86,7 +86,7 @@ docker build -t faasbenchmark .
 #### Run
 ##### Terminal UI
 ```sh
-docker run faasbenchmark ./faasbenchmark-tui
+docker run -ti faasbenchmark ./faasbenchmark-tui
 ```
 <h1><p align="center"><img alt="first screen" src="_assets/screen-choose-provider.bmp"/></p></h1>
 <h1><p align="center"><img alt="main screen" src="_assets/main-screen.bmp"/></p></h1>
