@@ -24,7 +24,6 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
 	chown root:root /etc/apt/sources.list.d/microsoft-prod.list
 
 RUN npm install -g serverless azure-functions-core-tools@3
-RUN add-apt-repository ppa:openjdk-r/ppa -y
 RUN apt-get update && apt-get install azure-cli openjdk-8-jdk maven dotnet-sdk-3.1 -y --fix-missing
 RUN mkdir /app
 
