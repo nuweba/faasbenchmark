@@ -15,7 +15,7 @@ RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor |
 	AZ_REPO=$(lsb_release -cs) && \
 	echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list
 
-# add dotnot repo
+# add dotnet repo
 RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg && \
 	mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/ && \
 	wget -q https://packages.microsoft.com/config/debian/9/prod.list && \
@@ -24,11 +24,16 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
 	chown root:root /etc/apt/sources.list.d/microsoft-prod.list
 
 RUN npm install -g serverless
-RUN apt-get update && apt-get install -y azure-cli dotnet-sdk-3.1 maven azure-functions-core-tools
+RUN npm install -g azure-functions-core-tools@3
+RUN apt-get update
+RUN apt install software-properties-common -y
+RUN add-apt-repository ppa:openjdk-r/ppa -y
+RUN apt-get install azure-cli git curl wget gcc zip unzip openjdk-8-jdk maven dotnet-sdk-3.1 python3 python3-pip -y --fix-missing
 RUN mkdir /app
 
 COPY --from=builder /app/ /app
 WORKDIR /app
+RUN npm install
 
 CMD ./faasbenchmark
 
