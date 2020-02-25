@@ -91,6 +91,17 @@ docker run -ti faasbenchmark ./faasbenchmark-tui
 <h1><p align="center"><img alt="first screen" src="_assets/screen-choose-provider.bmp"/></p></h1>
 <h1><p align="center"><img alt="main screen" src="_assets/main-screen.bmp"/></p></h1>
 
+##### Provider Authentication
+Before starting faasbenchmark we need to make sure it has proper permissions in the desired FaaS provider accounts.
+Each provider has it's own process of authentication to be executed before running faasbenchmark.
+###### AWS
+Create an IAM user and access key in accordance to the [serverless framework documentation](https://serverless.com/framework/docs/providers/aws/guide/credentials/).
+Login using the aws cli or using environment variables.
+###### Google Cloud Platform
+Generate a GCP credentials json file as specified in the [serverless framework documentation](https://serverless.com/framework/docs/providers/google/guide/credentials/).
+Save the file as `faasbenchmark/credentials/gcp.json`.
+###### Azure Functions
+Login using the Azure CLI's `az login` before running faasbenchmark.
 ##### CLI
 ```sh
 docker run faasbenchmark
