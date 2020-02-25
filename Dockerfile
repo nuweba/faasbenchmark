@@ -8,7 +8,7 @@ RUN go build -o faasbenchmark-tui tui.go
 
 FROM node:13.8.0-stretch
 
-RUN apt-get update && apt-get install -y ca-certificates curl apt-transport-https lsb-release gnupg wget
+RUN apt-get update && apt-get install -y ca-certificates curl apt-transport-https lsb-release gnupg wget software-properties-common gcc zip unzip python3 python3-pip
 
 # add azure cli repo
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null && \
@@ -25,10 +25,8 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
 
 RUN npm install -g serverless
 RUN npm install -g azure-functions-core-tools@3
-RUN apt-get update
-RUN apt install software-properties-common -y
 RUN add-apt-repository ppa:openjdk-r/ppa -y
-RUN apt-get install azure-cli git curl wget gcc zip unzip openjdk-8-jdk maven dotnet-sdk-3.1 python3 python3-pip -y --fix-missing
+RUN apt-get install azure-cli openjdk-8-jdk maven dotnet-sdk-3.1 -y --fix-missing
 RUN mkdir /app
 
 COPY --from=builder /app/ /app
