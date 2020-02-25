@@ -29,7 +29,7 @@ func credsPath() (string, error) {
 		return "", errors.New("getting absolute project path")
 	}
 	fileDir := filepath.Dir(filename)
-	return filepath.Join(fileDir, "..", "credentials", "gcp.json"), nil
+	return filepath.Join(fileDir, "..", "..", "credentials", "gcp.json"), nil
 }
 
 func New() (*Google, error) {
