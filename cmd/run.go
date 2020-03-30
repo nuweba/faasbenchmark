@@ -189,7 +189,8 @@ func runOneTest(gConfig *config.Global, testId string) error {
 	go handleSignals(gConfig, stack, stackRemoved)
 	defer func() {
 		if err != nil {
-			gConfig.Logger.Error("error during test run, removing stack", zap.String("err", err.Error()))
+			// error deploying stack, will not remove it
+			return
 		}
 		gConfig.Logger.Info("removing stack", zap.String("name", stack.StackId()))
 		// err will be returned by wrapping function's return statement
